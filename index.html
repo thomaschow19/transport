@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Next Train Demo</h2>
+
+
+<select id="staList" onchange = "stationChanged()" >  
+<option> ---Choose station--- </option>  
+
+
+</select>  
+
+<p id="station"></p>
+<p strong> Up Direction</p>
+<br>
+<p id="up0"></p>
+<p id="up1"></p>
+<p id="up2"></p>
+<p id="up3"></p>
+<br>
+<p strong> Down Direction</p>
+<br>
+<p id="down0"></p>
+<p id="down1"></p>
+<p id="down2"></p>
+<p id="down3"></p>
+
+
+
+
+<script>
+
+
+var line = 'TKL'
+var sta = ''
+var lineSta = line + '-' + sta
+var request = 'line=' + line + '&sta=' + sta 
+var url = 'https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?' + request
+
+
+function updateAllVar(){
+	lineSta = line + '-' + sta
+	request = 'line=' + line + '&sta=' + sta 
+	url = 'https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?' + request
+}
+
+function callAPI(){
+
+
+fetch(url)
+  .then((response) => response.json())
+  .then((data) => { handleJSON(data); console.log({ data }); });
+}
+
+function handleJSON(json) {
+	for (let i = 0; i < 4; i++) {
+	let elementID = 'up' + i
+	if('UP' in json.data[lineSta]) {
+	document.getElementById(elementID).innerHTML = json.data[lineSta]['UP'][i]['time'] + " " + json.data[lineSta]['UP'][i]['dest']
+	}
+}	
+	for (let i = 0; i < 4; i++) {
+	let elementID = 'down' + i
+if('DOWN' in json.data[lineSta]) {
+	document.getElementById(elementID).innerHTML = json.data[lineSta]['DOWN'][i]['time'] + " " + json.data[lineSta]['DOWN'][i]['dest']
+	}
+}
+}
+
+function resetPage(){
+	for (let i = 0; i < 4; i++) {
+	let elementID = 'up' + i
+	document.getElementById(elementID).innerHTML = ""
+	}
+	for (let i = 0; i < 4; i++) {
+	let elementID = 'down' + i
+	document.getElementById(elementID).innerHTML = ""
+	}
+}
+
+  	
+function stationChanged(){
+
+var staList = document.getElementById("staList");
+
+sta = staList.value;
+updateAllVar();
+
+console.log({ sta });
+resetPage();
+callAPI()
+
+}
+
+	
+callAPI()
+
+function updateStaDropdown(){
+	let tklList = {
+	"NOP": "North Point",
+	"QUB": "Quarry Bay",
+	"YAT": "Yau Tong",
+	"TIK": "Tiu Keng Leng",
+	"TKO": "Tseung Kwan O",
+	"LHP": "LOHAS Park",
+	"HAH": "Hang Hau",
+	"POA": "Po Lam"
+	}
+
+	var selectedLineList = tklList
+	
+	for (var staID in selectedLineList){
+
+	document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + selectedLineList[staID] + "</option>"
+}
+}
+
+updateStaDropdown()
+
+</script>
+
+</body>
+</html>

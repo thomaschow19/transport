@@ -314,13 +314,14 @@
 	}
 
 	function updateLineDropdown(){
+
 		var enabledLines = []
 		for(const lineConcerned in lineList){
 			if(lineList[lineConcerned]["enableETA"] == true){
 				enabledLines.push(lineConcerned)
 			}
 		}
-		document.getElementById("lineList").innerHTML = "<option value='' disabled> ---Choose Line--- </option>"
+		document.getElementById("lineList").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
 		for (var lineID of enabledLines){
 			document.getElementById("lineList").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName"] + "</option>"
 		}
@@ -329,10 +330,11 @@
 
 	function updateStaDropdown(){
 		if(line == ''){
-			document.getElementById("staList").innerHTML = "<option value='' disabled> ---Please choose a line first--- </option>"
+			document.getElementById("staList").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
+			document.getElementById("staList").innerHTML = "<option value='' disabled > --- Stations will appear after a line is choosen --- </option>"
 		} else {
 			var listOfStationsInSelectedLine = stationList[line];
-			document.getElementById("staList").innerHTML = "<option value='' disabled> ---Choose station--- </option>"
+			document.getElementById("staList").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
 			for (var staID in listOfStationsInSelectedLine){
 
 			document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"

@@ -152,8 +152,16 @@
 						let elementID = dir + i;
 						let ttnt = json.data[lineSta][dir][i]["ttnt"];
 						let dest = json.data[lineSta][dir][i]["dest"];
+						let plat = json.data[lineSta][dir][i]["plat"];
 						let destFullName = stationList[line][dest];
-						document.getElementById(elementID).innerHTML = destFullName + "		" + ttnt + " mins"
+						let timeMessage = "";
+						if(ttnt < 1){
+							timeMessage = "Boarding"
+						} else {
+							timeMessage = ttnt + " mins"
+						}
+						document.getElementById(elementID).innerHTML = destFullName + "	" + timeMessage + "	at Platform " + plat;
+						
 					}	
 				}
 			} else {

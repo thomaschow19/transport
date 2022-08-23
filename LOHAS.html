@@ -396,16 +396,16 @@
 
 	function updateCurrentStationLabel(){
 		let currentStationFullName = stationList[currLine][currSta];
-		let currentLineFullName = lineList[currLine][fullName];
-		let text = "You are now at " + currentStationFullName + " on the " + currentLineFullName;
+		let currentLineFullName = lineList[currLine]["fullName"];
+		let text = "You are now at <b>" + currentStationFullName + "</b> on the " + currentLineFullName;
 		let elementID = "currentStationLabel";
 		document.getElementById(elementID).innerHTML = text
 	}
 
 	function updateStationLabel(){
 		let stationFullName = stationList[line][sta];
-		let lineFullName = lineList[line][fullName];
-		let text = "Next train at" + stationFullName + " on the " + lineFullName;
+		let lineFullName = lineList[line]["fullName"];
+		let text = "Next train at <b>" + stationFullName + "</b> on the " + lineFullName;
 		let elementID = "stationLabel";
 		document.getElementById(elementID).innerHTML = text
 	}

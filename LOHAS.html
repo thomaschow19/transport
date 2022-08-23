@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<h2>Next Train</h2>
+
 
 
 <h2>LOHAS Shuttle Predictor</h2>
@@ -15,14 +15,14 @@
 </select>
 <p id="lastRefreshedTimeLabel"></p>
 <br>
-
+<p id="currentStationLabel"></p>
 <p id="journeyTimeLabel"></p>
 
 
 <br>
 <br>
 
-<p id="station"></p>
+<p id="stationLabel"></p>
 <p id="UP_dest_label"></p>
 <br>
 	<p id="UP_Status"></p>
@@ -373,6 +373,8 @@
 		loadPage();
 		updateJourneyTimeLabel();
 		updateNextLOHASTrainLabel();
+		updateCurrentStationLabel();
+		updateStationLabel();
 	}
 
 	function decideInterchange(){
@@ -390,6 +392,22 @@
 		let elementID = "journeyTimeLabel";
 		let JourneyTimeText = "ETA " + journeyTime + " mins to " + interchangeName;
 		document.getElementById(elementID).innerHTML = JourneyTimeText
+	}
+
+	function updateCurrentStationLabel(){
+		let currentStationFullName = stationList[currLine][currSta];
+		let currentLineFullName = lineList[currLine][fullName];
+		let text = "You are now at " + currentStationFullName + " on the " + currentLineFullName;
+		let elementID = "currentStationLabel";
+		document.getElementById(elementID).innerHTML = text
+	}
+
+	function updateStationLabel(){
+		let stationFullName = stationList[line][sta];
+		let lineFullName = lineList[line][fullName];
+		let text = "Next train at" + stationFullName + " on the " + lineFullName;
+		let elementID = "stationLabel";
+		document.getElementById(elementID).innerHTML = text
 	}
 
 	function updateNextLOHASTrainLabel(){

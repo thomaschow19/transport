@@ -12,17 +12,21 @@
 <p id="station"></p>
 <p strong> Up Direction</p>
 <br>
-<p id="up0"></p>
-<p id="up1"></p>
-<p id="up2"></p>
-<p id="up3"></p>
+	<p id="UP_Status"></p>
+<p id="UP0"></p>
+<p id="UP1"></p>
+<p id="UP2"></p>
+<p id="UP3"></p>
+	<p id="UP4"></p>
 <br>
 <p strong> Down Direction</p>
 <br>
-<p id="down0"></p>
-<p id="down1"></p>
-<p id="down2"></p>
-<p id="down3"></p>
+	<p id="DOWN_Status"></p>
+<p id="DOWN0"></p>
+<p id="DOWN1"></p>
+<p id="DOWN2"></p>
+<p id="DOWN3"></p>
+	<p id="DOWN4"></p>
 
 
 
@@ -52,21 +56,15 @@
 	}
 
 	function handleJSON(json) {
-		for (let i = 0; i < 4; i++) {
-			if('UP' in json.data[lineSta]) {
-				let elementID = 'up' + i;
-				document.getElementById(elementID).innerHTML = json.data[lineSta]['UP'][i]['time'] + " " + json.data[lineSta]['UP'][i]['dest']
+		const directions = ["UP", "DOWN"];
+		for(const dir in directions){
+			if(dir in json.data[lineSta]) {
+				for (let i = 0; i < 5; i++) {
+					let elementID = dir + i;
+					document.getElementById(elementID).innerHTML = json.data[lineSta][dir][i]['time'] + " " + json.data[lineSta][dir][i]['dest']
+				}
 			} else {
-				document.getElementById('up1').innerHTML = "Data not available";
-			}
-		}	
-		for (let i = 0; i < 4; i++) {
-			
-			if('DOWN' in json.data[lineSta]) {
-				let elementID = 'down' + i
-				document.getElementById(elementID).innerHTML = json.data[lineSta]['DOWN'][i]['time'] + " " + json.data[lineSta]['DOWN'][i]['dest']
-			} else {
-				document.getElementById('down1').innerHTML = "Data not available";
+				document.getElementById(dir + "_Status").innerHTML = "Data not available";
 			}
 		}
 	}

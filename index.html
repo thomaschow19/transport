@@ -49,10 +49,12 @@
 
 	function callAPI(){
 	
-	
-		fetch(url)
- 		.then((response) => response.json())
-		.then((data) => { handleJSON(data); console.log({ data }); });
+	updateAllVar();
+		if(!(sta = '')){
+			fetch(url)
+			.then((response) => response.json())
+			.then((data) => { handleJSON(data); console.log({ data }); });
+		}
 	}
 
 	function handleJSON(json) {
@@ -119,7 +121,6 @@
 		
 	function loadPage(){
 		resetPage();
-		updateAllVar();
 		callAPI();
 		
 	}

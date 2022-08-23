@@ -70,13 +70,12 @@
 	}
 
 	function resetPage(){
-		for (let i = 0; i < 4; i++) {
-			let elementID = 'up' + i
-			document.getElementById(elementID).innerHTML = ""
-		}
-		for (let i = 0; i < 4; i++) {
-			let elementID = 'down' + i
-			document.getElementById(elementID).innerHTML = ""
+		const directions = ["UP", "DOWN"];
+		for(const dir in directions){
+			for (let i = 0; i < 4; i++) {
+				let elementID = dir + i
+				document.getElementById(elementID).innerHTML = ""
+			}
 		}
 	}
 

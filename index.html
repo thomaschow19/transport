@@ -331,7 +331,7 @@
 	function updateStaDropdown(){
 		if(line == ''){
 			document.getElementById("staList").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
-			document.getElementById("staList").innerHTML = "<option value='' disabled > --- Stations will appear after a line is choosen --- </option>"
+			document.getElementById("staList").innerHTML = "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
 		} else {
 			var listOfStationsInSelectedLine = stationList[line];
 			document.getElementById("staList").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"

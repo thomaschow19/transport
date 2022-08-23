@@ -4,12 +4,6 @@
 
 <h2>Next Train Demo</h2>
 <select id="lineList" onchange = "lineChanged()" >  
-<option value=''> ---Choose Line--- </option>
-	<option value='TKL'> Tseung Kwan O Line </option>
-	<option value='AEL'> Airport Express </option>
-	<option value='TCL'> Tung Chung Line </option>
-	<option value='TML'> Tuen Ma Line </option>
-	<option value='EAL'> East Rail Line </option>
 
 </select>  
 
@@ -322,11 +316,12 @@
 	function updateLineDropdown(){
 		var enabledLines = []
 		for(const lineConcerned in lineList){
-		if(lineList[lineConcerned][enableETA] == true){
-			enabledLines.push(lineConcerned)
+			if(lineList[lineConcerned]["enableETA"] == true){
+				enabledLines.push(lineConcerned)
+			}
 		}
 		document.getElementById("lineList").innerHTML = "<option value=''> ---Choose Line--- </option>"
-		for (var lineID in enabledLines){
+		for (var lineID of enabledLines){
 			document.getElementById("lineList").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName"] + "</option>"
 		}
 	}
@@ -354,6 +349,7 @@
 	
 	loadPage();
 	updateStaDropdown();
+		updateLineDropdown();
 
 </script>
 

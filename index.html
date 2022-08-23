@@ -13,7 +13,8 @@
 	
 	<br>
 	<br>
-	<button onclick="loadPage()">Refresh</button>
+	<button onclick="stationChanged()">Refresh</button>
+	<button onclick="startAutoRefresh()">Start Auto Refresh</button>
 	<p id="lastRefreshedTimeLabel"></p>
 	<br>
 	<br>
@@ -38,27 +39,11 @@
 	<p id="DOWN4"></p>
 
 
-<h2>LOHAS Shuttle Predictor</h2>
-<select id="currentLineDropdown" onchange="currentLineChanged()">
 
-</select>
-
-<select id="currentStationDropdown" onchange="currentStationChanged()">
-
-</select>
-
-<p id="journeyTimeLabel"></p>
 <script>
 
 	const directions = ["UP", "DOWN"];
-	var line = ''
-	var sta = ''
-	var lineSta = line + '-' + sta
-	var request = 'line=' + line + '&sta=' + sta 
-	var url = 'https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?' + request
-
-	var currSta = ''
-	var currLine = ''
+	let nIntervId;
 
 	
 	let stationList = {
@@ -280,61 +265,42 @@
 		},
 	} 
 
-	var journeyTimeTo = {
-		"TIK": {
-			"WHA": 35,
-			"HOM": 33,
-			"YMT": 30,
-			"MOK": 28,
-			"PRE": 27,
-			"SKM": 25,
-			"KOT": 23,
-			"LOF": 20,
-			"WTS": 18,
-			"DIH": 17,
-			"CHH": 15,
-			"KOB": 12,
-			"NTK": 10,
-			"KWT": 8,
-			"LAT": 6,
-			"YAT": 4,
-			"TIK": 0,
-			"NOP": 10,
-			"QUB": 8
-		},
-		"TKO": {
-			"POA": 6,
-			"HAH": 4,
-			"TKO": 0
-		}
+	function startAutoRefresh(){
+		nIntervId = setInterval(stationChanged(), 5000)
 	}
 	
-	
-	function updateAllVar(){
-		lineSta = line + '-' + sta
-		request = 'line=' + line + '&sta=' + sta 
-		url = 'https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?' + request
+
+
+	 function callAPI(line, station){
+		var lineSta = line + '-' + station
+		var request = 'line=' + line + '&sta=' + station 
+		var url = 'https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?' + request
+		var Httpreq = new XMLHttpRequest(); // a new request
+   		Httpreq.open("GET",url,false);
+   		Httpreq.send(null);
+		var response = Httpreq.responseText;
+		console.log({ response });
+		var json_obj = JSON.parse(response);
+		console.log({ json_obj });
+    	return json_obj;  
+		
 	}
 
-	function callAPI(){
-	
-		updateAllVar();
-		if(sta !== ''){
-			fetch(url)
-			.then((response) => response.json())
-			.then((data) => { handleJSON(data); console.log({ data }); });
-		}
-	}
 
-	function handleJSON(json) {
+
+	function updateLabels(json, line, station){
+		var lineStation = line + '-' + station
 		for(const dir of directions){
-			if(dir in json.data[lineSta]) {
+			let statusElementID = dir + "_Status";
+			if(dir in json.data[lineStation]) {
+				
+				document.getElementById(statusElementID).innerHTML = ""
 				for (let i = 0; i < 5; i++) {
-					if(i in json.data[lineSta][dir]){
+					if(i in json.data[lineStation][dir]){
 						let elementID = dir + i;
-						let ttnt = json.data[lineSta][dir][i]["ttnt"];
-						let dest = json.data[lineSta][dir][i]["dest"];
-						let plat = json.data[lineSta][dir][i]["plat"];
+						let ttnt = json.data[lineStation][dir][i]["ttnt"];
+						let dest = json.data[lineStation][dir][i]["dest"];
+						let plat = json.data[lineStation][dir][i]["plat"];
 						let destFullName = stationList[line][dest];
 						let timeMessage = "";
 						if(ttnt < 1){
@@ -346,46 +312,43 @@
 						}
 						document.getElementById(elementID).innerHTML = destFullName + "	 " + timeMessage + "  at Platform " + plat;
 						
-					}	
+					} else {
+						let elementID = dir + i;
+						document.getElementById(elementID).innerHTML = "";
+					}
 				}
 			} else {
-				let elementID = dir + "_Status";
-				document.getElementById(elementID).innerHTML = "Data not available";
-				
+				document.getElementById(statusElementID).innerHTML = "Data not available";
 			}
 		}
 		document.getElementById("lastRefreshedTimeLabel").innerHTML = json.curr_time;
 	}
-
-	function resetPage(){
-		const directions = ["UP", "DOWN"];
-		for(const dir of directions){
-			let statusElementID = dir + "_Status";
-			document.getElementById(statusElementID).innerHTML = ""
-			for (let i = 0; i < 5; i++) {
-				let elementID = dir + i
-				document.getElementById(elementID).innerHTML = ""
-			}
-		}
-	}
+	
 
   	
 	function stationChanged(){
-
+		
 		var stationListDropdown = document.getElementById("stationListDropdown");
 
-		sta = stationListDropdown.value;
-		
-	
-		console.log({ sta });
-		loadPage();
+		let station = stationListDropdown.value;
 
+		var lineListDropdown = document.getElementById("lineListDropdown");
+		let line = lineListDropdown.value;
+
+		if(line != '' && station != ''){
+			updatePage(line, station);
+		}
+		
+	}
+
+	function updatePage(line, station){
+		updateLabels(callAPI(line, station), line, station);
 	}
 	
 	function lineChanged(){
 		
 		var lineListDropdown = document.getElementById("lineListDropdown");
-		line = lineListDropdown.value;
+		var line = lineListDropdown.value;
 		console.log({ line });
 
 		for(var dir of directions){
@@ -406,8 +369,8 @@
 			document.getElementById(elementID).innerHTML = "Trains to " + destFullNames;
 		}
 		
-		updateStaDropdown();
-		resetPage();
+		updateStationDropdown(line);
+		
 	}
 
 	function updateLineDropdown(){
@@ -425,7 +388,7 @@
 	}
 
 
-	function updateStaDropdown(){
+	function updateStationDropdown(line){
 		if(line == ''){
 			document.getElementById("stationListDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
 			document.getElementById("stationListDropdown").innerHTML = "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
@@ -439,97 +402,14 @@
 		}
 	}
 
-	function currentStationChanged(){
-
-		var currentStationDropdown = document.getElementById("currentStationDropdown");
-
-		currSta = currentStationDropdown.value;
-
-
-		console.log({ currSta });
-		loadPage();
-		updateJourneyTimeLabel();
-
-	}
-
-	function decideInterchange(){
-		if(currSta == "HAH" || currSta == "POA" || currSta == "TKO"){
-			return "TKO"
-		} else {
-			return "TIK"
-		}
-	}
-
-	function updateJourneyTimeLabel(){
-		let interchange = decideInterchange();
-		let interchangeName = stationList[currLine][interchange];
-		var journeyTime = journeyTimeTo[interchange][currSta];
-		let elementID = "journeyTimeLabel";
-		let JourneyTimeText = "ETA " + journeyTime + " mins to " + interchangeName;
-		document.getElementById(elementID).innerHTML = JourneyTimeText
-	}
-
-	function updateNextLOHASTrainLabel(){
-		
-	}
-
-	function currentLineChanged(){
-
-		var currentLineDropdown = document.getElementById("currentLineDropdown");
-		currLine = currentLineDropdown.value;
-		console.log({ currLine });
-
-
-		updateCurrentStationDropdown();
-		resetPage();
-	}
-
-	function updateCurrentLineDropdown(){
-
-		var enabledLines = []
-		for(const lineConcerned in lineList){
-			if(lineList[lineConcerned]["enableLOHAS"] == true){
-				enabledLines.push(lineConcerned)
-			}
-		}
-		document.getElementById("currentLineDropdown").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
-		for (var lineID of enabledLines){
-			document.getElementById("currentLineDropdown").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName"] + "</option>"
-		}
-	}
-
-
-	function updateCurrentStationDropdown(){
-		if(currLine == ''){
-			document.getElementById("currentStationDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
-			document.getElementById("currentStationDropdown").innerHTML = "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
-		} else {
-			var listOfStationsInSelectedLine = stationList[currLine];
-			document.getElementById("currentStationDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
-			for (var staID in listOfStationsInSelectedLine){
-
-			document.getElementById("currentStationDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
-			}
-		}
-	}
-	
 	
 		
-	function loadPage(){
-		resetPage();
-		callAPI();
-		
-	}
+	
 
 	
-	loadPage();
-	updateStaDropdown();
+
+	updateStationDropdown("");
 	updateLineDropdown();
-	updateCurrentLineDropdown();
-	updateCurrentStationDropdown();
-	setInterval(function(){ 
-   	 loadPage();
-	}, 5000);
 
 </script>
 

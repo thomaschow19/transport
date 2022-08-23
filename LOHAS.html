@@ -13,6 +13,7 @@
 <select id="currentStationDropdown" onchange="currentStationChanged()">
 
 </select>
+<button onclick="nextStation()">Next station</button>
 <p id="lastRefreshedTimeLabel"></p>
 <br>
 <p id="currentStationLabel"></p>
@@ -456,6 +457,10 @@
 			document.getElementById("currentStationDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
 			}
 		}
+	}
+
+	function nextStation(){
+		
 	}
 	
 	

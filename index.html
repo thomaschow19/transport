@@ -157,6 +157,8 @@
 						let timeMessage = "";
 						if(ttnt < 1){
 							timeMessage = "--now--"
+						} else if(ttnt == 1) {
+							timeMessage = ttnt + " min"
 						} else {
 							timeMessage = ttnt + " mins"
 						}

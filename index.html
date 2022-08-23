@@ -89,7 +89,7 @@
 
 		sta = staList.value;
 		
-
+	
 		console.log({ sta });
 		loadPage();
 
@@ -119,6 +119,7 @@
 	}
 		
 	function loadPage(){
+		resetPage();
 		updateAllVar();
 		callAPI();
 		updateStaDropdown();

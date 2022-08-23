@@ -121,10 +121,121 @@
 			"TIS": "Tin Shui Wai",
 			"SIH": "Siu Hong",
 			"TUM": "Tuen Mun"
+		},
+		"KTL": {
+			"WHA": "Whampoa",
+			"HOM": "Ho Man Tin",
+			"YMT": "Yau Ma Tei",
+			"MOK": "Mong Kok",
+			"PRE": "Prince Edward",
+			"SKM": "Shek Kip Mei",
+			"KOT": "Kowloon Tong",
+			"LOF": "Lok Fu",
+			"WTS": "Wong Tai Sin",
+			"DIH": "Diamond Hill",
+			"CHH": "Choi Hung",
+			"KOB": "Kowloon Bay",
+			"NTK": "Ngau Tau Kok",
+			"KWT": "Kwun Tong",
+			"LAT": "Lam Tin",
+			"YAT": "Yau Tong",
+			"TIK": "Tiu Keng Leng"
+		},
+		"ISL": {
+			"KET": "Kennedy Town",
+			"HKU": "HKU",
+			"SYP": "Sai Ying Pun",
+			"SHW": "Sheung Wan",
+			"CEN": "Central",
+			"ADM": "Admiralty",
+			"WAC": "Wan Chai",
+			"CAB": "Causeway Bay",
+			"TIH": "Tin Hau",
+			"FOH": "Fortress Hill",
+			"NOP": "North Point",
+			"QUB": "Quarry Bay",
+			"TAK": "Tai Koo",
+			"SWH": "Sai Wan Ho",
+			"SKW": "Shau Kei Wan",
+			"HFC": "Heng Fa Chuen",
+			"CHW": "Chai Wan"
+		},
+		"TWL": {
+			"CEN": "Central",
+			"ADM": "Admiralty",
+			"TST": "Tsim Sha Tsui",
+			"JOR": "Jordan",
+			"YMT": "Yau Ma Tei",
+			"MOK": "Mong Kok",
+			"PRE": "Prince Edward",
+			"SSP": "Sham Shui Po",
+			"CSW": "Cheung Sha Wan",
+			"LCK": "Lai Chi Kok",
+			"MEF": "Mei Foo",
+			"LAK": "Lai King",
+			"KWF": "Kwai Fong",
+			"KWH": "Kwai Hing",
+			"TWH": "Tai Wo Hau",
+			"TSW": "Tsuen Wan"
+		},
+		
+		"SIL": {
+			"ADM": "Admiralty",
+			"OCP": "Ocean Park",
+			"WCH": "Wong Chuk Hang",
+			"LET": "Lei Tung",
+			"SOH": "South Horizons"
+
+		}, 
+		
+		"DRL": {
+			"DIS" : "Disneyland Resort",
+			"SUN": "Sunny Bay"
 		}
-
-
 	}
+	
+	let lineList = { 
+		"KTL": {
+			"fullName": "Kwun Tong Line",
+			"enableETA": false
+		},
+		"TWL": {
+			"fullName": "Tseun Wan Line",
+			"enableETA": false
+		},
+		"ISL": {
+			"fullName": "Island Line",
+			"enableETA": false
+		},
+		"TKL": {
+			"fullName": "Tseung Kwan O Line",
+			"enableETA": true
+		},
+		"SIL": {
+			"fullName": "South Island Line",
+			"enableETA": false
+		},
+		"TCL": {
+			"fullName": "Tung Chung Line",
+			"enableETA": true
+		},
+		"AEL": {
+			"fullName": "Airport Express",
+			"enableETA": true
+		},
+		"DRL": {
+			"fullName": "Disneyland Resort Line",
+			"enableETA": false
+		},
+		"EAL": {
+			"fullName": "East Rail Line",
+			"enableETA": true
+		},
+		"TML": {
+			"fullName": "Tuen Ma Line",
+			"enableETA": true
+		},
+	} 
 	
 	
 	function updateAllVar(){
@@ -208,17 +319,27 @@
 		resetPage();
 	}
 
-	
+	function updateLineDropdown(){
+		var enabledLines = []
+		for(const lineConcerned in lineList){
+		if(lineList[lineConcerned][enableETA] == true){
+			enabledLines.push(lineConcerned)
+		}
+		document.getElementById("lineList").innerHTML = "<option value=''> ---Choose Line--- </option>"
+		for (var lineID in enabledLines){
+			document.getElementById("lineList").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName"] + "</option>"
+		}
+	}
 
 
 	function updateStaDropdown(){
 		
 
-		var ListOfStationsInSelectedLine = stationList[line];
+		var listOfStationsInSelectedLine = stationList[line];
 		document.getElementById("staList").innerHTML = "<option value=''> ---Choose station--- </option>"
-		for (var staID in ListOfStationsInSelectedLine){
+		for (var staID in listOfStationsInSelectedLine){
 	
-		document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + ListOfStationsInSelectedLine[staID] + "</option>"
+		document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
 		}
 	}
 	

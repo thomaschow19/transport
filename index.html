@@ -55,15 +55,20 @@
 
 	function handleJSON(json) {
 		for (let i = 0; i < 4; i++) {
-			let elementID = 'up' + i
 			if('UP' in json.data[lineSta]) {
+				let elementID = 'up' + i;
 				document.getElementById(elementID).innerHTML = json.data[lineSta]['UP'][i]['time'] + " " + json.data[lineSta]['UP'][i]['dest']
+			} else {
+				document.getElementById('up1').innerHTML = "Data not available";
 			}
 		}	
 		for (let i = 0; i < 4; i++) {
-			let elementID = 'down' + i
+			
 			if('DOWN' in json.data[lineSta]) {
+				let elementID = 'down' + i
 				document.getElementById(elementID).innerHTML = json.data[lineSta]['DOWN'][i]['time'] + " " + json.data[lineSta]['DOWN'][i]['dest']
+			} else {
+				document.getElementById('down1').innerHTML = "Data not available";
 			}
 		}
 	}

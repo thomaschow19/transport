@@ -3,7 +3,10 @@
 <body>
 
 <h2>Next Train Demo</h2>
-
+<select id="lineList" onchange = "lineChanged()" >  
+<option value=''> ---Choose station--- </option>
+	<option value='TKL'> Tseung Kwan O Line </option>
+</select>  
 
 <select id="staList" onchange = "stationChanged()" >  
 
@@ -99,29 +102,41 @@
 		loadPage();
 
 	}
+	
+	function lineChanged(){
+		
+		var lineList = document.getElementById("lineList");
+		line = lineList.value;
+		console.log({ line ]);
+		updateStaDropdown();
+	}
 
 	
 
 
 	function updateStaDropdown(){
-		let tklList = {
-		"NOP": "North Point",
-		"QUB": "Quarry Bay",
-		"YAT": "Yau Tong",
-		"TIK": "Tiu Keng Leng",
-		"TKO": "Tseung Kwan O",
-		"LHP": "LOHAS Park",
-		"HAH": "Hang Hau",
-		"POA": "Po Lam"
+		let stationList = {
+			"TKL": {
+				"NOP": "North Point",
+				"QUB": "Quarry Bay",
+				"YAT": "Yau Tong",
+				"TIK": "Tiu Keng Leng",
+				"TKO": "Tseung Kwan O",
+				"LHP": "LOHAS Park",
+				"HAH": "Hang Hau",
+				"POA": "Po Lam"
+			}
 		}
 
-		var selectedLineList = tklList
+		var ListOfStationsInSelectedLine = stationList[line];
 		document.getElementById("staList").innerHTML = "<option value=''> ---Choose station--- </option>"
-		for (var staID in selectedLineList){
+		for (var staID in ListOfStationsInSelectedLine){
 	
 		document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + selectedLineList[staID] + "</option>"
 		}
 	}
+	
+	
 		
 	function loadPage(){
 		resetPage();

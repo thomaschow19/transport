@@ -3,7 +3,7 @@
 <body>
 
 <h2>Next Train</h2>
-<select id="lineList" onchange = "lineChanged()" >  
+<select id="lineListDropdown" onchange = "lineChanged()" >  
 
 </select>  
 
@@ -19,7 +19,7 @@
 	<br>
 
 <p id="station"></p>
-<p strong> Up Direction</p>
+<p id="UP_dest_label"></p>
 <br>
 	<p id="UP_Status"></p>
 <p id="UP0"></p>
@@ -28,7 +28,7 @@
 <p id="UP3"></p>
 	<p id="UP4"></p>
 <br>
-<p strong> Down Direction</p>
+<p id="DOWN_dest_label"></p>
 <br>
 	<p id="DOWN_Status"></p>
 <p id="DOWN0"></p>
@@ -42,7 +42,7 @@
 
 <script>
 
-
+	const directions = ["UP", "DOWN"];
 	var line = ''
 	var sta = ''
 	var lineSta = line + '-' + sta
@@ -198,43 +198,63 @@
 	let lineList = { 
 		"KTL": {
 			"fullName": "Kwun Tong Line",
-			"enableETA": false
+			"enableETA": false,
+			"UP_dest": ["TIK"],
+			"DOWN_dest": ["WHA"]
 		},
 		"TWL": {
 			"fullName": "Tseun Wan Line",
-			"enableETA": false
+			"enableETA": false,
+			"UP_dest": ["TSW"],
+			"DOWN_dest": ["CEN"]
 		},
 		"ISL": {
 			"fullName": "Island Line",
-			"enableETA": false
+			"enableETA": false,
+			"UP_dest": ["CHW"],
+			"DOWN_dest": ["KET"]
 		},
 		"TKL": {
 			"fullName": "Tseung Kwan O Line",
-			"enableETA": true
+			"enableETA": true,
+			"UP_dest": ["POA", "LHP"],
+			"DOWN_dest": ["NOP"]
 		},
 		"SIL": {
 			"fullName": "South Island Line",
-			"enableETA": false
+			"enableETA": false,
+			"UP_dest": ["SOH"],
+			"DOWN_dest": ["ADM"]
 		},
 		"TCL": {
 			"fullName": "Tung Chung Line",
-			"enableETA": true
+			"enableETA": true,
+			"UP_dest": ["TUC"],
+			"DOWN_dest": ["HOK"]
 		},
 		"AEL": {
 			"fullName": "Airport Express",
-			"enableETA": true
+			"enableETA": true,
+			"UP_dest": ["AWE"],
+			"DOWN_dest": ["HOK"]
 		},
 		"DRL": {
 			"fullName": "Disneyland Resort Line",
-			"enableETA": false
+			"enableETA": false,
+			"UP_dest": ["SUN"],
+			"DOWN_dest": ["DIS"]
 		},
 		"EAL": {
 			"fullName": "East Rail Line",
-			"enableETA": true
+			"enableETA": true,
+			"UP_dest": ["LOW", "LMC"],
+			"DOWN_dest": ["ADM"]
 		},
 		"TML": {
 			"fullName": "Tuen Ma Line",
-			"enableETA": true
+			"enableETA": true,
+			"UP_dest": ["TUM"],
+			"DOWN_dest": ["WKS"]
 		},
 	} 
 	
@@ -256,7 +276,6 @@
 	}
 
 	function handleJSON(json) {
-		const directions = ["UP", "DOWN"];
 		for(const dir of directions){
 			if(dir in json.data[lineSta]) {
 				for (let i = 0; i < 5; i++) {
@@ -314,9 +333,28 @@
 	
 	function lineChanged(){
 		
-		var lineList = document.getElementById("lineList");
-		line = lineList.value;
+		var lineListDropdown = document.getElementById("lineListDropdown");
+		line = lineListDropdown.value;
 		console.log({ line });
+
+		for(var dir of directions){
+			let dirDest = dir + "_dest";
+			let destinations = lineList[line][dirDest];
+			var destFullNames = "";
+			for(const destConcerned of destinations){
+				if(destFullNames == ""){
+					console.log({ destConcerned });
+					destFullNames += stationList[line][destConcerned];
+				} else {
+					console.log({ destConcerned });
+					destFullNames += " / " + stationList[line][destConcerned];
+				}
+				
+			}
+			let elementID = dirDest + "_label";
+			document.getElementById(elementID).innerHTML = "Trains to " + destFullNames;
+		}
+		
 		updateStaDropdown();
 		resetPage();
 	}
@@ -329,9 +367,9 @@
 				enabledLines.push(lineConcerned)
 			}
 		}
-		document.getElementById("lineList").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
+		document.getElementById("lineListDropdown").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
 		for (var lineID of enabledLines){
-			document.getElementById("lineList").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName"] + "</option>"
+			document.getElementById("lineListDropdown").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName"] + "</option>"
 		}
 	}
 

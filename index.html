@@ -411,9 +411,9 @@
 
 	function currentStationChanged(){
 
-		var stationListDropdown = document.getElementById("stationListDropdown");
+		var currentStationDropdown = document.getElementById("currentStationDropdown");
 
-		currSta = stationListDropdown.value;
+		currSta = currentStationDropdown.value;
 
 
 		console.log({ currSta });
@@ -448,11 +448,11 @@
 
 
 	function updateCurrentStationDropdown(){
-		if(line == ''){
+		if(currLine == ''){
 			document.getElementById("currentStationDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
 			document.getElementById("currentStationDropdown").innerHTML = "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
 		} else {
-			var listOfStationsInSelectedLine = stationList[line];
+			var listOfStationsInSelectedLine = stationList[currLine];
 			document.getElementById("currentStationDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
 			for (var staID in listOfStationsInSelectedLine){
 

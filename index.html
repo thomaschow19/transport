@@ -7,7 +7,7 @@
 
 </select>  
 
-<select id="staList" onchange = "stationChanged()" >  
+<select id="stationListDropdown" onchange = "stationChanged()" >  
 
 </select>  
 	
@@ -38,7 +38,14 @@
 	<p id="DOWN4"></p>
 
 
+<h2>LOHAS Shuttle Predictor</h2>
+<select id="currentLineDropdown" onchange="currentLineChanged()">
 
+</select>
+
+<select id="currentStationDropdown" onchange="currentStationChanged()">
+
+</select>
 
 <script>
 
@@ -48,6 +55,10 @@
 	var lineSta = line + '-' + sta
 	var request = 'line=' + line + '&sta=' + sta 
 	var url = 'https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?' + request
+
+	var currSta = ''
+	var currLine = ''
+
 	
 	let stationList = {
 		"TKL": {
@@ -199,60 +210,70 @@
 		"KTL": {
 			"fullName": "Kwun Tong Line",
 			"enableETA": false,
+			"enableLOHAS": true,
 			"UP_dest": ["TIK"],
 			"DOWN_dest": ["WHA"]
 		},
 		"TWL": {
 			"fullName": "Tseun Wan Line",
 			"enableETA": false,
+			"enableLOHAS": false,
 			"UP_dest": ["TSW"],
 			"DOWN_dest": ["CEN"]
 		},
 		"ISL": {
 			"fullName": "Island Line",
 			"enableETA": false,
+			"enableLOHAS": false,
 			"UP_dest": ["CHW"],
 			"DOWN_dest": ["KET"]
 		},
 		"TKL": {
 			"fullName": "Tseung Kwan O Line",
 			"enableETA": true,
+			"enableLOHAS": true,
 			"UP_dest": ["POA", "LHP"],
 			"DOWN_dest": ["NOP"]
 		},
 		"SIL": {
 			"fullName": "South Island Line",
 			"enableETA": false,
+			"enableLOHAS": false,
 			"UP_dest": ["SOH"],
 			"DOWN_dest": ["ADM"]
 		},
 		"TCL": {
 			"fullName": "Tung Chung Line",
 			"enableETA": true,
+			"enableLOHAS": false,
 			"UP_dest": ["TUC"],
 			"DOWN_dest": ["HOK"]
 		},
 		"AEL": {
 			"fullName": "Airport Express",
 			"enableETA": true,
+			"enableLOHAS": false,
 			"UP_dest": ["AWE"],
 			"DOWN_dest": ["HOK"]
 		},
 		"DRL": {
 			"fullName": "Disneyland Resort Line",
 			"enableETA": false,
+			"enableLOHAS": false,
 			"UP_dest": ["SUN"],
 			"DOWN_dest": ["DIS"]
 		},
 		"EAL": {
 			"fullName": "East Rail Line",
 			"enableETA": true,
+			"enableLOHAS": false,
 			"UP_dest": ["LOW", "LMC"],
 			"DOWN_dest": ["ADM"]
 		},
 		"TML": {
 			"fullName": "Tuen Ma Line",
 			"enableETA": true,
+			"enableLOHAS": false,
 			"UP_dest": ["TUM"],
 			"DOWN_dest": ["WKS"]
 		},
@@ -321,9 +342,9 @@
   	
 	function stationChanged(){
 
-		var staList = document.getElementById("staList");
+		var stationListDropdown = document.getElementById("stationListDropdown");
 
-		sta = staList.value;
+		sta = stationListDropdown.value;
 		
 	
 		console.log({ sta });
@@ -376,14 +397,66 @@
 
 	function updateStaDropdown(){
 		if(line == ''){
-			document.getElementById("staList").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
-			document.getElementById("staList").innerHTML = "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
+			document.getElementById("stationListDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
+			document.getElementById("stationListDropdown").innerHTML = "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
 		} else {
 			var listOfStationsInSelectedLine = stationList[line];
-			document.getElementById("staList").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
+			document.getElementById("stationListDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
 			for (var staID in listOfStationsInSelectedLine){
 
-			document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
+			document.getElementById("stationListDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
+			}
+		}
+	}
+
+	function currentStationChanged(){
+
+		var stationListDropdown = document.getElementById("stationListDropdown");
+
+		currSta = stationListDropdown.value;
+
+
+		console.log({ currSta });
+		loadPage();
+
+	}
+
+	function currentLineChanged(){
+
+		var currentLineDropdown = document.getElementById("currentLineDropdown");
+		currLine = currentLineDropdown.value;
+		console.log({ currLine });
+
+
+		updateCurrentStationDropdown();
+		resetPage();
+	}
+
+	function updateCurrentLineDropdown(){
+
+		var enabledLines = []
+		for(const lineConcerned in lineList){
+			if(lineList[lineConcerned]["enableLOHAS"] == true){
+				enabledLines.push(lineConcerned)
+			}
+		}
+		document.getElementById("currentLineDropdown").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
+		for (var lineID of enabledLines){
+			document.getElementById("currentLineDropdown").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName"] + "</option>"
+		}
+	}
+
+
+	function updateCurrentStationDropdown(){
+		if(line == ''){
+			document.getElementById("currentStationDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
+			document.getElementById("currentStationDropdown").innerHTML = "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
+		} else {
+			var listOfStationsInSelectedLine = stationList[line];
+			document.getElementById("currentStationDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
+			for (var staID in listOfStationsInSelectedLine){
+
+			document.getElementById("currentStationDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
 			}
 		}
 	}

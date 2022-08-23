@@ -3,20 +3,24 @@
 <body>
 
 <h2>Next Train</h2>
-<select id="lineListDropdown" onchange = "lineChanged()" >  
 
-</select>  
 
-<select id="stationListDropdown" onchange = "stationChanged()" >  
+<h2>LOHAS Shuttle Predictor</h2>
+<select id="currentLineDropdown" onchange="currentLineChanged()">
 
-</select>  
-	
-	<br>
-	<br>
-	<button onclick="loadPage()">Refresh</button>
-	<p id="lastRefreshedTimeLabel"></p>
-	<br>
-	<br>
+</select>
+
+<select id="currentStationDropdown" onchange="currentStationChanged()">
+
+</select>
+<p id="lastRefreshedTimeLabel"></p>
+<br>
+
+<p id="journeyTimeLabel"></p>
+
+
+<br>
+<br>
 
 <p id="station"></p>
 <p id="UP_dest_label"></p>
@@ -36,18 +40,6 @@
 <p id="DOWN2"></p>
 <p id="DOWN3"></p>
 	<p id="DOWN4"></p>
-
-
-<h2>LOHAS Shuttle Predictor</h2>
-<select id="currentLineDropdown" onchange="currentLineChanged()">
-
-</select>
-
-<select id="currentStationDropdown" onchange="currentStationChanged()">
-
-</select>
-
-<p id="journeyTimeLabel"></p>
 <script>
 
 	const directions = ["UP", "DOWN"];
@@ -327,14 +319,14 @@
 	}
 
 	function handleJSON(json) {
-		for(const dir of directions){
-			if(dir in json.data[lineSta]) {
-				for (let i = 0; i < 5; i++) {
-					if(i in json.data[lineSta][dir]){
-						let elementID = dir + i;
-						let ttnt = json.data[lineSta][dir][i]["ttnt"];
-						let dest = json.data[lineSta][dir][i]["dest"];
-						let plat = json.data[lineSta][dir][i]["plat"];
+		if("UP" in json.data[lineSta]) {
+			for (let i = 0; i < 5; i++) {
+				if(i in json.data[lineSta]["UP"]){
+					let dest = json.data[lineSta]["UP"][i]["dest"];
+					if(dest == "LHP"){
+						let elementID = "UP" + i;
+						let ttnt = json.data[lineSta]["UP"][i]["ttnt"];
+						let plat = json.data[lineSta]["UP"][i]["plat"];
 						let destFullName = stationList[line][dest];
 						let timeMessage = "";
 						if(ttnt < 1){
@@ -345,17 +337,17 @@
 							timeMessage = ttnt + " mins"
 						}
 						document.getElementById(elementID).innerHTML = destFullName + "	 " + timeMessage + "  at Platform " + plat;
-						
-					}	
-				}
-			} else {
-				let elementID = dir + "_Status";
-				document.getElementById(elementID).innerHTML = "Data not available";
-				
+					}
+				}	
 			}
+		} else {
+			let elementID = "UP" + "_Status";
+			document.getElementById(elementID).innerHTML = "Data not available";
+			
 		}
 		document.getElementById("lastRefreshedTimeLabel").innerHTML = json.curr_time;
 	}
+
 
 	function resetPage(){
 		const directions = ["UP", "DOWN"];
@@ -369,75 +361,6 @@
 		}
 	}
 
-  	
-	function stationChanged(){
-
-		var stationListDropdown = document.getElementById("stationListDropdown");
-
-		sta = stationListDropdown.value;
-		
-	
-		console.log({ sta });
-		loadPage();
-
-	}
-	
-	function lineChanged(){
-		
-		var lineListDropdown = document.getElementById("lineListDropdown");
-		line = lineListDropdown.value;
-		console.log({ line });
-
-		for(var dir of directions){
-			let dirDest = dir + "_dest";
-			let destinations = lineList[line][dirDest];
-			var destFullNames = "";
-			for(const destConcerned of destinations){
-				if(destFullNames == ""){
-					console.log({ destConcerned });
-					destFullNames += stationList[line][destConcerned];
-				} else {
-					console.log({ destConcerned });
-					destFullNames += " / " + stationList[line][destConcerned];
-				}
-				
-			}
-			let elementID = dirDest + "_label";
-			document.getElementById(elementID).innerHTML = "Trains to " + destFullNames;
-		}
-		
-		updateStaDropdown();
-		resetPage();
-	}
-
-	function updateLineDropdown(){
-
-		var enabledLines = []
-		for(const lineConcerned in lineList){
-			if(lineList[lineConcerned]["enableETA"] == true){
-				enabledLines.push(lineConcerned)
-			}
-		}
-		document.getElementById("lineListDropdown").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
-		for (var lineID of enabledLines){
-			document.getElementById("lineListDropdown").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName"] + "</option>"
-		}
-	}
-
-
-	function updateStaDropdown(){
-		if(line == ''){
-			document.getElementById("stationListDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
-			document.getElementById("stationListDropdown").innerHTML = "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
-		} else {
-			var listOfStationsInSelectedLine = stationList[line];
-			document.getElementById("stationListDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
-			for (var staID in listOfStationsInSelectedLine){
-
-			document.getElementById("stationListDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
-			}
-		}
-	}
 
 	function currentStationChanged(){
 
@@ -449,7 +372,7 @@
 		console.log({ currSta });
 		loadPage();
 		updateJourneyTimeLabel();
-
+		updateNextLOHASTrainLabel();
 	}
 
 	function decideInterchange(){
@@ -470,7 +393,11 @@
 	}
 
 	function updateNextLOHASTrainLabel(){
-		
+		let interchange = decideInterchange();
+		let interchangeName = stationList[currLine][interchange];
+		line = "TKL";
+		sta = interchange;
+		callAPI();
 	}
 
 	function currentLineChanged(){
@@ -523,8 +450,7 @@
 
 	
 	loadPage();
-	updateStaDropdown();
-	updateLineDropdown();
+
 	updateCurrentLineDropdown();
 	updateCurrentStationDropdown();
 	setInterval(function(){ 

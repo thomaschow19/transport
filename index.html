@@ -13,7 +13,8 @@
 	
 	<br>
 	<br>
-	<button onclick="callAPI()">Refresh</button>
+	<button onclick="loadPage()">Refresh</button>
+	<p id="lastRefreshedTimeLabel"></p>
 	<br>
 	<br>
 
@@ -246,7 +247,7 @@
 
 	function callAPI(){
 	
-	updateAllVar();
+		updateAllVar();
 		if(sta !== ''){
 			fetch(url)
 			.then((response) => response.json())
@@ -283,6 +284,7 @@
 				
 			}
 		}
+		document.getElementById("lastRefreshedTimeLabel").innerHTML = json.data["curr_time"];
 	}
 
 	function resetPage(){
@@ -359,7 +361,10 @@
 	
 	loadPage();
 	updateStaDropdown();
-		updateLineDropdown();
+	updateLineDropdown();
+	setInterval(function(){ 
+   	 loadPage();
+	}, 5000);
 
 </script>
 

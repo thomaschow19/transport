@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Next bus</h2>
+<select id="lineListDropdown" onchange = "lineChanged()" >  
+
+</select> 
+
+<div id="routeListDiv">
+
+</div>
+
+
+<script>
+
+	const directions = ["orig", "dest"];
+	
+
+	 function callAPI(company, route){
+		var request =  company + '/' + route 
+		var url = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/' + request
+		var Httpreq = new XMLHttpRequest(); // a new request
+   		Httpreq.open("GET",url,false);
+   		Httpreq.send(null);
+		var response = Httpreq.responseText;
+		console.log({ response });
+		var json_obj = JSON.parse(response);
+		console.log({ json_obj });
+    	return json_obj;  
+	}
+
+
+
+	function updateLabels(json){
+		document.getElementById("routeListDiv").innerHTML = ""
+		for(var i in json.data){
+				let routeID = json.data[i]["route"];
+				let routeOrigin = json.data[i]["orig_en"];
+				let routeDestination = json.data[i]["dest_en"];
+				document.getElementById("routeListDiv").innerHTML += routeID + " - " + routeOrigin + " - " + routeDestination + "<br>"
+				
+		}
+	}
+	
+
+
+	
+
+	function updatePage(){
+		updateLabels(callAPI("NWFB", ""));
+	}
+	
+	updatePage();
+
+</script>
+
+</body>
+</html>

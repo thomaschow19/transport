@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<h2>Next Train Demo</h2>
+<h2>Next Train</h2>
 <select id="lineList" onchange = "lineChanged()" >  
 
 </select>  
@@ -10,6 +10,12 @@
 <select id="staList" onchange = "stationChanged()" >  
 
 </select>  
+	
+	<br>
+	<br>
+	<button onclick="callAPI()">Refresh</button>
+	<br>
+	<br>
 
 <p id="station"></p>
 <p strong> Up Direction</p>

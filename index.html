@@ -47,6 +47,7 @@
 
 </select>
 
+<p id="journeyTimeLabel"></p>
 <script>
 
 	const directions = ["UP", "DOWN"];
@@ -278,6 +279,35 @@
 			"DOWN_dest": ["WKS"]
 		},
 	} 
+
+	var journeyTimeTo = {
+		"TIK": {
+			"WHA": 35,
+			"HOM": 33,
+			"YMT": 30,
+			"MOK": 28,
+			"PRE": 27,
+			"SKM": 25,
+			"KOT": 23,
+			"LOF": 20,
+			"WTS": 18,
+			"DIH": 17,
+			"CHH": 15,
+			"KOB": 12,
+			"NTK": 10,
+			"KWT": 8,
+			"LAT": 6,
+			"YAT": 4,
+			"TIK": 0,
+			"NOP": 10,
+			"QUB": 8
+		},
+		"TKO": {
+			"POA": 6,
+			"HAH": 4,
+			"TKO": 0
+		}
+	}
 	
 	
 	function updateAllVar(){
@@ -418,7 +448,25 @@
 
 		console.log({ currSta });
 		loadPage();
+		updateJourneyTimeLabel();
 
+	}
+
+	function decideInterchange(){
+		if(currSta == "HAH" || currSta == "POA" || currSta == "TKO"){
+			return "TKO"
+		} else {
+			return "TIK"
+		}
+	}
+
+	function updateJourneyTimeLabel(){
+		let interchange = decideInterchange();
+		let interchangeName = stationList[currLine][interchange];
+		var journeyTime = journeyTimeTo[interchange][currSta];
+		let elementID = "journeyTimeLabel";
+		let JourneyTimeText = "ETA " + journeyTime + " mins to " + interchangeName;
+		document.getElementById(elementID).innerHTML = JourneyTimeText
 	}
 
 	function currentLineChanged(){

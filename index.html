@@ -150,7 +150,10 @@
 				for (let i = 0; i < 5; i++) {
 					if(i in json.data[lineSta][dir]){
 						let elementID = dir + i;
-						document.getElementById(elementID).innerHTML = json.data[lineSta][dir][i]['time'] + " " + json.data[lineSta][dir][i]['dest']
+						let ttnt = json.data[lineSta][dir][i]["ttnt"];
+						let dest = json.data[lineSta][dir][i]["dest"];
+						let destFullName = stationList[line][dest];
+						document.getElementById(elementID).innerHTML = destFullName + "		" + ttnt + " mins"
 					}	
 				}
 			} else {

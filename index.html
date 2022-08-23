@@ -19,6 +19,9 @@
 	<p id="lastRefreshedTimeLabel"></p>
 	<br>
 	<br>
+	<p id="stationLabel"></p>
+	<br>
+	<br>
 
 <p id="station"></p>
 <p id="UP_dest_label"></p>
@@ -267,6 +270,14 @@
 		},
 	} 
 
+	function updateStationLabel(line, station){
+		let stationFullName = stationList[line][station];
+		let lineFullName = lineList[line]["fullName"];
+		let text = "Showing information of <b>" + stationFullName + "</b> station on the " + lineFullName;
+		let elementID = "stationLabel";
+		document.getElementById(elementID).innerHTML = text
+	}
+
 	function startAutoRefresh(){
 		document.getElementById("startAutoRefreshButton").hidden = true;
 		document.getElementById("stopAutoRefreshButton").hidden = false;
@@ -361,6 +372,7 @@
 
 		var lineListDropdown = document.getElementById("lineListDropdown");
 		let line = lineListDropdown.value;
+		updateStationLabel(line, station);
 		updateLabels(callAPI(line, station), line, station);
 	}
 	

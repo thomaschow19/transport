@@ -50,7 +50,7 @@
 	function callAPI(){
 	
 	updateAllVar();
-		if(!(sta = '')){
+		if(sta !== ''){
 			fetch(url)
 			.then((response) => response.json())
 			.then((data) => { handleJSON(data); console.log({ data }); });
@@ -78,6 +78,8 @@
 	function resetPage(){
 		const directions = ["UP", "DOWN"];
 		for(const dir of directions){
+			let statusElementID = dir + "_Status";
+			document.getElementById(statusElementID).innerHTML = ""
 			for (let i = 0; i < 5; i++) {
 				let elementID = dir + i
 				document.getElementById(elementID).innerHTML = ""
@@ -114,7 +116,7 @@
 		}
 
 		var selectedLineList = tklList
-		document.getElementById("staList").innerHTML = "<option> ---Choose station--- </option>"
+		document.getElementById("staList").innerHTML = "<option value=''> ---Choose station--- </option>"
 		for (var staID in selectedLineList){
 	
 		document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + selectedLineList[staID] + "</option>"

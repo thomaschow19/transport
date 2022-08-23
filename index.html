@@ -43,6 +43,26 @@
 	var request = 'line=' + line + '&sta=' + sta 
 	var url = 'https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?' + request
 	
+	let stationList = {
+		"TKL": {
+			"NOP": "North Point",
+			"QUB": "Quarry Bay",
+			"YAT": "Yau Tong",
+			"TIK": "Tiu Keng Leng",
+			"TKO": "Tseung Kwan O",
+			"LHP": "LOHAS Park",
+			"HAH": "Hang Hau",
+			"POA": "Po Lam"
+		},
+		"AEL": {
+			"HOK": "Hong Kong",
+			"KOW": "Kowloon",
+			"TSY": "Tsing Yi",
+			"AIR": "Airport",
+			"AWE": "AsiaWorld Expo"
+		}
+	}
+	
 	
 	function updateAllVar(){
 		lineSta = line + '-' + sta
@@ -116,18 +136,7 @@
 
 
 	function updateStaDropdown(){
-		let stationList = {
-			"TKL": {
-				"NOP": "North Point",
-				"QUB": "Quarry Bay",
-				"YAT": "Yau Tong",
-				"TIK": "Tiu Keng Leng",
-				"TKO": "Tseung Kwan O",
-				"LHP": "LOHAS Park",
-				"HAH": "Hang Hau",
-				"POA": "Po Lam"
-			}
-		}
+		
 
 		var ListOfStationsInSelectedLine = stationList[line];
 		document.getElementById("staList").innerHTML = "<option value=''> ---Choose station--- </option>"

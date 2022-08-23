@@ -13,8 +13,9 @@
 	
 	<br>
 	<br>
-	<button onclick="stationChanged()">Refresh</button>
-	<button onclick="startAutoRefresh()">Start Auto Refresh</button>
+	<button id="refreshButton" onclick="updatePage()" hidden>Refresh</button>
+	<button id="startAutoRefreshButton" onclick="startAutoRefresh()" hidden>Start Auto Refresh</button>
+	<button id="stopAutoRefreshButton" onclick="stopAutoRefresh()" hidden>Stop Auto Refresh</button>
 	<p id="lastRefreshedTimeLabel"></p>
 	<br>
 	<br>
@@ -43,8 +44,9 @@
 <script>
 
 	const directions = ["UP", "DOWN"];
-	let nIntervId;
+	let intervalID;
 
+	var jsonResponse;
 	
 	let stationList = {
 		"TKL": {
@@ -266,9 +268,19 @@
 	} 
 
 	function startAutoRefresh(){
-		nIntervId = setInterval(stationChanged(), 5000)
+		document.getElementById("startAutoRefreshButton").hidden = true;
+		document.getElementById("stopAutoRefreshButton").hidden = false;
+		document.getElementById("refreshButton").hidden = true;
+		intervalID = setInterval(function(){ updatePage(); }, 3000);
 	}
-	
+
+	function stopAutoRefresh(){
+		document.getElementById("stopAutoRefreshButton").hidden = true;
+		document.getElementById("startAutoRefreshButton").hidden = false;
+		document.getElementById("refreshButton").hidden = false;
+		clearInterval(intervalID);
+	}
+
 
 
 	 function callAPI(line, station){
@@ -326,22 +338,29 @@
 	
 
   	
-	function stationChanged(){
-		
+	function stationChanged(){	
+		stopAutoRefresh();
 		var stationListDropdown = document.getElementById("stationListDropdown");
 
 		let station = stationListDropdown.value;
 
 		var lineListDropdown = document.getElementById("lineListDropdown");
 		let line = lineListDropdown.value;
-
 		if(line != '' && station != ''){
-			updatePage(line, station);
+			updatePage();
 		}
 		
 	}
 
-	function updatePage(line, station){
+	
+
+	function updatePage(){
+		var stationListDropdown = document.getElementById("stationListDropdown");
+
+		let station = stationListDropdown.value;
+
+		var lineListDropdown = document.getElementById("lineListDropdown");
+		let line = lineListDropdown.value;
 		updateLabels(callAPI(line, station), line, station);
 	}
 	

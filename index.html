@@ -36,7 +36,7 @@
 <script>
 
 
-	var line = 'TKL'
+	var line = ''
 	var sta = ''
 	var lineSta = line + '-' + sta
 	var request = 'line=' + line + '&sta=' + sta 
@@ -320,7 +320,7 @@
 				enabledLines.push(lineConcerned)
 			}
 		}
-		document.getElementById("lineList").innerHTML = "<option value=''> ---Choose Line--- </option>"
+		document.getElementById("lineList").innerHTML = "<option value='' disabled> ---Choose Line--- </option>"
 		for (var lineID of enabledLines){
 			document.getElementById("lineList").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName"] + "</option>"
 		}
@@ -328,13 +328,15 @@
 
 
 	function updateStaDropdown(){
-		
+		if(line == ''){
+			document.getElementById("staList").innerHTML = "<option value='' disabled> ---Please choose a line first--- </option>"
+		} else {
+			var listOfStationsInSelectedLine = stationList[line];
+			document.getElementById("staList").innerHTML = "<option value='' disabled> ---Choose station--- </option>"
+			for (var staID in listOfStationsInSelectedLine){
 
-		var listOfStationsInSelectedLine = stationList[line];
-		document.getElementById("staList").innerHTML = "<option value=''> ---Choose station--- </option>"
-		for (var staID in listOfStationsInSelectedLine){
-	
-		document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
+			document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
+			}
 		}
 	}
 	

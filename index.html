@@ -62,8 +62,10 @@
 		for(const dir of directions){
 			if(dir in json.data[lineSta]) {
 				for (let i = 0; i < 5; i++) {
-					let elementID = dir + i;
-					document.getElementById(elementID).innerHTML = json.data[lineSta][dir][i]['time'] + " " + json.data[lineSta][dir][i]['dest']
+					if(i in json.data[lineSta][dir]){
+						let elementID = dir + i;
+						document.getElementById(elementID).innerHTML = json.data[lineSta][dir][i]['time'] + " " + json.data[lineSta][dir][i]['dest']
+					}	
 				}
 			} else {
 				let elementID = dir + "_Status";
@@ -76,7 +78,7 @@
 	function resetPage(){
 		const directions = ["UP", "DOWN"];
 		for(const dir of directions){
-			for (let i = 0; i < 4; i++) {
+			for (let i = 0; i < 5; i++) {
 				let elementID = dir + i
 				document.getElementById(elementID).innerHTML = ""
 			}

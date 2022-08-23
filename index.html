@@ -4,7 +4,7 @@
 
 <h2>Next Train Demo</h2>
 <select id="lineList" onchange = "lineChanged()" >  
-<option value=''> ---Choose station--- </option>
+<option value=''> ---Choose Line--- </option>
 	<option value='TKL'> Tseung Kwan O Line </option>
 </select>  
 
@@ -132,7 +132,7 @@
 		document.getElementById("staList").innerHTML = "<option value=''> ---Choose station--- </option>"
 		for (var staID in ListOfStationsInSelectedLine){
 	
-		document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + selectedLineList[staID] + "</option>"
+		document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + ListOfStationsInSelectedLine[staID] + "</option>"
 		}
 	}
 	

@@ -6,8 +6,6 @@
 
 
 <select id="staList" onchange = "stationChanged()" >  
-<option> ---Choose station--- </option>  
-
 
 </select>  
 
@@ -113,7 +111,7 @@
 		}
 
 		var selectedLineList = tklList
-	
+		document.getElementById("staList").innerHTML = "<option> ---Choose station--- </option>"
 		for (var staID in selectedLineList){
 	
 		document.getElementById("staList").innerHTML += "<option value='" + staID + "'> " + selectedLineList[staID] + "</option>"

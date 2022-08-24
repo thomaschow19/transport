@@ -39,7 +39,11 @@
 		if(company == "kmb"){
 			return "https://data.etabus.gov.hk/v1/transport/kmb/" + requestNature + "/";
 		} else if (company == "CTB" || "NWFB") {
-			return "https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/" + requestNature + "/" + company + "/";
+			if(requestNature == "stop"){
+				return "https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/" + requestNature + "/";
+			} else {
+				return "https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/" + requestNature + "/" + company + "/";
+			}
 		}
 	}
 
@@ -58,7 +62,8 @@
 
 	function callRouteStopAPI(company, route, direction){
 		var request =  route + "/" + direction
-		var url = URLforCompany(company, "route-stop/") + request
+		var url = URLforCompany(company, "route-stop") + request
+		console.log({ url });
 		var Httpreq = new XMLHttpRequest(); // a new request
    		Httpreq.open("GET",url,false);
    		Httpreq.send(null);
@@ -69,7 +74,7 @@
     	return json_obj;  
 	}
 
-	function callStopAPI(stop){
+	function callStopAPI(company, stop){
 		var request =  stop
 		var url = URLforCompany(company, "stop") + request
 		var Httpreq = new XMLHttpRequest(); // a new request
@@ -114,10 +119,12 @@
 	
 
 	function loadStops(json){
+		let companyDropdown = document.getElementById("companyDropdown");
+		let company = companyDropdown.value;
 		document.getElementById("stopDropdown").innerHTML = "<option value='' selected disabled>--- Stops ---</option>";
 		for(var i in json.data){
 				let stopID = json.data[i]["stop"];
-				let stopDetials = callStopAPI(stopID);
+				let stopDetials = callStopAPI(company, stopID);
 				let stopName = stopDetials.data["name_tc"];
 				document.getElementById("stopDropdown").innerHTML += "<option value='" + stopID + "'>" + stopName + "</option>"
 				
@@ -127,14 +134,7 @@
 	
 
 	function routeChanged(){
-		let companyDropdown = document.getElementById("companyDropdown");
-		let company = companyDropdown.value;
-		if(company == "KMB"){
-			updateStops;
-		}else {
-			updateDirections();
-		}
-		
+		updateDirections();
 	}
 
 	function directionChanged(){

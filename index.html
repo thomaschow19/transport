@@ -422,7 +422,7 @@
 	function updateStationDropdown(line){
 		if(line == ''){
 			document.getElementById("stationListDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
-			document.getElementById("stationListDropdown").innerHTML = "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
+			document.getElementById("stationListDropdown").innerHTML += "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
 		} else {
 			var listOfStationsInSelectedLine = stationList[line];
 			document.getElementById("stationListDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"

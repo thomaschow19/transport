@@ -3,10 +3,17 @@
 <body>
 
 <h2>Next bus</h2>
+
+<select id="companyDropdown" onchange = "companyChanged()" >
+	<option value='' disabled selected> --- Company --- </option>
+	<option value='CTB'>CityBus</option>
+	<option value='NWFB'>First Bus</option>
+</select>
+<br>
 <select id="routeDropdown" onchange = "routeChanged()" >
 	<option value='' disabled selected> --- Routes --- </option>
 </select>
-
+<br>
 <select id="directionDropdown" onchange = "directionChanged()" > 
 	<option value='' disabled selected> --- Direction --- </option>
 </select> 
@@ -122,6 +129,10 @@
 		updateETA();
 	}
 
+	function companyChanged(){
+		updateRoutes();
+	}
+
 
 
 	
@@ -130,7 +141,9 @@
 		let routeDropdown = document.getElementById("routeDropdown");
 		let route = routeDropdown.value;
 		let direction = document.getElementById("directionDropdown").value;
-		loadStops(callRouteStopAPI("NWFB", route, direction))
+		let companyDropdown = document.getElementById("companyDropdown");
+		let company = companyDropdown.value;
+		loadStops(callRouteStopAPI(company, route, direction))
 	}
 
 	function updateDirections(){
@@ -138,9 +151,11 @@
 		directionDropdown.innerHTML = "<option value='' selected disabled>--- Direction ---</option>";
 		let routeDropdown = document.getElementById("routeDropdown");
 		let route = routeDropdown.value;
+		let companyDropdown = document.getElementById("companyDropdown");
+		let company = companyDropdown.value;
 		for(const dir of directions){
 			console.log({ dir });
-			let jsonConcerned = callRouteStopAPI("NWFB", route, dir);
+			let jsonConcerned = callRouteStopAPI(company, route, dir);
 			let isValid = decideIfDirectionIsValid(jsonConcerned);
 			console.log({ isValid });
 			if( isValid == true) {
@@ -161,7 +176,9 @@
 		let route = routeDropdown.value;
 		let stopDropdown = document.getElementById("stopDropdown");
 		let stop = stopDropdown.value;
-		loadETA(callETAAPI("NWFB",stop,route));
+		let companyDropdown = document.getElementById("companyDropdown");
+		let company = companyDropdown.value;
+		loadETA(callETAAPI(company,stop,route));
 	}
 
 	function loadETA(json){
@@ -177,10 +194,15 @@
 		}
 	}
 
+	function updateRoutes(){
+		let companyDropdown = document.getElementById("companyDropdown");
+		let company = companyDropdown.value;
+		loadRoutes(callRouteAPI(company, ""));
+	}
 	
 	
 	
-	loadRoutes(callRouteAPI("NWFB", ""));
+	
 
 </script>
 

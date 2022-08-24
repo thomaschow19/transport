@@ -4,16 +4,17 @@
 
 <h2>Next bus</h2>
 <select id="routeDropdown" onchange = "routeChanged()" >  
-
 </select>
 
 <select id="directionDropdown" onchange = "directionChanged()" >  
-
+</select> 
+<br>
+<select id="stopDropdown" onchange = "stopChanged()" >  
 </select> 
 <br>
 <p id="progressLabel"></p>
 
-<div id="stopListDiv">
+<div id="ETADiv">
 
 </div>
 
@@ -63,6 +64,20 @@
 	}
 
 
+	function callETAAPI(company, stop, route){
+		var request =  company + '/' + stop + "/" + route
+		var url = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/eta/' + request
+		var Httpreq = new XMLHttpRequest(); // a new request
+   		Httpreq.open("GET",url,false);
+   		Httpreq.send(null);
+		var response = Httpreq.responseText;
+		console.log({ response });
+		var json_obj = JSON.parse(response);
+		console.log({ json_obj });
+    	return json_obj;
+	}
+
+
 
 	function loadRoutes(json){
 		document.getElementById("routeDropdown").innerHTML = "<option value='' selected disabled>--- Routes ---</option>";
@@ -80,14 +95,39 @@
 	
 
 	function loadStops(json){
-		document.getElementById("stopListDiv").innerHTML = ""
+		document.getElementById("stopDropdown").innerHTML = "<option value='' selected disabled>--- Stops ---</option>";
 		for(var i in json.data){
 				let stopID = json.data[i]["stop"];
 				let stopDetials = callStopAPI(stopID);
 				let stopName = stopDetials.data["name_tc"];
-				document.getElementById("stopListDiv").innerHTML += stopID + " - " + stopName + "<br>"
+				document.getElementById("stopDropdown").innerHTML += "<option value='" + stopID + "'>" + stopName + "</option>"
 				
 		}
+	}
+
+	
+
+	function routeChanged(){
+		updateDirections();
+	}
+
+	function directionChanged(){
+		updateStops();
+	}
+
+	function stopChanged(){
+		updateETA();
+	}
+
+
+
+	
+	function updateStops(){
+
+		let routeDropdown = document.getElementById("routeDropdown");
+		let route = routeDropdown.value;
+		let direction = document.getElementById("directionDropdown").value;
+		loadStops(callRouteStopAPI("NWFB", route, direction))
 	}
 
 	function updateDirections(){
@@ -113,21 +153,25 @@
 		return false
 	}
 
-	function routeChanged(){
-		updateDirections();
-	}
-
-	function directionChanged(){
-		updateStops();
-	}
-
-	
-	function updateStops(){
-
+	function updateETA(){
 		let routeDropdown = document.getElementById("routeDropdown");
 		let route = routeDropdown.value;
-		let direction = document.getElementById("directionDropdown").value;
-		loadStops(callRouteStopAPI("NWFB", route, direction))
+		let stopDropdown = document.getElementById("stopDropdown");
+		let stop = stopDropdown.value;
+		loadETA(callETAAPI("NWFB",stop,route));
+	}
+
+	function loadETA(json){
+		document.getElementById("ETADiv").innerHTML = "";
+		for(var i in json.data){
+				let ETA = json.data[i]["eta"];
+				let remark = json.data[i]["rmk_tc"];
+				var remarkText = "";
+				if(remark != ""){
+					remarkText = " - " + remark
+				}
+				document.getElementById("ETADiv").innerHTML += ETA + remarkText +"<br>"
+		}
 	}
 
 	

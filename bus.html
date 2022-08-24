@@ -8,6 +8,7 @@
 	<option value='' disabled selected> --- Company --- </option>
 	<option value='CTB'>CityBus</option>
 	<option value='NWFB'>First Bus</option>
+	<option value='kmb' disabled>KMB</option>
 </select>
 <br>
 <select id="routeDropdown" onchange = "routeChanged()" >
@@ -32,11 +33,19 @@
 <script>
 
 	const directions = ["outbound", "inbound"];
+	const companies = ["CTB", "NWFB", "kmb"]
 	
+	function URLforCompany(company, requestNature){
+		if(company == "kmb"){
+			return "https://data.etabus.gov.hk/v1/transport/kmb/" + requestNature + "/";
+		} else if (company == "CTB" || "NWFB") {
+			return "https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/" + requestNature + "/" + company + "/";
+		}
+	}
 
 	function callRouteAPI(company, route){
-		var request =  company + '/' + route 
-		var url = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/' + request
+		var request = route 
+		var url = URLforCompany(company, "route") + request
 		var Httpreq = new XMLHttpRequest(); // a new request
    		Httpreq.open("GET",url,false);
    		Httpreq.send(null);
@@ -48,8 +57,8 @@
 	}
 
 	function callRouteStopAPI(company, route, direction){
-		var request =  company + '/' + route + "/" + direction
-		var url = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route-stop/' + request
+		var request =  route + "/" + direction
+		var url = URLforCompany(company, "route-stop/") + request
 		var Httpreq = new XMLHttpRequest(); // a new request
    		Httpreq.open("GET",url,false);
    		Httpreq.send(null);
@@ -62,7 +71,7 @@
 
 	function callStopAPI(stop){
 		var request =  stop
-		var url = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/stop/' + request
+		var url = URLforCompany(company, "stop") + request
 		var Httpreq = new XMLHttpRequest(); // a new request
    		Httpreq.open("GET",url,false);
    		Httpreq.send(null);
@@ -75,8 +84,8 @@
 
 
 	function callETAAPI(company, stop, route){
-		var request =  company + '/' + stop + "/" + route
-		var url = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/eta/' + request
+		var request =  stop + "/" + route
+		var url = URLforCompany(company, "eta") + request
 		var Httpreq = new XMLHttpRequest(); // a new request
    		Httpreq.open("GET",url,false);
    		Httpreq.send(null);
@@ -118,7 +127,14 @@
 	
 
 	function routeChanged(){
-		updateDirections();
+		let companyDropdown = document.getElementById("companyDropdown");
+		let company = companyDropdown.value;
+		if(company == "KMB"){
+			updateStops;
+		}else {
+			updateDirections();
+		}
+		
 	}
 
 	function directionChanged(){

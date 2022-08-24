@@ -3,21 +3,27 @@
 <body>
 
 <h2>Next bus</h2>
-<select id="lineListDropdown" onchange = "lineChanged()" >  
+<select id="routeDropdown" onchange = "routeChanged()" >  
+
+</select>
+
+<select id="directionDropdown" onchange = "directionChanged()" >  
 
 </select> 
+<br>
+<p id="progressLabel"></p>
 
-<div id="routeListDiv">
+<div id="stopListDiv">
 
 </div>
 
 
 <script>
 
-	const directions = ["orig", "dest"];
+	const directions = ["outbound", "inbound"];
 	
 
-	 function callAPI(company, route){
+	function callRouteAPI(company, route){
 		var request =  company + '/' + route 
 		var url = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/' + request
 		var Httpreq = new XMLHttpRequest(); // a new request
@@ -30,28 +36,104 @@
     	return json_obj;  
 	}
 
+	function callRouteStopAPI(company, route, direction){
+		var request =  company + '/' + route + "/" + direction
+		var url = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route-stop/' + request
+		var Httpreq = new XMLHttpRequest(); // a new request
+   		Httpreq.open("GET",url,false);
+   		Httpreq.send(null);
+		var response = Httpreq.responseText;
+		console.log({ response });
+		var json_obj = JSON.parse(response);
+		console.log({ json_obj });
+    	return json_obj;  
+	}
+
+	function callStopAPI(stop){
+		var request =  stop
+		var url = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/stop/' + request
+		var Httpreq = new XMLHttpRequest(); // a new request
+   		Httpreq.open("GET",url,false);
+   		Httpreq.send(null);
+		var response = Httpreq.responseText;
+		console.log({ response });
+		var json_obj = JSON.parse(response);
+		console.log({ json_obj });
+    	return json_obj;  
+	}
 
 
-	function updateLabels(json){
-		document.getElementById("routeListDiv").innerHTML = ""
+
+	function loadRoutes(json){
+		document.getElementById("routeDropdown").innerHTML = "<option value='' selected disabled>--- Routes ---</option>";
 		for(var i in json.data){
 				let routeID = json.data[i]["route"];
-				let routeOrigin = json.data[i]["orig_en"];
-				let routeDestination = json.data[i]["dest_en"];
-				document.getElementById("routeListDiv").innerHTML += routeID + " - " + routeOrigin + " - " + routeDestination + "<br>"
+				let routeOrigin = json.data[i]["orig_tc"];
+				let routeDestination = json.data[i]["dest_tc"];
+				document.getElementById("routeDropdown").innerHTML += "<option value='" + routeID + "'> " + routeID + " - " + routeOrigin + " - " + routeDestination + "</option>"
 				
 		}
 	}
+
+
+
 	
 
-
-	
-
-	function updatePage(){
-		updateLabels(callAPI("NWFB", ""));
+	function loadStops(json){
+		document.getElementById("stopListDiv").innerHTML = ""
+		for(var i in json.data){
+				let stopID = json.data[i]["stop"];
+				let stopDetials = callStopAPI(stopID);
+				let stopName = stopDetials.data["name_tc"];
+				document.getElementById("stopListDiv").innerHTML += stopID + " - " + stopName + "<br>"
+				
+		}
 	}
+
+	function updateDirections(){
+		let directionDropdown = document.getElementById("directionDropdown");
+		directionDropdown.innerHTML = "<option value='' selected disabled>--- Directions ---</option>";
+		let routeDropdown = document.getElementById("routeDropdown");
+		let route = routeDropdown.value;
+		for(const dir of directions){
+			console.log({ dir });
+			let jsonConcerned = callRouteStopAPI("NWFB", route, dir);
+			let isValid = decideIfDirectionIsValid(jsonConcerned);
+			console.log({ isValid });
+			if( isValid == true) {
+				directionDropdown.innerHTML += "<option value='" + dir + "'>" + dir + "</option>";
+			}
+		}
+	}
+
+	function decideIfDirectionIsValid(json){
+		for(var i in json.data){
+			return true
+		}
+		return false
+	}
+
+	function routeChanged(){
+		updateDirections();
+	}
+
+	function directionChanged(){
+		updateStops();
+	}
+
 	
-	updatePage();
+	function updateStops(){
+
+		let routeDropdown = document.getElementById("routeDropdown");
+		let route = routeDropdown.value;
+		let direction = document.getElementById("directionDropdown").value;
+		loadStops(callRouteStopAPI("NWFB", route, direction))
+	}
+
+	
+	
+	
+	loadRoutes(callRouteAPI("NWFB", ""));
 
 </script>
 

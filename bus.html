@@ -3,13 +3,16 @@
 <body>
 
 <h2>Next bus</h2>
-<select id="routeDropdown" onchange = "routeChanged()" >  
+<select id="routeDropdown" onchange = "routeChanged()" >
+	<option value='' disabled selected> --- Routes --- </option>
 </select>
 
-<select id="directionDropdown" onchange = "directionChanged()" >  
+<select id="directionDropdown" onchange = "directionChanged()" > 
+	<option value='' disabled selected> --- Direction --- </option>
 </select> 
 <br>
-<select id="stopDropdown" onchange = "stopChanged()" >  
+<select id="stopDropdown" onchange = "stopChanged()" > 
+	<option value='' disabled selected> --- Stops --- </option>
 </select> 
 <br>
 <p id="progressLabel"></p>
@@ -132,7 +135,7 @@
 
 	function updateDirections(){
 		let directionDropdown = document.getElementById("directionDropdown");
-		directionDropdown.innerHTML = "<option value='' selected disabled>--- Directions ---</option>";
+		directionDropdown.innerHTML = "<option value='' selected disabled>--- Direction ---</option>";
 		let routeDropdown = document.getElementById("routeDropdown");
 		let route = routeDropdown.value;
 		for(const dir of directions){

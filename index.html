@@ -316,7 +316,6 @@
 		for(const dir of directions){
 			let statusElementID = dir + "_Status";
 			if(dir in json.data[lineStation]) {
-				
 				document.getElementById(statusElementID).innerHTML = ""
 				for (let i = 0; i < 5; i++) {
 					if(i in json.data[lineStation][dir]){
@@ -342,6 +341,10 @@
 				}
 			} else {
 				document.getElementById(statusElementID).innerHTML = "Data not available";
+				for (let i = 0; i < 5; i++){
+					let elementID = dir + i;
+					document.getElementById(elementID).innerHTML = "";
+				}
 			}
 		}
 		document.getElementById("lastRefreshedTimeLabel").innerHTML = json.curr_time;

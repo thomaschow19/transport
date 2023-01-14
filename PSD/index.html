@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @font-face {
+                font-family: myriadPro;
+                src: url(english.ttf);}
+            body {
+                font-family: myriadPro;
+                font-size:4vw
+            }
+            
+            .vertical-center {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+            [hidden] {
+                display: none !important;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div id="settingsDIV">
+            <h2>Next Train PSD Config</h2>
+            <select id="lineListDropdown" onchange = "lineChanged()" >
+                
+            </select>
+            
+            <select id="stationListDropdown" onchange = "stationChanged()" >
+                
+            </select>
+            
+            <select id="directionListDropdown" onchange = "directionChanged()" >
+                
+            </select>
+            
+            <br>
+            <br>
+            <button id="refreshButton" onclick="updatePage()" hidden>Refresh</button>
+            <button id="startAutoRefreshButton" onclick="startAutoRefresh()" hidden>Start Auto Refresh</button>
+            <button id="stopAutoRefreshButton" onclick="stopAutoRefresh()" hidden>Stop Auto Refresh</button>
+            <p id="lastRefreshedTimeLabel"></p>
+            <br>
+            <br>
+            
+            <p id="stationLabel"></p>
+            <br>
+            <br>
+        </div>
+        
+        
+        
+        <div id="ETAContainerDIV">
+
+            <div id="ETAchoosenDirectionDIV" style="height: 100vh;">
+                <div id="ETAheaderContainer" style="background-color:#00387D; height:16%; display: flex;
+  align-items: center;">
+                    <span id="ETAheader" style="color:#FFFFFF">ETAheader</span>
+                </div>
+                <div id="ETA0Container" style="background-color:#FFFFFF; height:21%; display: flex;
+  align-items: center;">
+                    <span id="ETA0destination"> ETA0destination</span>
+                    <div id="ETA0floatRightContainer" style="margin-left: auto">
+                        <span id="ETA0platform"> ETA0platform</span>
+                        <span id="ETA0time"> ETA0time</span>
+                    </div>
+                </div>
+                <div id="ETA1Container" style="background-color:#BDDBFF; height:21%; display: flex;
+  align-items: center;">
+                    <span id="ETA1destination"> ETA1destination</span>
+                    <div id="ETA1floatRightContainer" style="margin-left: auto">
+                        <span id="ETA1platform"> ETA0platform</span>
+                        <span id="ETA1time"> ETA0time</span>
+                    </div>
+                </div>
+                <div id="ETA2Container" style="background-color:#FFFFFF; height:21%; display: flex;
+  align-items: center;">
+                    <span id="ETA2destination"> ETA2destination</span>
+                    <div id="ETA2floatRightContainer" style="margin-left: auto">
+                        <span id="ETA2platform"> ETA0platform</span>
+                        <span id="ETA2time"> ETA0time</span>
+                    </div>
+                </div>
+                <div id="ETA3Container" style="background-color:#BDDBFF; height:21%; display: flex;
+  align-items: center;">
+                    <span id="ETA3destination"> ETA3destination</span>
+                    <div id="ETA3floatRightContainer" style="margin-left: auto">
+                        <span id="ETA3platform"> ETA0platform</span>
+                        <span id="ETA3time"> ETA0time</span>
+                    </div>
+                </div>
+                <div id="ETA4Container" style="background-color:#FFFFFF; height:21%; display: flex;
+  align-items: center;" hidden>
+                    <span id="ETA4destination"> ETA4destination</span>
+                    <div id="ETA4floatRightContainer" style="margin-left: auto">
+                        <span id="ETA4platform"> ETA1=platform</span>
+                        <span id="ETA4time"> ETA0time</span>
+                    </div>
+                </div>
+                <div id="ETAStatusContainer" style="background-color:#BDDBFF; height:21%; display: flex;
+  align-items: center;">
+                    <span id="ETAStatus">ETAStatusContainer</span>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        
+        <script>
+            
+            const directions = ["UP", "DOWN"];
+            let intervalID;
+            
+            var jsonResponse;
+            
+            let stationList = {
+                "TKL": {
+                    "NOP": "North Point",
+                    "QUB": "Quarry Bay",
+                    "YAT": "Yau Tong",
+                    "TIK": "Tiu Keng Leng",
+                    "TKO": "Tseung Kwan O",
+                    "LHP": "LOHAS Park",
+                    "HAH": "Hang Hau",
+                    "POA": "Po Lam"
+                },
+                "AEL": {
+                    "HOK": "Hong Kong",
+                    "KOW": "Kowloon",
+                    "TSY": "Tsing Yi",
+                    "AIR": "Airport",
+                    "AWE": "AsiaWorld Expo"
+                },
+                "TCL": {
+                    "HOK": "Hong Kong",
+                    "KOW": "Kowloon",
+                    "OLY": "Olympic",
+                    "NAC": "Nam Cheong",
+                    "LAK": "Lai King",
+                    "TSY": "Tsing Yi",
+                    "SUN": "Sunny Bay",
+                    "TUC": "Tung Chung"
+                },
+                "EAL": {
+                    "ADM": "Admiralty",
+                    "EXC": "Exhibition Centre",
+                    "HUH": "Hung Hom",
+                    "MKK": "Mong Kok East",
+                    "KOT": "Kowloon Tong",
+                    "TAW": "Tai Wai",
+                    "SHT": "Sha Tin",
+                    "FOT": "Fo Tan",
+                    "UNI": "University",
+                    "TAP": "Tai Po Market",
+                    "TWO": "Tai Wo",
+                    "FAN": "Fanling",
+                    "SHS": "Sheung Shui",
+                    "LOW": "Lo Wu",
+                    "LMC": "Lok Ma Chau"
+                },
+                "TML": {
+                    "WKS": "Wu Kai Sha",
+                    "MOS": "Ma On Shan",
+                    "HEO": "Heng On",
+                    "TSH": "Tai Shui Hang",
+                    "SHM": "Shek Mun",
+                    "CIO": "City One",
+                    "STW": "Sha Tin Wai",
+                    "CKT": "Che Kung Temple",
+                    "TAW": "Tai Wai",
+                    "HIK": "Hin Keng",
+                    "DIH": "Diamond Hill",
+                    "KAT": "Kai Tak",
+                    "SUW": "Sung Wong Toi",
+                    "TKW": "To Kwa Wan",
+                    "HOM": "Ho Man Tin",
+                    "HUH": "Hung Hom",
+                    "ETS": "East Tsim Sha Tsui",
+                    "AUS": "Austin",
+                    "NAC": "Nam Cheong",
+                    "MEF": "Mei Foo",
+                    "TWW": "Tsuen Wan West",
+                    "KSR": "Kam Sheung Road",
+                    "YUL": "Yuen Long",
+                    "LOP": "Long Ping",
+                    "TIS": "Tin Shui Wai",
+                    "SIH": "Siu Hong",
+                    "TUM": "Tuen Mun"
+                },
+                "KTL": {
+                    "WHA": "Whampoa",
+                    "HOM": "Ho Man Tin",
+                    "YMT": "Yau Ma Tei",
+                    "MOK": "Mong Kok",
+                    "PRE": "Prince Edward",
+                    "SKM": "Shek Kip Mei",
+                    "KOT": "Kowloon Tong",
+                    "LOF": "Lok Fu",
+                    "WTS": "Wong Tai Sin",
+                    "DIH": "Diamond Hill",
+                    "CHH": "Choi Hung",
+                    "KOB": "Kowloon Bay",
+                    "NTK": "Ngau Tau Kok",
+                    "KWT": "Kwun Tong",
+                    "LAT": "Lam Tin",
+                    "YAT": "Yau Tong",
+                    "TIK": "Tiu Keng Leng"
+                },
+                "ISL": {
+                    "KET": "Kennedy Town",
+                    "HKU": "HKU",
+                    "SYP": "Sai Ying Pun",
+                    "SHW": "Sheung Wan",
+                    "CEN": "Central",
+                    "ADM": "Admiralty",
+                    "WAC": "Wan Chai",
+                    "CAB": "Causeway Bay",
+                    "TIH": "Tin Hau",
+                    "FOH": "Fortress Hill",
+                    "NOP": "North Point",
+                    "QUB": "Quarry Bay",
+                    "TAK": "Tai Koo",
+                    "SWH": "Sai Wan Ho",
+                    "SKW": "Shau Kei Wan",
+                    "HFC": "Heng Fa Chuen",
+                    "CHW": "Chai Wan"
+                },
+                "TWL": {
+                    "CEN": "Central",
+                    "ADM": "Admiralty",
+                    "TST": "Tsim Sha Tsui",
+                    "JOR": "Jordan",
+                    "YMT": "Yau Ma Tei",
+                    "MOK": "Mong Kok",
+                    "PRE": "Prince Edward",
+                    "SSP": "Sham Shui Po",
+                    "CSW": "Cheung Sha Wan",
+                    "LCK": "Lai Chi Kok",
+                    "MEF": "Mei Foo",
+                    "LAK": "Lai King",
+                    "KWF": "Kwai Fong",
+                    "KWH": "Kwai Hing",
+                    "TWH": "Tai Wo Hau",
+                    "TSW": "Tsuen Wan"
+                },
+                
+                "SIL": {
+                    "ADM": "Admiralty",
+                    "OCP": "Ocean Park",
+                    "WCH": "Wong Chuk Hang",
+                    "LET": "Lei Tung",
+                    "SOH": "South Horizons"
+                    
+                },
+                
+                "DRL": {
+                    "DIS" : "Disneyland Resort",
+                    "SUN": "Sunny Bay"
+                }
+            }
+            
+            let lineList = {
+                "KTL": {
+                    "fullName": "Kwun Tong Line",
+                    "enableETA": false,
+                    "enableLOHAS": true,
+                    "UP_dest": ["TIK"],
+                    "DOWN_dest": ["WHA"]
+                },
+                "TWL": {
+                    "fullName": "Tseun Wan Line",
+                    "enableETA": false,
+                    "enableLOHAS": false,
+                    "UP_dest": ["TSW"],
+                    "DOWN_dest": ["CEN"]
+                },
+                "ISL": {
+                    "fullName": "Island Line",
+                    "enableETA": false,
+                    "enableLOHAS": false,
+                    "UP_dest": ["CHW"],
+                    "DOWN_dest": ["KET"]
+                },
+                "TKL": {
+                    "fullName": "Tseung Kwan O Line",
+                    "enableETA": true,
+                    "enableLOHAS": true,
+                    "UP_dest": ["POA", "LHP"],
+                    "DOWN_dest": ["NOP"]
+                },
+                "SIL": {
+                    "fullName": "South Island Line",
+                    "enableETA": false,
+                    "enableLOHAS": false,
+                    "UP_dest": ["SOH"],
+                    "DOWN_dest": ["ADM"]
+                },
+                "TCL": {
+                    "fullName": "Tung Chung Line",
+                    "enableETA": true,
+                    "enableLOHAS": false,
+                    "UP_dest": ["TUC"],
+                    "DOWN_dest": ["HOK"]
+                },
+                "AEL": {
+                    "fullName": "Airport Express",
+                    "enableETA": true,
+                    "enableLOHAS": false,
+                    "UP_dest": ["AWE"],
+                    "DOWN_dest": ["HOK"]
+                },
+                "DRL": {
+                    "fullName": "Disneyland Resort Line",
+                    "enableETA": false,
+                    "enableLOHAS": false,
+                    "UP_dest": ["SUN"],
+                    "DOWN_dest": ["DIS"]
+                },
+                "EAL": {
+                    "fullName": "East Rail Line",
+                    "enableETA": true,
+                    "enableLOHAS": false,
+                    "UP_dest": ["LOW", "LMC"],
+                    "DOWN_dest": ["ADM"]
+                },
+                "TML": {
+                    "fullName": "Tuen Ma Line",
+                    "enableETA": true,
+                    "enableLOHAS": false,
+                    "UP_dest": ["TUM"],
+                    "DOWN_dest": ["WKS"]
+                },
+            }
+            
+            function updateStationLabel(line, station){
+                let stationFullName = stationList[line][station];
+                let lineFullName = lineList[line]["fullName"];
+                let text = "Showing information of <b>" + stationFullName + "</b> station on the " + lineFullName;
+                let elementID = "stationLabel";
+                document.getElementById(elementID).innerHTML = text
+            }
+            
+            function startAutoRefresh(){
+                document.getElementById("startAutoRefreshButton").hidden = true;
+                document.getElementById("stopAutoRefreshButton").hidden = false;
+                document.getElementById("refreshButton").hidden = true;
+                intervalID = setInterval(function(){ updatePage(); }, 3000);
+                document.getElementById("settingsDIV").hidden = true;
+            }
+            
+            function stopAutoRefresh(){
+                document.getElementById("stopAutoRefreshButton").hidden = true;
+                document.getElementById("startAutoRefreshButton").hidden = false;
+                document.getElementById("refreshButton").hidden = false;
+                clearInterval(intervalID);
+            }
+            
+            
+            
+            function callAPI(line, station){
+                var lineSta = line + '-' + station
+                var request = 'line=' + line + '&sta=' + station
+                var url = 'https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?' + request
+                var Httpreq = new XMLHttpRequest(); // a new request
+                Httpreq.open("GET",url,false);
+                Httpreq.send(null);
+                var response = Httpreq.responseText;
+                console.log({ response });
+                var json_obj = JSON.parse(response);
+                console.log({ json_obj });
+                return json_obj;
+                
+            }
+            
+            
+            
+            function updateLabels(json, line, station, direction){
+                var lineStation = line + '-' + station
+                var dir = direction
+
+                if(dir in json.data[lineStation]) {
+                    document.getElementById("ETAStatusContainer").hidden = true;
+
+                    for (let i = 0; i < 5; i++) {
+                        let elementIDdestination = "ETA" + i + "destination";
+                        let elementIDplatform = "ETA" + i + "platform";
+                        let elementIDtime = "ETA" + i + "time";
+                        
+                        if(i in json.data[lineStation][dir]){
+                            
+                            let ttnt = json.data[lineStation][dir][i]["ttnt"];
+                            let dest = json.data[lineStation][dir][i]["dest"];
+                            let plat = json.data[lineStation][dir][i]["plat"];
+                            let destFullName = stationList[line][dest];
+                            let timeMessage = "";
+                            if(ttnt < 1){
+                                timeMessage = ""
+                            } else if(ttnt == 1) {
+                                timeMessage = ttnt + " min"
+                            } else {
+                                timeMessage = ttnt + " mins"
+                            }
+                            
+                            document.getElementById(elementIDdestination).innerHTML = destFullName;
+                            document.getElementById(elementIDplatform).innerHTML = plat;
+                            document.getElementById(elementIDtime).innerHTML = timeMessage;
+                            
+                        } else {
+                            document.getElementById(elementIDdestination).innerHTML = "";
+                            document.getElementById(elementIDplatform).innerHTML = "";
+                            document.getElementById(elementIDtime).innerHTML = "";
+                            
+                        }
+                    }
+                } else {
+                    document.getElementById("ETAStatusContainer").hidden = false;
+                    document.getElementById("ETAStatus").innerHTML = "Data not available";
+                    
+                }
+                
+                document.getElementById("lastRefreshedTimeLabel").innerHTML = json.curr_time;
+            }
+            
+            
+            
+            
+            
+            
+            function updatePage(){
+                var stationListDropdown = document.getElementById("stationListDropdown");
+                
+                let station = stationListDropdown.value;
+                
+                var lineListDropdown = document.getElementById("lineListDropdown");
+                let line = lineListDropdown.value;
+                var directionListDropdown = document.getElementById("directionListDropdown");
+                let direction = directionListDropdown.value;
+                updateStationLabel(line, station);
+                updateLabels(callAPI(line, station), line, station, direction);
+            }
+            
+            function lineChanged(){
+                
+                var lineListDropdown = document.getElementById("lineListDropdown");
+                var line = lineListDropdown.value;
+                console.log({ line });
+                
+
+                
+                updateStationDropdown(line);
+                updateDirectionDropdown(line, "");
+                
+            }
+            
+            function stationChanged(){
+                stopAutoRefresh();
+                var stationListDropdown = document.getElementById("stationListDropdown");
+                
+                let station = stationListDropdown.value;
+                
+                var lineListDropdown = document.getElementById("lineListDropdown");
+                let line = lineListDropdown.value;
+                if(line != '' && station != ''){
+                    updatePage();
+                    updateDirectionDropdown(line, station);
+                }
+                updateDirectionDropdown(line, station);
+            }
+            
+            function directionChanged(){
+                updatePage();
+            }
+            
+            function updateLineDropdown(){
+                
+                var enabledLines = []
+                for(const lineConcerned in lineList){
+                    if(lineList[lineConcerned]["enableETA"] == true){
+                        enabledLines.push(lineConcerned)
+                    }
+                }
+                document.getElementById("lineListDropdown").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
+                for (var lineID of enabledLines){
+                    document.getElementById("lineListDropdown").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName"] + "</option>"
+                }
+            }
+            
+            
+            function updateStationDropdown(line){
+                document.getElementById("stationListDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
+                
+                if(line == ''){
+                    
+                    document.getElementById("stationListDropdown").innerHTML += "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
+                } else {
+                    var listOfStationsInSelectedLine = stationList[line];
+                    for (var staID in listOfStationsInSelectedLine){
+                        
+                        document.getElementById("stationListDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
+                    }
+                }
+            }
+            
+            function updateDirectionDropdown(line, station){
+                document.getElementById("directionListDropdown").innerHTML = "<option value='' disabled selected> --- Direction --- </option>"
+                if(line == ''){
+                    document.getElementById("directionListDropdown").innerHTML += "<option value='Placeholder' disabled > --- Destinations will appear after a line and station is choosen --- </option>"
+                    
+                } else {
+                    
+                    for(var dir of directions){
+                        let dirDest = dir + "_dest";
+                        let destinations = lineList[line][dirDest];
+                        var destFullNames = "";
+                        for(const destConcerned of destinations){
+                            
+                            if(destFullNames == ""){
+                                console.log({ destConcerned });
+                                destFullNames += stationList[line][destConcerned];
+                            } else {
+                                console.log({ destConcerned });
+                                destFullNames += " / " + stationList[line][destConcerned];
+                            }
+                            
+                        }
+                        console.log({ destFullNames });
+                        document.getElementById("directionListDropdown").innerHTML += "<option value='" + dir + "'> To: " + destFullNames + "</option>"
+                    }
+                    
+                    
+                }
+            }
+            
+            
+            
+            
+            
+            
+            
+            updateLineDropdown();
+            updateStationDropdown("");
+            updateDirectionDropdown("", "")
+            
+            
+        </script>
+        
+    </body>
+</html>

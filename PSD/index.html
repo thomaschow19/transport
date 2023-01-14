@@ -38,34 +38,34 @@
                 
             </select>
             
-            <br>
-            <br>
+
             <button id="refreshButton" onclick="updatePage()" hidden>Refresh</button>
             <button id="startAutoRefreshButton" onclick="startAutoRefresh()" hidden>Start Auto Refresh</button>
             <button id="stopAutoRefreshButton" onclick="stopAutoRefresh()" hidden>Stop Auto Refresh</button>
             <p id="lastRefreshedTimeLabel"></p>
-            <br>
-            <br>
+
             
             <p id="stationLabel"></p>
-            <br>
-            <br>
+
         </div>
         
         
         
-        <div id="ETAContainerDIV">
+        <div id="ETAContainerDIV" hidden>
 
             <div id="ETAchoosenDirectionDIV" style="height: 100vh;">
                 <div id="ETAheaderContainer" style="background-color:#00387D; height:16%; display: flex;
   align-items: center;">
-                    <span id="ETAheader" style="color:#FFFFFF">ETAheader</span>
+                    <span id="ETAheader" style="color:#FFFFFF"></span>
+                    <div id="ETAheaderFloatRightContainer" style="margin-left: auto">
+                        <span id="currentTimeLabel" style="color:#FFFFFF">Time</span>
+                    </div>
                 </div>
                 <div id="ETA0Container" style="background-color:#FFFFFF; height:21%; display: flex;
   align-items: center;">
                     <span id="ETA0destination"> ETA0destination</span>
                     <div id="ETA0floatRightContainer" style="margin-left: auto">
-                        <span id="ETA0platform"> ETA0platform</span>
+                        <span id="ETA0platform" hidden> ETA0platform</span>
                         <span id="ETA0time"> ETA0time</span>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
   align-items: center;">
                     <span id="ETA1destination"> ETA1destination</span>
                     <div id="ETA1floatRightContainer" style="margin-left: auto">
-                        <span id="ETA1platform"> ETA0platform</span>
+                        <span id="ETA1platform" hidden> ETA0platform</span>
                         <span id="ETA1time"> ETA0time</span>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
   align-items: center;">
                     <span id="ETA2destination"> ETA2destination</span>
                     <div id="ETA2floatRightContainer" style="margin-left: auto">
-                        <span id="ETA2platform"> ETA0platform</span>
+                        <span id="ETA2platform" hidden> ETA0platform</span>
                         <span id="ETA2time"> ETA0time</span>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
   align-items: center;">
                     <span id="ETA3destination"> ETA3destination</span>
                     <div id="ETA3floatRightContainer" style="margin-left: auto">
-                        <span id="ETA3platform"> ETA0platform</span>
+                        <span id="ETA3platform" hidden> ETA0platform</span>
                         <span id="ETA3time"> ETA0time</span>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
   align-items: center;" hidden>
                     <span id="ETA4destination"> ETA4destination</span>
                     <div id="ETA4floatRightContainer" style="margin-left: auto">
-                        <span id="ETA4platform"> ETA1=platform</span>
+                        <span id="ETA4platform" hidden> ETA1platform</span>
                         <span id="ETA4time"> ETA0time</span>
                     </div>
                 </div>
@@ -349,8 +349,10 @@
                 document.getElementById("startAutoRefreshButton").hidden = true;
                 document.getElementById("stopAutoRefreshButton").hidden = false;
                 document.getElementById("refreshButton").hidden = true;
-                intervalID = setInterval(function(){ updatePage(); }, 3000);
+                intervalID = setInterval(function(){ updatePage(); }, 100);
                 document.getElementById("settingsDIV").hidden = true;
+                document.getElementById("ETAContainerDIV").hidden = false;
+        
             }
             
             function stopAutoRefresh(){
@@ -424,6 +426,9 @@
                 }
                 
                 document.getElementById("lastRefreshedTimeLabel").innerHTML = json.curr_time;
+                var time = new Date();
+                var currentTime = time.getHours() + ":" + time.getMinutes();
+                document.getElementById("currentTimeLabel").innerHTML = currentTime;
             }
             
             

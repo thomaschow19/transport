@@ -8,8 +8,14 @@
                     @font-face {
                         font-family: myriadPro;
                         src: url(english.ttf);}
+                    @font-face {
+                        font-family: chinese;
+                        src: url(chinese.otf);
+                        unicode-range: U+4E00-9FFF;
+                    }
+                    
                     body {
-                        font-family: myriadPro;
+                        font-family: chinese, myriadPro;
                         font-size:6vw;
                         height: 100%;
                         overflow: hidden;
@@ -265,8 +271,514 @@
                 },
                 
                 "DRL": {
-                    "DIS" : "Disneyland Resort",
+                    "DIS": "Disneyland Resort",
                     "SUN": "Sunny Bay"
+                }
+            }
+            
+            let newStationList = {
+                "TKL": {
+                    "NOP": {
+                        "fullName_en": "North Point",
+                        "fullName_ch": "北角"
+                    },
+                    "QUB": {
+                        "fullName_en": "Quarry Bay",
+                        "fullName_ch": "鰂魚涌"
+                    },
+                    "YAT": {
+                        "fullName_en": "Yau Tong",
+                        "fullName_ch": "油塘"
+                    },
+                    "TIK": {
+                        "fullName_en": "Tiu Keng Leng",
+                        "fullName_ch": "調景嶺"
+                    },
+                    "TKO": {
+                        "fullName_en": "Tseung Kwan O",
+                        "fullName_ch": "將軍澳"
+                    },
+                    "LHP": {
+                        "fullName_en": "LOHAS Park",
+                        "fullName_ch": "康城"
+                    },
+                    "HAH": {
+                        "fullName_en": "Hang Hau",
+                        "fullName_ch": "坑口"
+                    },
+                    "POA": {
+                        "fullName_en": "Po Lam",
+                        "fullName_ch": "寶琳"
+                    },
+                },
+                "AEL": {
+                    "HOK": {
+                        "fullName_en": "Hong Kong",
+                        "fullName_ch": ""
+                    },
+                    "KOW": {
+                        "fullName_en": "Kowloon",
+                        "fullName_ch": ""
+                    },
+                    "TSY": {
+                        "fullName_en": "Tsing Yi",
+                        "fullName_ch": ""
+                    },
+                    "AIR": {
+                        "fullName_en": "Airport",
+                        "fullName_ch": ""
+                    },
+                    "AWE": {
+                        "fullName_en": "AsiaWorld Expo",
+                        "fullName_ch": ""
+                    },
+                },
+                "TCL": {
+                    "HOK": {
+                        "fullName_en": "Hong Kong",
+                        "fullName_ch": ""
+                    },
+                    "KOW": {
+                        "fullName_en": "Kowloon",
+                        "fullName_ch": ""
+                    },
+                    "OLY": {
+                        "fullName_en": "Olympic",
+                        "fullName_ch": ""
+                    },
+                    "NAC": {
+                        "fullName_en": "Nam Cheong",
+                        "fullName_ch": ""
+                    },
+                    "LAK": {
+                        "fullName_en": "Lai King",
+                        "fullName_ch": ""
+                    },
+                    "TSY": {
+                        "fullName_en": "Tsing Yi",
+                        "fullName_ch": ""
+                    },
+                    "SUN": {
+                        "fullName_en": "Sunny Bay",
+                        "fullName_ch": ""
+                    },
+                    "TUC": {
+                        "fullName_en": "Tung Chung",
+                        "fullName_ch": ""
+                    },
+                },
+                "EAL": {
+                    "ADM": {
+                        "fullName_en": "Admiralty",
+                        "fullName_ch": ""
+                    },
+                    "EXC": {
+                        "fullName_en": "Exhibition Centre",
+                        "fullName_ch": ""
+                    },
+                    "HUH": {
+                        "fullName_en": "Hung Hom",
+                        "fullName_ch": ""
+                    },
+                    "MKK": {
+                        "fullName_en": "Mong Kok East",
+                        "fullName_ch": ""
+                    },
+                    "KOT": {
+                        "fullName_en": "Kowloon Tong",
+                        "fullName_ch": ""
+                    },
+                    "TAW": {
+                        "fullName_en": "Tai Wai",
+                        "fullName_ch": ""
+                    },
+                    "SHT": {
+                        "fullName_en": "Sha Tin",
+                        "fullName_ch": ""
+                    },
+                    "FOT": {
+                        "fullName_en": "Fo Tan",
+                        "fullName_ch": ""
+                    },
+                    "UNI": {
+                        "fullName_en": "University",
+                        "fullName_ch": ""
+                    },
+                    "TAP": {
+                        "fullName_en": "Tai Po Market",
+                        "fullName_ch": ""
+                    },
+                    "TWO": {
+                        "fullName_en": "Tai Wo",
+                        "fullName_ch": ""
+                    },
+                    "FAN": {
+                        "fullName_en": "Fanling",
+                        "fullName_ch": ""
+                    },
+                    "SHS": {
+                        "fullName_en": "Sheung Shui",
+                        "fullName_ch": ""
+                    },
+                    "LOW": {
+                        "fullName_en": "Lo Wu",
+                        "fullName_ch": ""
+                    },
+                    "LMC": {
+                        "fullName_en": "Lok Ma Chau",
+                        "fullName_ch": ""
+                    },
+                },
+                "TML": {
+                    "WKS": {
+                        "fullName_en": "Wu Kai Sha",
+                        "fullName_ch": ""
+                    },
+                    "MOS": {
+                        "fullName_en": "Ma On Shan",
+                        "fullName_ch": ""
+                    },
+                    "HEO": {
+                        "fullName_en": "Heng On",
+                        "fullName_ch": ""
+                    },
+                    "TSH": {
+                        "fullName_en": "Tai Shui Hang",
+                        "fullName_ch": ""
+                    },
+                    "SHM": {
+                        "fullName_en": "Shek Mun",
+                        "fullName_ch": ""
+                    },
+                    "CIO": {
+                        "fullName_en": "City One",
+                        "fullName_ch": ""
+                    },
+                    "STW": {
+                        "fullName_en": "Sha Tin Wai",
+                        "fullName_ch": ""
+                    },
+                    "CKT": {
+                        "fullName_en": "Che Kung Temple",
+                        "fullName_ch": ""
+                    },
+                    "TAW": {
+                        "fullName_en": "Tai Wai",
+                        "fullName_ch": ""
+                    },
+                    "HIK": {
+                        "fullName_en": "Hin Keng",
+                        "fullName_ch": ""
+                    },
+                    "DIH": {
+                        "fullName_en": "Diamond Hill",
+                        "fullName_ch": ""
+                    },
+                    "KAT": {
+                        "fullName_en": "Kai Tak",
+                        "fullName_ch": ""
+                    },
+                    "SUW": {
+                        "fullName_en": "Sung Wong Toi",
+                        "fullName_ch": ""
+                    },
+                    "TKW": {
+                        "fullName_en": "To Kwa Wan",
+                        "fullName_ch": ""
+                    },
+                    "HOM": {
+                        "fullName_en": "Ho Man Tin",
+                        "fullName_ch": ""
+                    },
+                    "HUH": {
+                        "fullName_en": "Hung Hom",
+                        "fullName_ch": ""
+                    },
+                    "ETS": {
+                        "fullName_en": "East Tsim Sha Tsui",
+                        "fullName_ch": ""
+                    },
+                    "AUS": {
+                        "fullName_en": "Austin",
+                        "fullName_ch": ""
+                    },
+                    "NAC": {
+                        "fullName_en": "Nam Cheong",
+                        "fullName_ch": ""
+                    },
+                    "MEF": {
+                        "fullName_en": "Mei Foo",
+                        "fullName_ch": ""
+                    },
+                    "TWW": {
+                        "fullName_en": "Tsuen Wan West",
+                        "fullName_ch": ""
+                    },
+                    "KSR": {
+                        "fullName_en": "Kam Sheung Road",
+                        "fullName_ch": ""
+                    },
+                    "YUL": {
+                        "fullName_en": "Yuen Long",
+                        "fullName_ch": ""
+                    },
+                    "LOP": {
+                        "fullName_en": "Long Ping",
+                        "fullName_ch": ""
+                    },
+                    "TIS": {
+                        "fullName_en": "Tin Shui Wai",
+                        "fullName_ch": ""
+                    },
+                    "SIH": {
+                        "fullName_en": "Siu Hong",
+                        "fullName_ch": ""
+                    },
+                    "TUM": {
+                        "fullName_en": "Tuen Mun",
+                        "fullName_ch": ""
+                    },
+                },
+                "KTL": {
+                    "WHA": {
+                        "fullName_en": "Whampoa",
+                        "fullName_ch": ""
+                    },
+                    "HOM": {
+                        "fullName_en": "Ho Man Tin",
+                        "fullName_ch": ""
+                    },
+                    "YMT": {
+                        "fullName_en": "Yau Ma Tei",
+                        "fullName_ch": ""
+                    },
+                    "MOK": {
+                        "fullName_en": "Mong Kok",
+                        "fullName_ch": ""
+                    },
+                    "PRE": {
+                        "fullName_en": "Prince Edward",
+                        "fullName_ch": ""
+                    },
+                    "SKM": {
+                        "fullName_en": "Shek Kip Mei",
+                        "fullName_ch": ""
+                    },
+                    "KOT": {
+                        "fullName_en": "Kowloon Tong",
+                        "fullName_ch": ""
+                    },
+                    "LOF": {
+                        "fullName_en": "Lok Fu",
+                        "fullName_ch": ""
+                    },
+                    "WTS": {
+                        "fullName_en": "Wong Tai Sin",
+                        "fullName_ch": ""
+                    },
+                    "DIH": {
+                        "fullName_en": "Diamond Hill",
+                        "fullName_ch": ""
+                    },
+                    "CHH": {
+                        "fullName_en": "Choi Hung",
+                        "fullName_ch": ""
+                    },
+                    "KOB": {
+                        "fullName_en": "Kowloon Bay",
+                        "fullName_ch": ""
+                    },
+                    "NTK": {
+                        "fullName_en": "Ngau Tau Kok",
+                        "fullName_ch": ""
+                    },
+                    "KWT": {
+                        "fullName_en": "Kwun Tong",
+                        "fullName_ch": ""
+                    },
+                    "LAT": {
+                        "fullName_en": "Lam Tin",
+                        "fullName_ch": ""
+                    },
+                    "YAT": {
+                        "fullName_en": "Yau Tong",
+                        "fullName_ch": ""
+                    },
+                    "TIK": {
+                        "fullName_en": "Tiu Keng Leng",
+                        "fullName_ch": ""
+                    },
+                },
+                "ISL": {
+                    "KET": {
+                        "fullName_en": "Kennedy Town",
+                        "fullName_ch": ""
+                    },
+                    "HKU": {
+                        "fullName_en": "HKU",
+                        "fullName_ch": ""
+                    },
+                    "SYP": {
+                        "fullName_en": "Sai Ying Pun",
+                        "fullName_ch": ""
+                    },
+                    "SHW": {
+                        "fullName_en": "Sheung Wan",
+                        "fullName_ch": ""
+                    },
+                    "CEN": {
+                        "fullName_en": "Central",
+                        "fullName_ch": ""
+                    },
+                    "ADM": {
+                        "fullName_en": "Admiralty",
+                        "fullName_ch": ""
+                    },
+                    "WAC": {
+                        "fullName_en": "Wan Chai",
+                        "fullName_ch": ""
+                    },
+                    "CAB": {
+                        "fullName_en": "Causeway Bay",
+                        "fullName_ch": ""
+                    },
+                    "TIH": {
+                        "fullName_en": "Tin Hau",
+                        "fullName_ch": ""
+                    },
+                    "FOH": {
+                        "fullName_en": "Fortress Hill",
+                        "fullName_ch": ""
+                    },
+                    "NOP": {
+                        "fullName_en": "North Point",
+                        "fullName_ch": ""
+                    },
+                    "QUB": {
+                        "fullName_en": "Quarry Bay",
+                        "fullName_ch": ""
+                    },
+                    "TAK": {
+                        "fullName_en": "Tai Koo",
+                        "fullName_ch": ""
+                    },
+                    "SWH": {
+                        "fullName_en": "Sai Wan Ho",
+                        "fullName_ch": ""
+                    },
+                    "SKW": {
+                        "fullName_en": "Shau Kei Wan",
+                        "fullName_ch": ""
+                    },
+                    "HFC": {
+                        "fullName_en": "Heng Fa Chuen",
+                        "fullName_ch": ""
+                    },
+                    "CHW": {
+                        "fullName_en": "Chai Wan",
+                        "fullName_ch": ""
+                    },
+                },
+                "TWL": {
+                    "CEN": {
+                        "fullName_en": "Central",
+                        "fullName_ch": ""
+                    },
+                    "ADM": {
+                        "fullName_en": "Admiralty",
+                        "fullName_ch": ""
+                    },
+                    "TST": {
+                        "fullName_en": "Tsim Sha Tsui",
+                        "fullName_ch": ""
+                    },
+                    "JOR": {
+                        "fullName_en": "Jordan",
+                        "fullName_ch": ""
+                    },
+                    "YMT": {
+                        "fullName_en": "Yau Ma Tei",
+                        "fullName_ch": ""
+                    },
+                    "MOK": {
+                        "fullName_en": "Mong Kok",
+                        "fullName_ch": ""
+                    },
+                    "PRE": {
+                        "fullName_en": "Prince Edward",
+                        "fullName_ch": ""
+                    },
+                    "SSP": {
+                        "fullName_en": "Sham Shui Po",
+                        "fullName_ch": ""
+                    },
+                    "CSW": {
+                        "fullName_en": "Cheung Sha Wan",
+                        "fullName_ch": ""
+                    },
+                    "LCK": {
+                        "fullName_en": "Lai Chi Kok",
+                        "fullName_ch": ""
+                    },
+                    "MEF": {
+                        "fullName_en": "Mei Foo",
+                        "fullName_ch": ""
+                    },
+                    "LAK": {
+                        "fullName_en": "Lai King",
+                        "fullName_ch": ""
+                    },
+                    "KWF": {
+                        "fullName_en": "Kwai Fong",
+                        "fullName_ch": ""
+                    },
+                    "KWH": {
+                        "fullName_en": "Kwai Hing",
+                        "fullName_ch": ""
+                    },
+                    "TWH": {
+                        "fullName_en": "Tai Wo Hau",
+                        "fullName_ch": ""
+                    },
+                    "TSW": {
+                        "fullName_en": "Tsuen Wan",
+                        "fullName_ch": ""
+                    },
+                },
+                
+                "SIL": {
+                    "ADM": {
+                        "fullName_en": "Admiralty",
+                        "fullName_ch": ""
+                    },
+                    "OCP": {
+                        "fullName_en": "Ocean Park",
+                        "fullName_ch": ""
+                    },
+                    "WCH": {
+                        "fullName_en": "Wong Chuk Hang",
+                        "fullName_ch": ""
+                    },
+                    "LET": {
+                        "fullName_en": "Lei Tung",
+                        "fullName_ch": ""
+                    },
+                    "SOH": {
+                        "fullName_en": "South Horizons",
+                        "fullName_ch": ""
+                    },
+                    
+                },
+                
+                "DRL": {
+                    "DIS": {
+                    "fullName_en": "Disneyland Resort",
+                        "fullName_ch": ""
+                    },
+                    "SUN": {
+                        "fullName_en": "Sunny Bay",
+                        "fullName_ch": ""
+                    },
                 }
             }
             
@@ -344,7 +856,7 @@
             }
             
             function updateStationLabel(line, station){
-                let stationFullName = stationList[line][station];
+                let stationFullName = newStationList[line][station]["fullName_en"];
                 let lineFullName = lineList[line]["fullName"];
                 let text = "Showing information of <b>" + stationFullName + "</b> station on the " + lineFullName;
                 let elementID = "stationLabel";
@@ -415,7 +927,7 @@
                             let ttnt = json.data[lineStation][dir][i]["ttnt"];
                             let dest = json.data[lineStation][dir][i]["dest"];
                             let plat = json.data[lineStation][dir][i]["plat"];
-                            let destFullName = stationList[line][dest];
+                            let destFullName = newStationList[line][dest]["fullName_en"];
                             let timeMessage = "";
                             if(ttnt < 1){
                                 timeMessage = ""
@@ -520,10 +1032,10 @@
                     
                     document.getElementById("stationListDropdown").innerHTML += "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
                 } else {
-                    var listOfStationsInSelectedLine = stationList[line];
+                    var listOfStationsInSelectedLine = newStationList[line];
                     for (var staID in listOfStationsInSelectedLine){
                         
-                        document.getElementById("stationListDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID] + "</option>"
+                        document.getElementById("stationListDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID]["fullName_en"] + "</option>"
                     }
                 }
             }
@@ -543,10 +1055,10 @@
                             
                             if(destFullNames == ""){
                                 console.log({ destConcerned });
-                                destFullNames += stationList[line][destConcerned];
+                                destFullNames += newStationList[line][destConcerned]["fullName_en"];
                             } else {
                                 console.log({ destConcerned });
-                                destFullNames += " / " + stationList[line][destConcerned];
+                                destFullNames += " / " + newStationList[line][destConcerned]["fullName_en"];
                             }
                             
                         }

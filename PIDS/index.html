@@ -30,7 +30,7 @@
     </head>
     <body>
         <div id="settingsDIV">
-            <h2>Next Train PSD Config</h2>
+            <h2>Next Train PIDS</h2>
             <select id="lineListDropdown" onchange = "lineChanged()" >
                 
             </select>
@@ -44,7 +44,7 @@
             </select>
             
             
-            <button id="refreshButton" onclick="updatePage()" hidden>Refresh</button>
+            <button id="refreshButton" onclick="updatePage()" hidden>Reload Data from API</button>
             <button id="startPIDSButton" onclick="startPIDS()" hidden>Start PIDS</button>
             <button id="stopPIDSButton" onclick="stopPIDS()" hidden>Stop PIDS</button>
             <button id="LOHASExpressButton" onclick="LOHASExpress()">Start PIDS at LOHAS Park</button>

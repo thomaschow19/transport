@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
-        <style>
-            @font-face {
-                font-family: myriadPro;
-                src: url(english.ttf);}
-            body {
-                font-family: myriadPro;
-                font-size:4vw;
-                height: 100%;
-                overflow: hidden;
-            }
-            
-            .vertical-center {
-                margin: 0;
-                position: absolute;
-                top: 50%;
-                -ms-transform: translateY(-50%);
-                transform: translateY(-50%);
-            }
-            [hidden] {
-                display: none !important;
-            }
-        </style>
         
+        <meta name="apple-mobile-web-app-capable" content="yes">
+            
+            <style>
+                @font-face {
+                    font-family: myriadPro;
+                    src: url(english.ttf);}
+                body {
+                    font-family: myriadPro;
+                    font-size:6vw;
+                    height: 100%;
+                    overflow: hidden;
+                }
+                
+                .vertical-center {
+                    margin: 0;
+                    position: absolute;
+                    top: 50%;
+                    -ms-transform: translateY(-50%);
+                    transform: translateY(-50%);
+                }
+                [hidden] {
+                    display: none !important;
+                }
+            </style>
+            
     </head>
     <body>
         <div id="settingsDIV">
@@ -43,73 +43,73 @@
                 
             </select>
             
-
+            
             <button id="refreshButton" onclick="updatePage()" hidden>Refresh</button>
             <button id="startPIDSButton" onclick="startPIDS()" hidden>Start PIDS</button>
             <button id="stopPIDSButton" onclick="stopPIDS()" hidden>Stop PIDS</button>
             <button id="LOHASExpressButton" onclick="LOHASExpress()">Start PIDS at LOHAS Park</button>
             <p id="lastRefreshedTimeLabel"></p>
-
+            
             
             <p id="stationLabel"></p>
-
+            
         </div>
         
         
         
         <div id="ETAContainerDIV" hidden>
-
+            
             <div id="ETAchoosenDirectionDIV" style="height: 100vh;">
                 <div id="ETAheaderContainer" style="background-color:#00387D; height:16%; display: flex;
   align-items: center;">
-                    <span id="ETAheader" style="color:#FFFFFF"></span>
-                    <div id="ETAheaderFloatRightContainer" style="margin-left: auto">
-                        <span id="currentTimeLabel" style="color:#FFFFFF">Time</span>
-                    </div>
+  <span id="ETAheader" style="color:#FFFFFF"></span>
+  <div id="ETAheaderFloatRightContainer" style="margin-left: auto; margin-right: 2vw">
+      <span id="currentTimeLabel" style="color:#FFFFFF; font-size:5vw">Time</span>
+  </div>
                 </div>
                 <div id="ETA0Container" style="background-color:#FFFFFF; height:21%; display: flex;
   align-items: center;">
-                    <span id="ETA0destination"> ETA0destination</span>
-                    <div id="ETA0floatRightContainer" style="margin-left: auto">
-                        <span id="ETA0platform" hidden> ETA0platform</span>
-                        <span id="ETA0time"> ETA0time</span>
-                    </div>
+  <span id="ETA0destination" style="margin-left: 2vw"> Destination</span>
+  <div id="ETA0floatRightContainer" style="margin-left: auto; margin-right: 2vw">
+      <span id="ETA0platform" hidden> ETA0platform</span>
+      <span id="ETA0time"> ETA</span>
+  </div>
                 </div>
                 <div id="ETA1Container" style="background-color:#BDDBFF; height:21%; display: flex;
   align-items: center;">
-                    <span id="ETA1destination"> ETA1destination</span>
-                    <div id="ETA1floatRightContainer" style="margin-left: auto">
-                        <span id="ETA1platform" hidden> ETA0platform</span>
-                        <span id="ETA1time"> ETA0time</span>
-                    </div>
+  <span id="ETA1destination" style="margin-left: 2vw"> Destination</span>
+  <div id="ETA1floatRightContainer" style="margin-left: auto; margin-right: 2vw">
+      <span id="ETA1platform" hidden> ETA0platform</span>
+      <span id="ETA1time"> ETA</span>
+  </div>
                 </div>
                 <div id="ETA2Container" style="background-color:#FFFFFF; height:21%; display: flex;
   align-items: center;">
-                    <span id="ETA2destination"> ETA2destination</span>
-                    <div id="ETA2floatRightContainer" style="margin-left: auto">
-                        <span id="ETA2platform" hidden> ETA0platform</span>
-                        <span id="ETA2time"> ETA0time</span>
-                    </div>
+  <span id="ETA2destination" style="margin-left: 2vw"> Destination</span>
+  <div id="ETA2floatRightContainer" style="margin-left: auto; margin-right: 2vw">
+      <span id="ETA2platform" hidden> ETA0platform</span>
+      <span id="ETA2time"> ETA</span>
+  </div>
                 </div>
                 <div id="ETA3Container" style="background-color:#BDDBFF; height:21%; display: flex;
   align-items: center;">
-                    <span id="ETA3destination"> ETA3destination</span>
-                    <div id="ETA3floatRightContainer" style="margin-left: auto">
-                        <span id="ETA3platform" hidden> ETA0platform</span>
-                        <span id="ETA3time"> ETA0time</span>
-                    </div>
+  <span id="ETA3destination" style="margin-left: 2vw"> Destination</span>
+  <div id="ETA3floatRightContainer" style="margin-left: auto; margin-right: 2vw">
+      <span id="ETA3platform" hidden> ETA0platform</span>
+      <span id="ETA3time"> ETA</span>
+  </div>
                 </div>
                 <div id="ETA4Container" style="background-color:#FFFFFF; height:21%; display: flex;
   align-items: center;" hidden>
-                    <span id="ETA4destination"> ETA4destination</span>
-                    <div id="ETA4floatRightContainer" style="margin-left: auto">
-                        <span id="ETA4platform" hidden> ETA1platform</span>
-                        <span id="ETA4time"> ETA0time</span>
-                    </div>
+  <span id="ETA4destination" style="margin-left: 2vw"> Destination</span>
+  <div id="ETA4floatRightContainer" style="margin-left: auto; margin-right: 2vw">
+      <span id="ETA4platform" hidden> ETA1platform</span>
+      <span id="ETA4time"> ETA</span>
+  </div>
                 </div>
                 <div id="ETAStatusContainer" style="background-color:#BDDBFF; height:21%; display: flex;
-  align-items: center;">
-                    <span id="ETAStatus">ETAStatusContainer</span>
+  align-items: center;" hidden>
+  <span id="ETAStatus" style="margin-left: 2vw">ETAStatusContainer</span>
                 </div>
                 
             </div>
@@ -287,7 +287,7 @@
                 },
                 "ISL": {
                     "fullName": "Island Line",
-                    "enableETA": false,
+                    "enableETA": true,
                     "enableLOHAS": false,
                     "UP_dest": ["CHW"],
                     "DOWN_dest": ["KET"]
@@ -401,10 +401,10 @@
             function updateLabels(json, line, station, direction){
                 var lineStation = line + '-' + station
                 var dir = direction
-
+                
                 if(dir in json.data[lineStation]) {
                     document.getElementById("ETAStatusContainer").hidden = true;
-
+                    
                     for (let i = 0; i < 5; i++) {
                         let elementIDdestination = "ETA" + i + "destination";
                         let elementIDplatform = "ETA" + i + "platform";
@@ -420,9 +420,9 @@
                             if(ttnt < 1){
                                 timeMessage = ""
                             } else if(ttnt == 1) {
-                                timeMessage = ttnt + " min"
+                                timeMessage = ttnt + "<span style='font-size:3vw; margin-left: 1vw;'>min</span>"
                             } else {
-                                timeMessage = ttnt + " mins"
+                                timeMessage = ttnt + "<span style='font-size:3vw; margin-left: 1vw;'>mins</span>"
                             }
                             
                             document.getElementById(elementIDdestination).innerHTML = destFullName;
@@ -472,7 +472,7 @@
                 var line = lineListDropdown.value;
                 console.log({ line });
                 
-
+                
                 
                 updateStationDropdown(line);
                 updateDirectionDropdown(line, "");

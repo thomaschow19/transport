@@ -124,7 +124,7 @@
         
         
         <script>
-            
+
             const directions = ["UP", "DOWN"];
             let intervalID;
             
@@ -901,9 +901,9 @@
                 Httpreq.open("GET",url,false);
                 Httpreq.send(null);
                 var response = Httpreq.responseText;
-                console.log({ response });
+
                 var json_obj = JSON.parse(response);
-                console.log({ json_obj });
+
                 return json_obj;
                 
             }
@@ -982,7 +982,7 @@
                 
                 var lineListDropdown = document.getElementById("lineListDropdown");
                 var line = lineListDropdown.value;
-                console.log({ line });
+
                 
                 
                 
@@ -1054,19 +1054,34 @@
                         for(const destConcerned of destinations){
                             
                             if(destFullNames == ""){
-                                console.log({ destConcerned });
+
                                 destFullNames += newStationList[line][destConcerned]["fullName_en"];
                             } else {
-                                console.log({ destConcerned });
+
                                 destFullNames += " / " + newStationList[line][destConcerned]["fullName_en"];
                             }
                             
                         }
-                        console.log({ destFullNames });
+
                         document.getElementById("directionListDropdown").innerHTML += "<option value='" + dir + "'> To: " + destFullNames + "</option>"
                     }
                     
                     
+                }
+            }
+            
+            function processURLParameter(){
+                const queryString = window.location.search;
+                console.log({ queryString });
+                const urlParams = new URLSearchParams(queryString);
+                const LOHASExpress = urlParams.get('LOHAS')
+                if(LOHASExpress=="true"){
+                    document.getElementById("startPIDSButton").hidden = true;
+                    document.getElementById("stopPIDSButton").hidden = false;
+                    document.getElementById("refreshButton").hidden = true;
+                    intervalID = setInterval(function(){ updateLabels(callAPI("TKL", "LHP"), "TKL", "LHP", "DOWN"); }, 500);
+                    document.getElementById("settingsDIV").hidden = true;
+                    document.getElementById("ETAContainerDIV").hidden = false;
                 }
             }
             
@@ -1079,6 +1094,7 @@
             updateLineDropdown();
             updateStationDropdown("");
             updateDirectionDropdown("", "")
+            processURLParameter();
             
             
         </script>

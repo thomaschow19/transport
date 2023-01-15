@@ -443,8 +443,8 @@
                 }
                 
                 document.getElementById("lastRefreshedTimeLabel").innerHTML = json.curr_time;
-                var time = new Date();
-                var currentTime = time.getHours() + ":" + time.getMinutes();
+                var date = new Date();
+                var currentTime = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
                 document.getElementById("currentTimeLabel").innerHTML = currentTime;
             }
             

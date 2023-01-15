@@ -1074,14 +1074,9 @@
                 const queryString = window.location.search;
                 console.log({ queryString });
                 const urlParams = new URLSearchParams(queryString);
-                const LOHASExpress = urlParams.get('LOHAS')
+                const LOHASExpress = urlParams.get('LOHAS');
                 if(LOHASExpress=="true"){
-                    document.getElementById("startPIDSButton").hidden = true;
-                    document.getElementById("stopPIDSButton").hidden = false;
-                    document.getElementById("refreshButton").hidden = true;
-                    intervalID = setInterval(function(){ updateLabels(callAPI("TKL", "LHP"), "TKL", "LHP", "DOWN"); }, 500);
-                    document.getElementById("settingsDIV").hidden = true;
-                    document.getElementById("ETAContainerDIV").hidden = false;
+                    LOHASExpress();
                 }
             }
             

@@ -45,8 +45,9 @@
             
 
             <button id="refreshButton" onclick="updatePage()" hidden>Refresh</button>
-            <button id="startAutoRefreshButton" onclick="startAutoRefresh()" hidden>Start Auto Refresh</button>
-            <button id="stopAutoRefreshButton" onclick="stopAutoRefresh()" hidden>Stop Auto Refresh</button>
+            <button id="startPIDSButton" onclick="startPIDS()" hidden>Start PIDS</button>
+            <button id="stopPIDSButton" onclick="stopPIDS()" hidden>Stop PIDS</button>
+            <button id="LOHASExpressButton" onclick="LOHASExpress()">Start PIDS at LOHAS Park</button>
             <p id="lastRefreshedTimeLabel"></p>
 
             
@@ -350,21 +351,32 @@
                 document.getElementById(elementID).innerHTML = text
             }
             
-            function startAutoRefresh(){
-                document.getElementById("startAutoRefreshButton").hidden = true;
-                document.getElementById("stopAutoRefreshButton").hidden = false;
+            function startPIDS(){
+                document.getElementById("startPIDSButton").hidden = true;
+                document.getElementById("stopPIDSButton").hidden = false;
                 document.getElementById("refreshButton").hidden = true;
                 intervalID = setInterval(function(){ updatePage(); }, 100);
                 document.getElementById("settingsDIV").hidden = true;
                 document.getElementById("ETAContainerDIV").hidden = false;
-        
             }
             
-            function stopAutoRefresh(){
-                document.getElementById("stopAutoRefreshButton").hidden = true;
-                document.getElementById("startAutoRefreshButton").hidden = false;
+            function stopPIDS(){
+                document.getElementById("stopPIDSButton").hidden = true;
+                document.getElementById("startPIDSButton").hidden = false;
                 document.getElementById("refreshButton").hidden = false;
                 clearInterval(intervalID);
+                document.getElementById("settingsDIV").hidden = false;
+                document.getElementById("ETAContainerDIV").hidden = true;
+            }
+            
+            function LOHASExpress(){
+                document.getElementById("lineListDropdown").value = "TKL";
+                lineChanged();
+                document.getElementById("stationListDropdown").value = "LHP";
+                stationChanged();
+                document.getElementById("directionListDropdown").value = "DOWN";
+                directionChanged();
+                startPIDS();
             }
             
             
@@ -468,7 +480,7 @@
             }
             
             function stationChanged(){
-                stopAutoRefresh();
+                stopPIDS();
                 var stationListDropdown = document.getElementById("stationListDropdown");
                 
                 let station = stationListDropdown.value;

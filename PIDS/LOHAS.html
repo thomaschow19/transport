@@ -463,7 +463,7 @@
                 var directionListDropdown = document.getElementById("directionListDropdown");
                 let direction = directionListDropdown.value;
                 updateStationLabel(line, station);
-                updateLabels(callAPI(line, station), line, station, direction);
+                updateLabels(callAPI("TKL", "LHP"), "TKL", "LHP", "DOWN");
             }
             
             function lineChanged(){

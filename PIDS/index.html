@@ -124,7 +124,7 @@
         
         
         <script>
-
+            
             const directions = ["UP", "DOWN"];
             let intervalID;
             
@@ -280,263 +280,389 @@
                 "TKL": {
                     "NOP": {
                         "fullName_en": "North Point",
-                        "fullName_ch": "北角"
+                        "fullName_ch": "北角",
+                        "UP_dest": ["POA", "LHP"],
+                        "DOWN_dest": []
                     },
                     "QUB": {
                         "fullName_en": "Quarry Bay",
-                        "fullName_ch": "鰂魚涌"
+                        "fullName_ch": "鰂魚涌",
+                        "UP_dest": ["POA", "LHP"],
+                        "DOWN_dest": ["NOP"]
                     },
                     "YAT": {
                         "fullName_en": "Yau Tong",
-                        "fullName_ch": "油塘"
+                        "fullName_ch": "油塘",
+                        "UP_dest": ["POA", "LHP"],
+                        "DOWN_dest": ["NOP"]
                     },
                     "TIK": {
                         "fullName_en": "Tiu Keng Leng",
-                        "fullName_ch": "調景嶺"
+                        "fullName_ch": "調景嶺",
+                        "UP_dest": ["POA", "LHP"],
+                        "DOWN_dest": ["NOP"]
                     },
                     "TKO": {
                         "fullName_en": "Tseung Kwan O",
-                        "fullName_ch": "將軍澳"
+                        "fullName_ch": "將軍澳",
+                        "UP_dest": ["POA", "LHP"],
+                        "DOWN_dest": ["NOP"]
                     },
                     "LHP": {
                         "fullName_en": "LOHAS Park",
-                        "fullName_ch": "康城"
+                        "fullName_ch": "康城",
+                        "UP_dest": [],
+                        "DOWN_dest": ["NOP", "TIK"]
                     },
                     "HAH": {
                         "fullName_en": "Hang Hau",
-                        "fullName_ch": "坑口"
+                        "fullName_ch": "坑口",
+                        "UP_dest": ["POA"],
+                        "DOWN_dest": ["NOP", "LHP"]
                     },
                     "POA": {
                         "fullName_en": "Po Lam",
-                        "fullName_ch": "寶琳"
+                        "fullName_ch": "寶琳",
+                        "UP_dest": [],
+                        "DOWN_dest": ["NOP", "LHP"]
                     },
                 },
                 "AEL": {
                     "HOK": {
                         "fullName_en": "Hong Kong",
-                        "fullName_ch": "香港"
+                        "fullName_ch": "香港",
+                        "UP_dest": ["AIR", "AWE"],
+                        "DOWN_dest": []
                     },
                     "KOW": {
                         "fullName_en": "Kowloon",
-                        "fullName_ch": "九龍"
+                        "fullName_ch": "九龍",
+                        "UP_dest": ["AIR", "AWE"],
+                        "DOWN_dest": ["HOK"]
                     },
                     "TSY": {
                         "fullName_en": "Tsing Yi",
-                        "fullName_ch": "青衣"
+                        "fullName_ch": "青衣",
+                        "UP_dest": ["AIR", "AWE"],
+                        "DOWN_dest": ["HOK"]
                     },
                     "AIR": {
                         "fullName_en": "Airport",
-                        "fullName_ch": "機場"
+                        "fullName_ch": "機場",
+                        "UP_dest": ["AWE"],
+                        "DOWN_dest": ["HOK"]
                     },
                     "AWE": {
                         "fullName_en": "AsiaWorld Expo",
-                        "fullName_ch": "博覽館"
+                        "fullName_ch": "博覽館",
+                        "UP_dest": [],
+                        "DOWN_dest": ["AIR", "HOK"]
                     },
                 },
                 "TCL": {
                     "HOK": {
                         "fullName_en": "Hong Kong",
-                        "fullName_ch": "香港"
+                        "fullName_ch": "香港",
+                        "UP_dest": ["TUC"],
+                        "DOWN_dest": []
                     },
                     "KOW": {
                         "fullName_en": "Kowloon",
-                        "fullName_ch": "九龍"
+                        "fullName_ch": "九龍",
+                        "UP_dest": ["TUC"],
+                        "DOWN_dest": ["HOK"]
                     },
                     "OLY": {
                         "fullName_en": "Olympic",
-                        "fullName_ch": "奧運"
+                        "fullName_ch": "奧運",
+                        "UP_dest": ["TUC"],
+                        "DOWN_dest": ["HOK"]
                     },
                     "NAC": {
                         "fullName_en": "Nam Cheong",
-                        "fullName_ch": "南昌"
+                        "fullName_ch": "南昌",
+                        "UP_dest": ["TUC"],
+                        "DOWN_dest": ["HOK"]
                     },
                     "LAK": {
                         "fullName_en": "Lai King",
-                        "fullName_ch": "荔景"
+                        "fullName_ch": "荔景",
+                        "UP_dest": ["TUC"],
+                        "DOWN_dest": ["HOK"]
                     },
                     "TSY": {
                         "fullName_en": "Tsing Yi",
-                        "fullName_ch": "青衣"
+                        "fullName_ch": "青衣",
+                        "UP_dest": ["TUC"],
+                        "DOWN_dest": ["HOK"]
                     },
                     "SUN": {
                         "fullName_en": "Sunny Bay",
-                        "fullName_ch": "欣澳"
+                        "fullName_ch": "欣澳",
+                        "UP_dest": ["TUC"],
+                        "DOWN_dest": ["HOK"]
                     },
                     "TUC": {
                         "fullName_en": "Tung Chung",
-                        "fullName_ch": "東涌"
+                        "fullName_ch": "東涌",
+                        "UP_dest": [],
+                        "DOWN_dest": ["HOK"]
                     },
                 },
                 "EAL": {
                     "ADM": {
                         "fullName_en": "Admiralty",
-                        "fullName_ch": "金鐘"
+                        "fullName_ch": "金鐘",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": []
                     },
                     "EXC": {
                         "fullName_en": "Exhibition Centre",
-                        "fullName_ch": "會展"
+                        "fullName_ch": "會展",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "HUH": {
                         "fullName_en": "Hung Hom",
-                        "fullName_ch": "紅磡"
+                        "fullName_ch": "紅磡",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "MKK": {
                         "fullName_en": "Mong Kok East",
-                        "fullName_ch": "旺角東"
+                        "fullName_ch": "旺角東",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "KOT": {
                         "fullName_en": "Kowloon Tong",
-                        "fullName_ch": "九龍塘"
+                        "fullName_ch": "九龍塘",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "TAW": {
                         "fullName_en": "Tai Wai",
-                        "fullName_ch": "大圍"
+                        "fullName_ch": "大圍",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "SHT": {
                         "fullName_en": "Sha Tin",
-                        "fullName_ch": "沙田"
+                        "fullName_ch": "沙田",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "FOT": {
                         "fullName_en": "Fo Tan",
-                        "fullName_ch": "火炭"
+                        "fullName_ch": "火炭",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "UNI": {
                         "fullName_en": "University",
-                        "fullName_ch": "大學"
+                        "fullName_ch": "大學",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "TAP": {
                         "fullName_en": "Tai Po Market",
-                        "fullName_ch": "大埔墟"
+                        "fullName_ch": "大埔墟",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "TWO": {
                         "fullName_en": "Tai Wo",
-                        "fullName_ch": "太和"
+                        "fullName_ch": "太和",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "FAN": {
                         "fullName_en": "Fanling",
-                        "fullName_ch": "粉嶺"
+                        "fullName_ch": "粉嶺",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "SHS": {
                         "fullName_en": "Sheung Shui",
-                        "fullName_ch": "上水"
+                        "fullName_ch": "上水",
+                        "UP_dest": ["LOW", "LMC"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "LOW": {
                         "fullName_en": "Lo Wu",
-                        "fullName_ch": "羅湖"
+                        "fullName_ch": "羅湖",
+                        "UP_dest": [],
+                        "DOWN_dest": ["ADM"]
                     },
                     "LMC": {
                         "fullName_en": "Lok Ma Chau",
-                        "fullName_ch": "落馬洲"
+                        "fullName_ch": "落馬洲",
+                        "UP_dest": [],
+                        "DOWN_dest": ["ADM"]
                     },
                 },
                 "TML": {
                     "WKS": {
                         "fullName_en": "Wu Kai Sha",
-                        "fullName_ch": "烏溪沙"
+                        "fullName_ch": "烏溪沙",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": []
                     },
                     "MOS": {
                         "fullName_en": "Ma On Shan",
-                        "fullName_ch": "馬鞍山"
+                        "fullName_ch": "馬鞍山",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "HEO": {
                         "fullName_en": "Heng On",
-                        "fullName_ch": "恆安"
+                        "fullName_ch": "恆安",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "TSH": {
                         "fullName_en": "Tai Shui Hang",
-                        "fullName_ch": "大水坑"
+                        "fullName_ch": "大水坑",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "SHM": {
                         "fullName_en": "Shek Mun",
-                        "fullName_ch": "石門"
+                        "fullName_ch": "石門",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "CIO": {
                         "fullName_en": "City One",
-                        "fullName_ch": "第一城"
+                        "fullName_ch": "第一城",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "STW": {
                         "fullName_en": "Sha Tin Wai",
-                        "fullName_ch": "沙田圍"
+                        "fullName_ch": "沙田圍",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "CKT": {
                         "fullName_en": "Che Kung Temple",
-                        "fullName_ch": "車公廟"
+                        "fullName_ch": "車公廟",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "TAW": {
                         "fullName_en": "Tai Wai",
-                        "fullName_ch": "大圍"
+                        "fullName_ch": "大圍",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "HIK": {
                         "fullName_en": "Hin Keng",
-                        "fullName_ch": "唔勁"
+                        "fullName_ch": "顯徑",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "DIH": {
                         "fullName_en": "Diamond Hill",
-                        "fullName_ch": "屯馬綫"
+                        "fullName_ch": "鑽石山",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "KAT": {
                         "fullName_en": "Kai Tak",
-                        "fullName_ch": "啟德"
+                        "fullName_ch": "啟德",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "SUW": {
                         "fullName_en": "Sung Wong Toi",
-                        "fullName_ch": "宋王臺"
+                        "fullName_ch": "宋王臺",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "TKW": {
                         "fullName_en": "To Kwa Wan",
-                        "fullName_ch": "土瓜灣"
+                        "fullName_ch": "土瓜灣",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "HOM": {
                         "fullName_en": "Ho Man Tin",
-                        "fullName_ch": "何文田"
+                        "fullName_ch": "何文田",
+                        "UP_dest": ["HUH", "TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "HUH": {
                         "fullName_en": "Hung Hom",
-                        "fullName_ch": "紅磡"
+                        "fullName_ch": "紅磡",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["WKS"]
                     },
                     "ETS": {
                         "fullName_en": "East Tsim Sha Tsui",
-                        "fullName_ch": "尖東"
+                        "fullName_ch": "尖東",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                     "AUS": {
                         "fullName_en": "Austin",
-                        "fullName_ch": "柯士甸"
+                        "fullName_ch": "柯士甸",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                     "NAC": {
                         "fullName_en": "Nam Cheong",
-                        "fullName_ch": "南昌"
+                        "fullName_ch": "南昌",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                     "MEF": {
                         "fullName_en": "Mei Foo",
-                        "fullName_ch": "美孚"
+                        "fullName_ch": "美孚",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                     "TWW": {
                         "fullName_en": "Tsuen Wan West",
-                        "fullName_ch": "荃灣西"
+                        "fullName_ch": "荃灣西",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                     "KSR": {
                         "fullName_en": "Kam Sheung Road",
-                        "fullName_ch": "錦上路"
+                        "fullName_ch": "錦上路",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                     "YUL": {
                         "fullName_en": "Yuen Long",
-                        "fullName_ch": "元朗"
+                        "fullName_ch": "元朗",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                     "LOP": {
                         "fullName_en": "Long Ping",
-                        "fullName_ch": "朗屏"
+                        "fullName_ch": "朗屏",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                     "TIS": {
                         "fullName_en": "Tin Shui Wai",
-                        "fullName_ch": "天水圍"
+                        "fullName_ch": "天水圍",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                     "SIH": {
                         "fullName_en": "Siu Hong",
-                        "fullName_ch": "兆康"
+                        "fullName_ch": "兆康",
+                        "UP_dest": ["TUM"],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                     "TUM": {
                         "fullName_en": "Tuen Mun",
-                        "fullName_ch": "屯門"
+                        "fullName_ch": "屯門",
+                        "UP_dest": [],
+                        "DOWN_dest": ["HUH", "WKS"]
                     },
                 },
                 "KTL": {
@@ -749,30 +875,40 @@
                 "SIL": {
                     "ADM": {
                         "fullName_en": "Admiralty",
-                        "fullName_ch": "金鐘"
+                        "fullName_ch": "金鐘",
+                        "UP_dest": ["SOH", "OCP"],
+                        "DOWN_dest": []
                     },
                     "OCP": {
                         "fullName_en": "Ocean Park",
-                        "fullName_ch": "海洋公園"
+                        "fullName_ch": "海洋公園",
+                        "UP_dest": ["SOH"],
+                        "DOWN_dest": ["ADM"]
                     },
                     "WCH": {
                         "fullName_en": "Wong Chuk Hang",
-                        "fullName_ch": "黃竹坑"
+                        "fullName_ch": "黃竹坑",
+                        "UP_dest": ["SOH"],
+                        "DOWN_dest": ["ADM", "OCP"]
                     },
                     "LET": {
                         "fullName_en": "Lei Tung",
-                        "fullName_ch": "利東"
+                        "fullName_ch": "利東",
+                        "UP_dest": ["SOH"],
+                        "DOWN_dest": ["ADM", "OCP"]
                     },
                     "SOH": {
                         "fullName_en": "South Horizons",
-                        "fullName_ch": "海怡半島"
+                        "fullName_ch": "海怡半島",
+                        "UP_dest": [],
+                        "DOWN_dest": ["ADM", "OCP"]
                     },
                     
                 },
                 
                 "DRL": {
                     "DIS": {
-                    "fullName_en": "Disneyland Resort",
+                        "fullName_en": "Disneyland Resort",
                         "fullName_ch": "迪士尼"
                     },
                     "SUN": {
@@ -911,9 +1047,9 @@
                 Httpreq.open("GET",url,false);
                 Httpreq.send(null);
                 var response = Httpreq.responseText;
-
+                
                 var json_obj = JSON.parse(response);
-
+                
                 return json_obj;
                 
             }
@@ -992,7 +1128,7 @@
                 
                 var lineListDropdown = document.getElementById("lineListDropdown");
                 var line = lineListDropdown.value;
-
+                
                 
                 
                 
@@ -1059,21 +1195,25 @@
                     
                     for(var dir of directions){
                         let dirDest = dir + "_dest";
-                        let destinations = lineList[line][dirDest];
+                        let destinations = newStationList[line][station][dirDest];
                         var destFullNames = "";
-                        for(const destConcerned of destinations){
+                        if(destinations == ''){
                             
-                            if(destFullNames == ""){
-
-                                destFullNames += newStationList[line][destConcerned]["fullName_en"];
-                            } else {
-
-                                destFullNames += " / " + newStationList[line][destConcerned]["fullName_en"];
+                        } else {
+                            for(const destConcerned of destinations){
+                                
+                                if(destFullNames == ""){
+                                    
+                                    destFullNames += newStationList[line][destConcerned]["fullName_en"];
+                                } else {
+                                    
+                                    destFullNames += " / " + newStationList[line][destConcerned]["fullName_en"];
+                                }
+                                
                             }
                             
+                            document.getElementById("directionListDropdown").innerHTML += "<option value='" + dir + "'> To: " + destFullNames + "</option>"
                         }
-
-                        document.getElementById("directionListDropdown").innerHTML += "<option value='" + dir + "'> To: " + destFullNames + "</option>"
                     }
                     
                     

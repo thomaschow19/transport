@@ -7,7 +7,8 @@
                 <style>
                     @font-face {
                         font-family: myriadPro;
-                        src: url(english.ttf);}
+                        src: url(english.ttf);
+                    }
                     @font-face {
                         font-family: chinese;
                         src: url(chinese.otf);
@@ -18,7 +19,19 @@
                         font-family: chinese, myriadPro;
                         font-size:6vw;
                         height: 100%;
-                        overflow: hidden;
+                        
+                    }
+            
+                    select {
+                        font-family: chinese, myriadPro;
+                        font-size: 3vw;
+
+                    }
+                    
+                    button {
+                        font-family: chinese, myriadPro;
+                        font-size: 3vw;
+
                     }
                     
                     .vertical-center {
@@ -37,7 +50,7 @@
     <body>
         <div id="settingsDIV">
             <h2>Next Train PIDS</h2>
-            <select id="lineListDropdown" onchange = "lineChanged()" >
+            <select id="lineListDropdown" onchange = "lineChanged()">
                 
             </select>
             
@@ -49,15 +62,14 @@
                 
             </select>
             
+            <br>
             
-            <button id="refreshButton" onclick="updatePage()" hidden>Reload Data from API</button>
+            
             <button id="startPIDSButton" onclick="startPIDS()" hidden>Start PIDS</button>
             <button id="stopPIDSButton" onclick="stopPIDS()" hidden>Stop PIDS</button>
             <button id="LOHASExpressButton" onclick="LOHASExpress()">Start PIDS at LOHAS Park</button>
-            <p id="lastRefreshedTimeLabel"></p>
             
             
-            <p id="stationLabel"></p>
             
         </div>
         
@@ -952,18 +964,11 @@
                 },
             }
             
-            function updateStationLabel(line, station){
-                let stationFullName = newStationList[line][station]["fullName_en"];
-                let lineFullName = lineList[line]["fullName_en"];
-                let text = "Showing information of <b>" + stationFullName + "</b> station on the " + lineFullName;
-                let elementID = "stationLabel";
-                document.getElementById(elementID).innerHTML = text
-            }
+
             
             function startPIDS(){
                 document.getElementById("startPIDSButton").hidden = true;
                 document.getElementById("stopPIDSButton").hidden = false;
-                document.getElementById("refreshButton").hidden = true;
                 intervalID = setInterval(function(){ updatePage(); }, 100);
                 document.getElementById("settingsDIV").hidden = true;
                 document.getElementById("ETAContainerDIV").hidden = false;
@@ -972,7 +977,6 @@
             function stopPIDS(){
                 document.getElementById("stopPIDSButton").hidden = true;
                 document.getElementById("startPIDSButton").hidden = false;
-                document.getElementById("refreshButton").hidden = false;
                 clearInterval(intervalID);
                 document.getElementById("settingsDIV").hidden = false;
                 document.getElementById("ETAContainerDIV").hidden = true;
@@ -1051,7 +1055,6 @@
                     
                 }
                 
-                document.getElementById("lastRefreshedTimeLabel").innerHTML = json.curr_time;
                 var date = new Date();
                 var currentTime = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
                 document.getElementById("currentTimeLabel").innerHTML = currentTime;
@@ -1071,7 +1074,6 @@
                 let line = lineListDropdown.value;
                 var directionListDropdown = document.getElementById("directionListDropdown");
                 let direction = directionListDropdown.value;
-                updateStationLabel(line, station);
                 updateLabels(callAPI(line, station), line, station, direction);
             }
             
@@ -1080,30 +1082,23 @@
                 var lineListDropdown = document.getElementById("lineListDropdown");
                 var line = lineListDropdown.value;
                 
-                
-                
-                
                 updateStationDropdown(line);
-                updateDirectionDropdown(line, "");
+                document.getElementById("LOHASExpressButton").hidden = true;
                 
             }
             
             function stationChanged(){
-                stopPIDS();
                 var stationListDropdown = document.getElementById("stationListDropdown");
-                
                 let station = stationListDropdown.value;
-                
                 var lineListDropdown = document.getElementById("lineListDropdown");
                 let line = lineListDropdown.value;
                 if(line != '' && station != ''){
-                    updatePage();
                     updateDirectionDropdown(line, station);
                 }
-                updateDirectionDropdown(line, station);
             }
             
             function directionChanged(){
+                stopPIDS();
                 updatePage();
             }
             

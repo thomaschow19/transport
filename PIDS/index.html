@@ -50,15 +50,15 @@
     <body>
         <div id="settingsDIV">
             <h2>Next Train PIDS</h2>
-            <select id="lineListDropdown" onchange = "lineChanged()">
+            <select id="lineDropdown" onchange = "lineChanged()">
                 
             </select>
             
-            <select id="stationListDropdown" onchange = "stationChanged()" >
+            <select id="stationDropdown" onchange = "stationChanged()" >
                 
             </select>
             
-            <select id="directionListDropdown" onchange = "directionChanged()" >
+            <select id="directionDropdown" onchange = "directionChanged()" >
                 
             </select>
             
@@ -132,8 +132,11 @@
             
             const directions = ["UP", "DOWN"];
             let intervalID;
+            let switchLangInterval;
             
             var jsonResponse;
+            
+            var lang = "en";
             
             let newStationList = {
                 "TKL": {
@@ -970,6 +973,7 @@
                 document.getElementById("startPIDSButton").hidden = true;
                 document.getElementById("stopPIDSButton").hidden = false;
                 intervalID = setInterval(function(){ updatePage(); }, 100);
+                switchLangInterval = setInterval(function(){switchLang();}, 10000);
                 document.getElementById("settingsDIV").hidden = true;
                 document.getElementById("ETAContainerDIV").hidden = false;
             }
@@ -978,16 +982,17 @@
                 document.getElementById("stopPIDSButton").hidden = true;
                 document.getElementById("startPIDSButton").hidden = false;
                 clearInterval(intervalID);
+                clearInterval(switchLangInterval);
                 document.getElementById("settingsDIV").hidden = false;
                 document.getElementById("ETAContainerDIV").hidden = true;
             }
             
             function LOHASExpress(){
-                document.getElementById("lineListDropdown").value = "TKL";
+                document.getElementById("lineDropdown").value = "TKL";
                 lineChanged();
-                document.getElementById("stationListDropdown").value = "LHP";
+                document.getElementById("stationDropdown").value = "LHP";
                 stationChanged();
-                document.getElementById("directionListDropdown").value = "DOWN";
+                document.getElementById("directionDropdown").value = "DOWN";
                 directionChanged();
                 startPIDS();
             }
@@ -1022,22 +1027,30 @@
                         let elementIDdestination = "ETA" + i + "destination";
                         let elementIDplatform = "ETA" + i + "platform";
                         let elementIDtime = "ETA" + i + "time";
+                        let fullNameWithLang = "fullName_" + lang;
                         
                         if(i in json.data[lineStation][dir]){
                             
                             let ttnt = json.data[lineStation][dir][i]["ttnt"];
                             let dest = json.data[lineStation][dir][i]["dest"];
                             let plat = json.data[lineStation][dir][i]["plat"];
-                            let destFullName = newStationList[line][dest]["fullName_en"];
+                            let destFullName = newStationList[line][dest][fullNameWithLang];
                             let timeMessage = "";
+                            
                             if(ttnt < 1){
                                 timeMessage = ""
+                            } else if(lang=="ch"){
+                                timeMessage = ttnt + "<span style='font-size:3vw; margin-left: 1vw;'>分鐘</span>"
                             } else if(ttnt == 1) {
                                 timeMessage = ttnt + "<span style='font-size:3vw; margin-left: 1vw;'>min</span>"
                             } else {
                                 timeMessage = ttnt + "<span style='font-size:3vw; margin-left: 1vw;'>mins</span>"
                             }
-                            
+                            if(lang == "ch"){
+                                document.getElementById(elementIDdestination).style = "margin-left: 2vw; letter-spacing: 2vw!important;"
+                            } else {
+                                document.getElementById(elementIDdestination).style = "margin-left: 2vw;"
+                            }
                             document.getElementById(elementIDdestination).innerHTML = destFullName;
                             document.getElementById(elementIDplatform).innerHTML = plat;
                             document.getElementById(elementIDtime).innerHTML = timeMessage;
@@ -1066,21 +1079,22 @@
             
             
             function updatePage(){
-                var stationListDropdown = document.getElementById("stationListDropdown");
+                var stationDropdown = document.getElementById("stationDropdown");
+                let station = stationDropdown.value;
                 
-                let station = stationListDropdown.value;
+                var lineDropdown = document.getElementById("lineDropdown");
+                let line = lineDropdown.value;
                 
-                var lineListDropdown = document.getElementById("lineListDropdown");
-                let line = lineListDropdown.value;
-                var directionListDropdown = document.getElementById("directionListDropdown");
-                let direction = directionListDropdown.value;
+                var directionDropdown = document.getElementById("directionDropdown");
+                let direction = directionDropdown.value;
+                
                 updateLabels(callAPI(line, station), line, station, direction);
             }
             
             function lineChanged(){
                 
-                var lineListDropdown = document.getElementById("lineListDropdown");
-                var line = lineListDropdown.value;
+                var lineDropdown = document.getElementById("lineDropdown");
+                var line = lineDropdown.value;
                 
                 updateStationDropdown(line);
                 document.getElementById("LOHASExpressButton").hidden = true;
@@ -1088,10 +1102,10 @@
             }
             
             function stationChanged(){
-                var stationListDropdown = document.getElementById("stationListDropdown");
-                let station = stationListDropdown.value;
-                var lineListDropdown = document.getElementById("lineListDropdown");
-                let line = lineListDropdown.value;
+                var stationDropdown = document.getElementById("stationDropdown");
+                let station = stationDropdown.value;
+                var lineDropdown = document.getElementById("lineDropdown");
+                let line = lineDropdown.value;
                 if(line != '' && station != ''){
                     updateDirectionDropdown(line, station);
                 }
@@ -1110,34 +1124,37 @@
                         enabledLines.push(lineConcerned)
                     }
                 }
-                document.getElementById("lineListDropdown").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
+                document.getElementById("lineDropdown").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
+                let fullNameWithLang = "fullName_" + lang;
                 for (var lineID of enabledLines){
-                    document.getElementById("lineListDropdown").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID]["fullName_en"] + "</option>"
+                    document.getElementById("lineDropdown").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID][fullNameWithLang] + "</option>"
                 }
             }
             
             
             function updateStationDropdown(line){
-                document.getElementById("stationListDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
+                document.getElementById("stationDropdown").innerHTML = "<option value='' disabled selected> --- Stations --- </option>"
                 
                 if(line == ''){
                     
-                    document.getElementById("stationListDropdown").innerHTML += "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
+                    document.getElementById("stationDropdown").innerHTML += "<option value='Placeholder' disabled > --- Stations will appear after a line is choosen --- </option>"
                 } else {
                     var listOfStationsInSelectedLine = newStationList[line];
+                    let fullNameWithLang = "fullName_" + lang;
                     for (var staID in listOfStationsInSelectedLine){
                         
-                        document.getElementById("stationListDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID]["fullName_en"] + "</option>"
+                        document.getElementById("stationDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID][fullNameWithLang] + "</option>"
                     }
                 }
             }
             
             function updateDirectionDropdown(line, station){
-                document.getElementById("directionListDropdown").innerHTML = "<option value='' disabled selected> --- Direction --- </option>"
+                document.getElementById("directionDropdown").innerHTML = "<option value='' disabled selected> --- Direction --- </option>"
                 if(line == ''){
-                    document.getElementById("directionListDropdown").innerHTML += "<option value='Placeholder' disabled > --- Destinations will appear after a line and station is choosen --- </option>"
+                    document.getElementById("directionDropdown").innerHTML += "<option value='Placeholder' disabled > --- Destinations will appear after a line and station is choosen --- </option>"
                     
                 } else {
+                    let fullNameWithLang = "fullName_" + lang;
                     
                     for(var dir of directions){
                         let dirDest = dir + "_dest";
@@ -1149,16 +1166,15 @@
                             for(const destConcerned of destinations){
                                 
                                 if(destFullNames == ""){
-                                    
-                                    destFullNames += newStationList[line][destConcerned]["fullName_en"];
+                                    destFullNames += newStationList[line][destConcerned][fullNameWithLang];
                                 } else {
                                     
-                                    destFullNames += " / " + newStationList[line][destConcerned]["fullName_en"];
+                                    destFullNames += " / " + newStationList[line][destConcerned][fullNameWithLang];
                                 }
                                 
                             }
                             
-                            document.getElementById("directionListDropdown").innerHTML += "<option value='" + dir + "'> To: " + destFullNames + "</option>"
+                            document.getElementById("directionDropdown").innerHTML += "<option value='" + dir + "'> To: " + destFullNames + "</option>"
                         }
                     }
                     
@@ -1174,6 +1190,17 @@
                 if(LOHAS=="true"){
                     
                     LOHASExpress();
+                }
+            }
+            
+            function switchLang(){
+                if(lang=="en"){
+                    
+                    lang = "ch";
+                    console.log({ lang });
+                } else {
+                    lang = "en"
+                    console.log({ lang });
                 }
             }
             

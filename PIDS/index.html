@@ -1097,6 +1097,7 @@
                 var line = lineDropdown.value;
                 
                 updateStationDropdown(line);
+                updateDirectionDropdown(line, '')
                 document.getElementById("LOHASExpressButton").hidden = true;
                 
             }
@@ -1150,11 +1151,15 @@
             
             function updateDirectionDropdown(line, station){
                 document.getElementById("directionDropdown").innerHTML = "<option value='' disabled selected> --- Direction --- </option>"
-                if(line == ''){
+                if(line == '' || station ==''){
                     document.getElementById("directionDropdown").innerHTML += "<option value='Placeholder' disabled > --- Destinations will appear after a line and station is choosen --- </option>"
                     
                 } else {
                     let fullNameWithLang = "fullName_" + lang;
+                    const toLocaleString = {
+                        "ch" : "往：",
+                        "en" : "To: "
+                    }
                     
                     for(var dir of directions){
                         let dirDest = dir + "_dest";
@@ -1174,7 +1179,7 @@
                                 
                             }
                             
-                            document.getElementById("directionDropdown").innerHTML += "<option value='" + dir + "'> To: " + destFullNames + "</option>"
+                            document.getElementById("directionDropdown").innerHTML += "<option value='" + dir + "'>" + toLocaleString[lang] + destFullNames + "</option>"
                         }
                     }
                     

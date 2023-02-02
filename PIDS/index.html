@@ -41,6 +41,16 @@
                         -ms-transform: translateY(-50%);
                         transform: translateY(-50%);
                     }
+                    
+                    .circle {
+                      width: 7vw;
+                      line-height: 7vw;
+                      border-radius: 50%;
+                      text-align: center;
+                        background-color: #bbb;
+                    }
+                    
+                    
                     [hidden] {
                         display: none !important;
                     }
@@ -86,36 +96,46 @@
                 </div>
                 <div id="ETA0Container" style="background-color:#FFFFFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA0destination" style="margin-left: 2vw">Destination</span>
-                    <div id="ETA0floatRightContainer" style="margin-left: auto; margin-right: 2vw">
-                        <span id="ETA0platform" hidden> ETA0platform</span>
+                    <div id="ETA0floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
+                        <div id="ETA0platformContainer" class="circle" hidden>
+                            <span id="ETA0platform">ETA0platform</span>
+                        </div>
                         <span id="ETA0time"> ETA</span>
                     </div>
                 </div>
                 <div id="ETA1Container" style="background-color:#BDDBFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA1destination" style="margin-left: 2vw">Destination</span>
-                    <div id="ETA1floatRightContainer" style="margin-left: auto; margin-right: 2vw">
-                        <span id="ETA1platform" hidden> ETA0platform</span>
+                    <div id="ETA1floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
+                        <div id="ETA1platformContainer" class="circle" hidden>
+                            <span id="ETA1platform">ETA0platform</span>
+                        </div>
                         <span id="ETA1time"> ETA</span>
                     </div>
                 </div>
                 <div id="ETA2Container" style="background-color:#FFFFFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA2destination" style="margin-left: 2vw">Destination</span>
-                    <div id="ETA2floatRightContainer" style="margin-left: auto; margin-right: 2vw">
-                        <span id="ETA2platform" hidden> ETA0platform</span>
+                    <div id="ETA2floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
+                        <div id="ETA2platformContainer" class="circle" hidden>
+                            <span id="ETA2platform">ETA0platform</span>
+                        </div>
                         <span id="ETA2time"> ETA</span>
                     </div>
                 </div>
                 <div id="ETA3Container" style="background-color:#BDDBFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA3destination" style="margin-left: 2vw">Destination</span>
-                    <div id="ETA3floatRightContainer" style="margin-left: auto; margin-right: 2vw">
-                        <span id="ETA3platform" hidden> ETA0platform</span>
+                    <div id="ETA3floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
+                        <div id="ETA3platformContainer" class="circle" hidden>
+                            <span id="ETA3platform">ETA0platform</span>
+                        </div>
                         <span id="ETA3time"> ETA</span>
                     </div>
                 </div>
                 <div id="ETA4Container" style="background-color:#FFFFFF; height:21%; display: flex; align-items: center;" hidden>
                     <span id="ETA4destination" style="margin-left: 2vw">Destination</span>
-                    <div id="ETA4floatRightContainer" style="margin-left: auto; margin-right: 2vw">
-                        <span id="ETA4platform" hidden> ETA1platform</span>
+                    <div id="ETA4floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
+                        <div id="ETA4platformContainer" class="circle" hidden>
+                            <span id="ETA4platform">ETA0platform</span>
+                        </div>
                         <span id="ETA4time"> ETA</span>
                     </div>
                 </div>
@@ -888,6 +908,7 @@
                 "KTL": {
                     "fullName_en": "Kwun Tong Line",
                     "fullName_ch": "觀塘綫",
+                    "colour": "009F40",
                     "enableETA": false,
                     "enableLOHAS": true,
                     "UP_dest": ["TIK"],
@@ -896,6 +917,7 @@
                 "TWL": {
                     "fullName_en": "Tseun Wan Line",
                     "fullName_ch": "荃灣綫",
+                    "colour": "E50011",
                     "enableETA": false,
                     "enableLOHAS": false,
                     "UP_dest": ["TSW"],
@@ -904,6 +926,7 @@
                 "ISL": {
                     "fullName_en": "Island Line",
                     "fullName_ch": "港島綫",
+                    "colour": "0074C1",
                     "enableETA": false,
                     "enableLOHAS": false,
                     "UP_dest": ["CHW"],
@@ -912,6 +935,7 @@
                 "TKL": {
                     "fullName_en": "Tseung Kwan O Line",
                     "fullName_ch": "將軍澳綫",
+                    "colour": "7D3C92",
                     "enableETA": true,
                     "enableLOHAS": true,
                     "UP_dest": ["POA", "LHP"],
@@ -920,6 +944,7 @@
                 "SIL": {
                     "fullName_en": "South Island Line",
                     "fullName_ch": "南港島線",
+                    "colour": "CBD300",
                     "enableETA": true,
                     "enableLOHAS": false,
                     "UP_dest": ["SOH"],
@@ -928,6 +953,7 @@
                 "TCL": {
                     "fullName_en": "Tung Chung Line",
                     "fullName_ch": "東涌綫",
+                    "colour": "F3982C",
                     "enableETA": true,
                     "enableLOHAS": false,
                     "UP_dest": ["TUC"],
@@ -936,6 +962,7 @@
                 "AEL": {
                     "fullName_en": "Airport Express",
                     "fullName_ch": "機場快綫",
+                    "colour": "00878E",
                     "enableETA": true,
                     "enableLOHAS": false,
                     "UP_dest": ["AWE"],
@@ -944,6 +971,7 @@
                 "DRL": {
                     "fullName_en": "Disneyland Resort Line",
                     "fullName_ch": "迪士尼線",
+                    "colour": "EB6DA5",
                     "enableETA": false,
                     "enableLOHAS": false,
                     "UP_dest": ["SUN"],
@@ -952,6 +980,7 @@
                 "EAL": {
                     "fullName_en": "East Rail Line",
                     "fullName_ch": "東鐵線",
+                    "colour": "5DB6E7",
                     "enableETA": true,
                     "enableLOHAS": false,
                     "UP_dest": ["LOW", "LMC"],
@@ -960,10 +989,38 @@
                 "TML": {
                     "fullName_en": "Tuen Ma Line",
                     "fullName_ch": "屯馬綫",
+                    "colour": "9B2E00",
                     "enableETA": true,
                     "enableLOHAS": false,
                     "UP_dest": ["TUM"],
                     "DOWN_dest": ["WKS"]
+                },
+                "LRT": {
+                    "fullName_en": "Light Rail",
+                    "fullName_ch": "輕鐵",
+                    "colour": "DAB400",
+                    "enableETA": false,
+                    "enableLOHAS": false,
+                    "UP_dest": [],
+                    "DOWN_dest": []
+                },
+                "HSR": {
+                    "fullName_en": "High Speed Rail",
+                    "fullName_ch": "高速鐵路",
+                    "colour": "9B938A",
+                    "enableETA": false,
+                    "enableLOHAS": false,
+                    "UP_dest": [],
+                    "DOWN_dest": []
+                },
+                "SMN": {
+                    "fullName_en": "Shenzhen Metro Network",
+                    "fullName_ch": "深圳地鐵網絡",
+                    "colour": "C0C3C5",
+                    "enableETA": false,
+                    "enableLOHAS": false,
+                    "UP_dest": [],
+                    "DOWN_dest": []
                 },
             }
             

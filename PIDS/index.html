@@ -1191,7 +1191,7 @@
                 document.getElementById("lineDropdown").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
                 let fullNameWithLang = "fullName_" + lang;
                 for (var lineID of enabledLines){
-                    document.getElementById("lineDropdown").innerHTML += "<option value='" + lineID + "'> " + lineList[lineID][fullNameWithLang] + "</option>"
+                    document.getElementById("lineDropdown").innerHTML += "<option value='" + lineID + "'>" + lineList[lineID][fullNameWithLang] + "</option>"
                 }
             }
             
@@ -1207,7 +1207,7 @@
                     let fullNameWithLang = "fullName_" + lang;
                     for (var staID in listOfStationsInSelectedLine){
                         
-                        document.getElementById("stationDropdown").innerHTML += "<option value='" + staID + "'> " + listOfStationsInSelectedLine[staID][fullNameWithLang] + "</option>"
+                        document.getElementById("stationDropdown").innerHTML += "<option value='" + staID + "'>" + listOfStationsInSelectedLine[staID][fullNameWithLang] + "</option>"
                     }
                 }
             }

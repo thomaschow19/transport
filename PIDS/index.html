@@ -21,17 +21,17 @@
                         height: 100%;
                         
                     }
-            
+                    
                     select {
                         font-family: chinese, myriadPro;
                         font-size: 3vw;
-
+                        
                     }
                     
                     button {
                         font-family: chinese, myriadPro;
                         font-size: 3vw;
-
+                        
                     }
                     
                     .vertical-center {
@@ -43,12 +43,28 @@
                     }
                     
                     .circle {
-                      width: 7vw;
-                      line-height: 7vw;
-                      border-radius: 50%;
-                      text-align: center;
-                        background-color: #bbb;
+                        width: 7vw;
+                        line-height: 7vw;
+                        border-radius: 50%;
+                        text-align: center;
+                        background-color: #00387D;
+                        color: #FFFFFF;
                     }
+                    
+                    .timeContainer {
+                        margin-left: auto;
+                        width: 20vw;
+                        display: flex;
+                    }
+                    
+                    .timeUnitSpan {
+                        display: inline-block;
+                        width:7vw;
+                        font-size:3vw;
+                        margin-left: 1vw;
+                        text-align: right;
+                    }
+                    
                     
                     
                     [hidden] {
@@ -97,46 +113,67 @@
                 <div id="ETA0Container" style="background-color:#FFFFFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA0destination" style="margin-left: 2vw">Destination</span>
                     <div id="ETA0floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
-                        <div id="ETA0platformContainer" class="circle" hidden>
+                        <div id="ETA0platformContainer" class="circle" >
                             <span id="ETA0platform">ETA0platform</span>
                         </div>
-                        <span id="ETA0time"> ETA</span>
+                        <div id="ETA0timeContainer" class="timeContainer">
+                            <span id="ETA0time" style="margin-left: auto;">ETA
+                                <span id="ETA0timeUnit" class="timeUnitSpan"></span>
+                            </span>
+                            
+                        </div>
                     </div>
                 </div>
                 <div id="ETA1Container" style="background-color:#BDDBFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA1destination" style="margin-left: 2vw">Destination</span>
                     <div id="ETA1floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
-                        <div id="ETA1platformContainer" class="circle" hidden>
+                        <div id="ETA1platformContainer" class="circle" >
                             <span id="ETA1platform">ETA0platform</span>
                         </div>
-                        <span id="ETA1time"> ETA</span>
+                        <div id="ETA1timeContainer" class="timeContainer">
+                            <span id="ETA1time" style="margin-left: auto;">ETA
+                                <span id="ETA1timeUnit" class="timeUnitSpan"></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div id="ETA2Container" style="background-color:#FFFFFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA2destination" style="margin-left: 2vw">Destination</span>
                     <div id="ETA2floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
-                        <div id="ETA2platformContainer" class="circle" hidden>
+                        <div id="ETA2platformContainer" class="circle" >
                             <span id="ETA2platform">ETA0platform</span>
                         </div>
-                        <span id="ETA2time"> ETA</span>
+                        <div id="ETA2timeContainer" class="timeContainer">
+                            <span id="ETA2time" style="margin-left: auto;">ETA
+                                <span id="ETA2timeUnit" class="timeUnitSpan"></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div id="ETA3Container" style="background-color:#BDDBFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA3destination" style="margin-left: 2vw">Destination</span>
                     <div id="ETA3floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
-                        <div id="ETA3platformContainer" class="circle" hidden>
+                        <div id="ETA3platformContainer" class="circle" >
                             <span id="ETA3platform">ETA0platform</span>
                         </div>
-                        <span id="ETA3time"> ETA</span>
+                        <div id="ETA3timeContainer" class="timeContainer">
+                            <span id="ETA3time" style="margin-left: auto;">ETA
+                                <span id="ETA3timeUnit" class="timeUnitSpan"></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div id="ETA4Container" style="background-color:#FFFFFF; height:21%; display: flex; align-items: center;" hidden>
                     <span id="ETA4destination" style="margin-left: 2vw">Destination</span>
                     <div id="ETA4floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
-                        <div id="ETA4platformContainer" class="circle" hidden>
+                        <div id="ETA4platformContainer" class="circle" >
                             <span id="ETA4platform">ETA0platform</span>
                         </div>
-                        <span id="ETA4time"> ETA</span>
+                        <div id="ETA4timeContainer" class="timeContainer">
+                            <span id="ETA4time" style="margin-left: auto;">ETA
+                                <span id="ETA4timeUnit" class="timeUnitSpan"></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div id="ETAStatusContainer" style="background-color:#BDDBFF; height:21%; display: flex; align-items: center;" hidden>

@@ -762,7 +762,7 @@ let lineList = {
     "KTL": {
         "fullName_en": "Kwun Tong Line",
         "fullName_ch": "觀塘綫",
-        "colour": "009F40",
+        "colour": "#009F40",
         "enableETA": false,
         "enableLOHAS": true,
         "UP_dest": ["TIK"],
@@ -771,7 +771,7 @@ let lineList = {
     "TWL": {
         "fullName_en": "Tseun Wan Line",
         "fullName_ch": "荃灣綫",
-        "colour": "E50011",
+        "colour": "#E50011",
         "enableETA": false,
         "enableLOHAS": false,
         "UP_dest": ["TSW"],
@@ -780,7 +780,7 @@ let lineList = {
     "ISL": {
         "fullName_en": "Island Line",
         "fullName_ch": "港島綫",
-        "colour": "0074C1",
+        "colour": "#0074C1",
         "enableETA": false,
         "enableLOHAS": false,
         "UP_dest": ["CHW"],
@@ -789,7 +789,7 @@ let lineList = {
     "TKL": {
         "fullName_en": "Tseung Kwan O Line",
         "fullName_ch": "將軍澳綫",
-        "colour": "7D3C92",
+        "colour": "#7D3C92",
         "enableETA": true,
         "enableLOHAS": true,
         "UP_dest": ["POA", "LHP"],
@@ -798,7 +798,7 @@ let lineList = {
     "SIL": {
         "fullName_en": "South Island Line",
         "fullName_ch": "南港島線",
-        "colour": "CBD300",
+        "colour": "#CBD300",
         "enableETA": true,
         "enableLOHAS": false,
         "UP_dest": ["SOH"],
@@ -807,7 +807,7 @@ let lineList = {
     "TCL": {
         "fullName_en": "Tung Chung Line",
         "fullName_ch": "東涌綫",
-        "colour": "F3982C",
+        "colour": "#F3982C",
         "enableETA": true,
         "enableLOHAS": false,
         "UP_dest": ["TUC"],
@@ -816,7 +816,7 @@ let lineList = {
     "AEL": {
         "fullName_en": "Airport Express",
         "fullName_ch": "機場快綫",
-        "colour": "00878E",
+        "colour": "#00878E",
         "enableETA": true,
         "enableLOHAS": false,
         "UP_dest": ["AWE"],
@@ -825,7 +825,7 @@ let lineList = {
     "DRL": {
         "fullName_en": "Disneyland Resort Line",
         "fullName_ch": "迪士尼線",
-        "colour": "EB6DA5",
+        "colour": "#EB6DA5",
         "enableETA": false,
         "enableLOHAS": false,
         "UP_dest": ["SUN"],
@@ -834,7 +834,7 @@ let lineList = {
     "EAL": {
         "fullName_en": "East Rail Line",
         "fullName_ch": "東鐵線",
-        "colour": "5DB6E7",
+        "colour": "#5DB6E7",
         "enableETA": true,
         "enableLOHAS": false,
         "UP_dest": ["LOW", "LMC"],
@@ -843,7 +843,7 @@ let lineList = {
     "TML": {
         "fullName_en": "Tuen Ma Line",
         "fullName_ch": "屯馬綫",
-        "colour": "9B2E00",
+        "colour": "#9B2E00",
         "enableETA": true,
         "enableLOHAS": false,
         "UP_dest": ["TUM"],
@@ -852,7 +852,7 @@ let lineList = {
     "LRT": {
         "fullName_en": "Light Rail",
         "fullName_ch": "輕鐵",
-        "colour": "DAB400",
+        "colour": "#DAB400",
         "enableETA": false,
         "enableLOHAS": false,
         "UP_dest": [],
@@ -861,7 +861,7 @@ let lineList = {
     "HSR": {
         "fullName_en": "High Speed Rail",
         "fullName_ch": "高速鐵路",
-        "colour": "9B938A",
+        "colour": "#9B938A",
         "enableETA": false,
         "enableLOHAS": false,
         "UP_dest": [],
@@ -870,7 +870,7 @@ let lineList = {
     "SMN": {
         "fullName_en": "Shenzhen Metro Network",
         "fullName_ch": "深圳地鐵網絡",
-        "colour": "C0C3C5",
+        "colour": "#C0C3C5",
         "enableETA": false,
         "enableLOHAS": false,
         "UP_dest": [],
@@ -937,6 +937,7 @@ function updateLabels(json, line, station, direction){
         for (let i = 0; i < 5; i++) {
             let elementIDdestination = "ETA" + i + "destination";
             let elementIDplatform = "ETA" + i + "platform";
+            let elementIDplatformContainer = "ETA" + i + "platformContainer";
             let elementIDtime = "ETA" + i + "time";
             let fullNameWithLang = "fullName_" + lang;
             
@@ -945,17 +946,18 @@ function updateLabels(json, line, station, direction){
                 let ttnt = json.data[lineStation][dir][i]["ttnt"];
                 let dest = json.data[lineStation][dir][i]["dest"];
                 let plat = json.data[lineStation][dir][i]["plat"];
+                let lineColour = lineList[line]["colour"];
                 let destFullName = newStationList[line][dest][fullNameWithLang];
                 let timeMessage = "";
                 
                 if(ttnt < 1){
                     timeMessage = ""
                 } else if(lang=="ch"){
-                    timeMessage = ttnt + "<span style='font-size:3vw; margin-left: 1vw;'>分鐘</span>"
+                    timeMessage = ttnt + "<span style='display: inline-block; width:7vw; font-size:3vw; margin-left: 1vw; text-align: right;'>分鐘</span>"
                 } else if(ttnt == 1) {
-                    timeMessage = ttnt + "<span style='font-size:3vw; margin-left: 1vw;'>min</span>"
+                    timeMessage = ttnt + "<span style='display: inline-block; width:7vw; font-size:3vw; margin-left: 1vw;text-align: right;'>min</span>"
                 } else {
-                    timeMessage = ttnt + "<span style='font-size:3vw; margin-left: 1vw;'>mins</span>"
+                    timeMessage = ttnt + "<span style='display: inline-block; width:7vw; font-size:3vw; margin-left: 1vw;text-align: right;'>mins</span>"
                 }
                 if(lang == "ch"){
                     document.getElementById(elementIDdestination).style = "margin-left: 2vw; letter-spacing: 2vw!important;"
@@ -965,6 +967,7 @@ function updateLabels(json, line, station, direction){
                 document.getElementById(elementIDdestination).innerHTML = destFullName;
                 document.getElementById(elementIDplatform).innerHTML = plat;
                 document.getElementById(elementIDtime).innerHTML = timeMessage;
+               document.getElementById(elementIDplatformContainer).style = "background-color: " + lineColour;
                 
             } else {
                 document.getElementById(elementIDdestination).innerHTML = "";

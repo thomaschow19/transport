@@ -967,7 +967,7 @@ function updateLabels(json, line, station, direction){
                 document.getElementById(elementIDdestination).innerHTML = destFullName;
                 document.getElementById(elementIDplatform).innerHTML = plat;
                 document.getElementById(elementIDtime).innerHTML = timeMessage;
-               document.getElementById(elementIDplatformContainer).style = "background-color: " + lineColour;
+               document.getElementById(elementIDplatformContainer).style = "background-color: " + lineColour + " ; font-size: 4vw;";
                 
             } else {
                 document.getElementById(elementIDdestination).innerHTML = "";

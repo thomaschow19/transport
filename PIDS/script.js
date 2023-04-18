@@ -772,7 +772,7 @@ let lineList = {
         "fullName_en": "Tseun Wan Line",
         "fullName_ch": "荃灣綫",
         "colour": "#E50011",
-        "enableETA": false,
+        "enableETA": true,
         "enableLOHAS": false,
         "UP_dest": ["TSW"],
         "DOWN_dest": ["CEN"]

@@ -898,14 +898,14 @@ function stopPIDS(){
     document.getElementById("ETAContainerDIV").hidden = true;
 }
 
-function LOHASExpress(){
-    document.getElementById("lineDropdown").value = "TKL";
-    lineChanged();
-    document.getElementById("stationDropdown").value = "LHP";
-    stationChanged();
-    document.getElementById("directionDropdown").value = "DOWN";
-    directionChanged();
-    startPIDS();
+function setDropdown(line = "" , station = "" , direction = ""){
+    document.getElementById("lineDropdown").value = line;
+    updateStationDropdown(line);
+    document.getElementById("stationDropdown").value = station;
+    updateDirectionDropdown(line, station);
+    document.getElementById("directionDropdown").value = direction;
+    
+
 }
 
 
@@ -993,16 +993,18 @@ function updateLabels(json, line, station, direction){
 
 
 function updatePage(){
-    var stationDropdown = document.getElementById("stationDropdown");
-    let station = stationDropdown.value;
+    let station = getURLParameter("sta");
     
-    var lineDropdown = document.getElementById("lineDropdown");
-    let line = lineDropdown.value;
+    let line = getURLParameter("line");
     
     var directionDropdown = document.getElementById("directionDropdown");
     let direction = directionDropdown.value;
     
     updateLabels(callAPI(line, station), line, station, direction);
+    
+    const query = "?line=" + line + "&sta=" + station + "&dir=" + direction;
+    history.replaceState(null, "", query);
+    
 }
 
 function lineChanged(){
@@ -1014,6 +1016,9 @@ function lineChanged(){
     updateDirectionDropdown(line, '')
     document.getElementById("LOHASExpressButton").hidden = true;
     
+    const query = "?line=" + line;
+    history.replaceState(null, "", query);
+    
 }
 
 function stationChanged(){
@@ -1023,27 +1028,37 @@ function stationChanged(){
     let line = lineDropdown.value;
     if(line != '' && station != ''){
         updateDirectionDropdown(line, station);
+        
+        const query = "?line=" + line + "&sta=" + station;
+        history.replaceState(null, "", query);
     }
 }
 
 function directionChanged(){
-    stopPIDS();
-    updatePage();
+    var stationDropdown = document.getElementById("stationDropdown");
+    let station = stationDropdown.value;
+    var lineDropdown = document.getElementById("lineDropdown");
+    let line = lineDropdown.value;
+    var directionDropdown = document.getElementById("directionDropdown");
+    let direction = directionDropdown.value;
+    const query = "?line=" + line + "&sta=" + station + "&dir=" + direction;
+    history.replaceState(null, "", query);
+    if(direction != ''){
+        document.getElementById("startPIDSButton").hidden = false;
+    }
 }
 
 function updateLineDropdown(){
-    
-    var enabledLines = []
-    for(const lineConcerned in lineList){
-        if(lineList[lineConcerned]["enableETA"] == true){
-            enabledLines.push(lineConcerned)
-        }
-    }
     document.getElementById("lineDropdown").innerHTML = "<option value='' disabled selected> --- Lines --- </option>"
     let fullNameWithLang = "fullName_" + lang;
-    for (var lineID of enabledLines){
-        document.getElementById("lineDropdown").innerHTML += "<option value='" + lineID + "'>" + lineList[lineID][fullNameWithLang] + "</option>"
+    for(const lineConcerned in lineList){
+        if(lineList[lineConcerned]["enableETA"] == true){
+            document.getElementById("lineDropdown").innerHTML += "<option value='" + lineConcerned + "'>" + lineList[lineConcerned][fullNameWithLang] + "</option>"
+        } else {
+            document.getElementById("lineDropdown").innerHTML += "<option value='" + lineConcerned + "' disabled>" + lineList[lineConcerned][fullNameWithLang] + "</option>"
+        }
     }
+
 }
 
 
@@ -1102,14 +1117,23 @@ function updateDirectionDropdown(line, station){
 }
 
 function processURLParameter(){
-    const queryString = window.location.search;
-    console.log({ queryString });
-    const urlParams = new URLSearchParams(queryString);
-    const LOHAS = urlParams.get('LOHAS');
-    if(LOHAS=="true"){
-        
-        LOHASExpress();
+    const line = getURLParameter("line");
+    const station = getURLParameter("sta");
+    const direction = getURLParameter("dir");
+    console.log({ line });
+    console.log({ station });
+    console.log({ direction });
+    setDropdown(line, station, direction);
+    if(direction != ''){
+        document.getElementById("startPIDSButton").hidden = false;
     }
+}
+
+function getURLParameter(URLParameterID){
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    console.log({ URLParameterID });
+    return urlParams.get(URLParameterID) || "";
 }
 
 function switchLang(){
@@ -1125,5 +1149,5 @@ function switchLang(){
 
 updateLineDropdown();
 updateStationDropdown("");
-updateDirectionDropdown("", "")
+updateDirectionDropdown("", "");
 processURLParameter();

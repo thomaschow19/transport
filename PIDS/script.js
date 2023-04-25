@@ -1126,8 +1126,9 @@ function processURLParameter(){
     console.log({ station });
     console.log({ direction });
     setDropdown(line, station, direction);
-    if(direction != ''){
+    if(direction != '' && station != '' && line != ''){
         document.getElementById("startPIDSButton").hidden = false;
+        updateLabels(callAPI(line, station), line, station, direction);
     }
 }
 

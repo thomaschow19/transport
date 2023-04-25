@@ -1014,7 +1014,7 @@ function lineChanged(){
     
     updateStationDropdown(line);
     updateDirectionDropdown(line, '')
-    document.getElementById("LOHASExpressButton").hidden = true;
+
     
     const query = "?line=" + line;
     history.replaceState(null, "", query);

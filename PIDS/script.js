@@ -1043,9 +1043,11 @@ function directionChanged(){
     let direction = directionDropdown.value;
     const query = "?line=" + line + "&sta=" + station + "&dir=" + direction;
     history.replaceState(null, "", query);
-    if(direction != ''){
+    if(direction != '' && station != '' && line != ''){
         document.getElementById("startPIDSButton").hidden = false;
+        updateLabels(callAPI(line, station), line, station, direction);
     }
+    
 }
 
 function updateLineDropdown(){

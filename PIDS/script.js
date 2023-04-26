@@ -5,6 +5,7 @@ let switchLangInterval;
 var jsonResponse;
 
 var lang = "ch";
+const languages = ["ch", "en"];
 
 let newStationList = {
     "TKL": {
@@ -1398,7 +1399,6 @@ function switchLang(){
 }
 
 function loadSelectorDIV(){
-    let fullNameWithLang = "fullName_" + lang;
     for(const line in lineList){
         if(lineList[line]["enableETA"] == true){
             
@@ -1406,12 +1406,47 @@ function loadSelectorDIV(){
 
         }
         
-        document.getElementById("stationSelectorDIV").innerHTML += "<div style='background-color:" + lineList[line]["colour"] +  "; color: #FFFFFF;'>" + lineList[line]["fullName_ch"] + "<br>" + lineList[line]["fullName_en"] + "</div>";
+        document.getElementById("stationSelectorDIV").innerHTML += "<div style='background-color:" + lineList[line]["colour"] +  "; color: #FFFFFF; '>" + lineList[line]["fullName_ch"] + "<br>" + lineList[line]["fullName_en"] + "</div>";
         
         document.getElementById("stationSelectorDIV").innerHTML += "<br>";
         
         for(const station in newStationList[line]){
             document.getElementById("stationSelectorDIV").innerHTML += "<div style='background-color:" + newStationList[line][station]["colour"] +  "; color: " + newStationList[line][station]["textColour"] + ";'>" + newStationList[line][station]["fullName_ch"] + "<br>" + newStationList[line][station]["fullName_en"] + "</div>";
+            
+            const toLocaleString = {
+                "ch" : "往：",
+                "en" : "To: "
+            }
+            
+            for(var dir of directions){
+                let dirDest = dir + "_dest";
+                let destinations = newStationList[line][station][dirDest];
+                var destFullNames_ch = "";
+                var destFullNames_en = "";
+                if(destinations == ''){
+                    
+                } else {
+                    for(const destConcerned of destinations){
+                        
+                        if(destFullNames_ch == ""){
+                            destFullNames_ch += newStationList[line][destConcerned]["fullName_ch"];
+                        } else {
+                            
+                            destFullNames_ch += " / " + newStationList[line][destConcerned]["fullName_ch"];
+                        }
+                        
+                        if(destFullNames_en == ""){
+                            destFullNames_en += newStationList[line][destConcerned]["fullName_en"];
+                        } else {
+                            
+                            destFullNames_en += " / " + newStationList[line][destConcerned]["fullName_en"];
+                        }
+                        
+                    }
+                    
+                    document.getElementById("stationSelectorDIV").innerHTML += "<div>" + toLocaleString["ch"] + destFullNames_ch + "<br>" + toLocaleString["en"] + destFullNames_en + "</div>"
+                }
+            }
         }
         
         document.getElementById("stationSelectorDIV").innerHTML += "<br>";

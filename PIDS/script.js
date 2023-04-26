@@ -1372,6 +1372,12 @@ function processURLParameter(){
         document.getElementById("startPIDSButton").hidden = false;
         updateLabels(callAPI(line, station), line, station, direction);
     }
+    
+    const dev = getURLParameter("dev");
+    if(dev == true){
+        document.getElementById("selectorDIV").hidden = false;
+        }
+    loadSelectorDIV();
 }
 
 function getURLParameter(URLParameterID){
@@ -1392,7 +1398,7 @@ function switchLang(){
     }
 }
 
-function loadSelectorDIV(line = "TKL"){
+function loadSelectorDIV(){
     let fullNameWithLang = "fullName_" + lang;
     for(const line in lineList){
         if(lineList[line]["enableETA"] == true){
@@ -1414,4 +1420,3 @@ updateLineDropdown();
 updateStationDropdown("");
 updateDirectionDropdown("", "");
 processURLParameter();
-loadSelectorDIV();

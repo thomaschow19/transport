@@ -17,20 +17,21 @@
                     
                     body {
                         font-family: chinese, myriadPro;
-                        font-size:6vw;
+                        font-size:2vw;
                         height: 100%;
                         
                     }
                     
+                    
                     select {
                         font-family: chinese, myriadPro;
-                        font-size: 3vw;
+                        font-size: 2vw;
                         
                     }
                     
                     button {
                         font-family: chinese, myriadPro;
-                        font-size: 3vw;
+                        font-size: 2vw;
                         
                     }
                     
@@ -54,6 +55,7 @@
                     .timeContainer {
                         margin-left: auto;
                         width: 20vw;
+                        font-size:6vw;
                         display: flex;
                         align-items: center;
                     }
@@ -64,6 +66,13 @@
                         font-size:3vw;
                         margin-left: 1vw;
                         text-align: right;
+                    }
+                    
+                    .ETA {
+                        font-family: chinese, myriadPro;
+                        font-size:6vw;
+                        height: 100%;
+                        
                     }
                     
                     
@@ -90,11 +99,16 @@
             </select>
             
             <br>
+            <br>
             
             
             <button id="startPIDSButton" onclick="startPIDS()" hidden>Start PIDS</button>
             <button id="stopPIDSButton" onclick="stopPIDS()" hidden>Stop PIDS</button>
             
+            <div id="selectorDIV" hidden>
+                
+                
+            </div>
             
             
         </div>
@@ -113,7 +127,7 @@
                 <div id="ETA0Container" style="background-color:#FFFFFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA0destination" style="margin-left: 2vw">Destination</span>
                     <div id="ETA0floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
-                        <div id="ETA0platformContainer" class="circle" >
+                        <div id="ETA0platformContainer" class="circle">
                             <span id="ETA0platform">ETA0platform</span>
                         </div>
                         <div id="ETA0timeContainer" class="timeContainer">
@@ -127,7 +141,7 @@
                 <div id="ETA1Container" style="background-color:#BDDBFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA1destination" style="margin-left: 2vw">Destination</span>
                     <div id="ETA1floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
-                        <div id="ETA1platformContainer" class="circle" >
+                        <div id="ETA1platformContainer" class="circle">
                             <span id="ETA1platform">ETA0platform</span>
                         </div>
                         <div id="ETA1timeContainer" class="timeContainer">
@@ -140,7 +154,7 @@
                 <div id="ETA2Container" style="background-color:#FFFFFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA2destination" style="margin-left: 2vw">Destination</span>
                     <div id="ETA2floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
-                        <div id="ETA2platformContainer" class="circle" >
+                        <div id="ETA2platformContainer" class="circle">
                             <span id="ETA2platform">ETA0platform</span>
                         </div>
                         <div id="ETA2timeContainer" class="timeContainer">
@@ -153,7 +167,7 @@
                 <div id="ETA3Container" style="background-color:#BDDBFF; height:21%; display: flex; align-items: center;">
                     <span id="ETA3destination" style="margin-left: 2vw">Destination</span>
                     <div id="ETA3floatRightContainer" style="margin-left: auto; margin-right: 2vw; display: flex; align-items: center;">
-                        <div id="ETA3platformContainer" class="circle" >
+                        <div id="ETA3platformContainer" class="circle">
                             <span id="ETA3platform">ETA0platform</span>
                         </div>
                         <div id="ETA3timeContainer" class="timeContainer">

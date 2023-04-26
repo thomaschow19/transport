@@ -1373,9 +1373,8 @@ function processURLParameter(){
         updateLabels(callAPI(line, station), line, station, direction);
     }
     
-    const dev = getURLParameter("dev");
-    if(dev == true){
-        document.getElementById("selectorDIV").hidden = false;
+    if(getURLParameter("dev") == "true"){
+        document.getElementById("stationSelectorDIV").hidden = false;
         }
     loadSelectorDIV();
 }
@@ -1407,10 +1406,16 @@ function loadSelectorDIV(){
 
         }
         
+        document.getElementById("stationSelectorDIV").innerHTML += "<div style='background-color:" + lineList[line]["colour"] +  "; color: #FFFFFF;'>" + lineList[line]["fullName_ch"] + "<br>" + lineList[line]["fullName_en"] + "</div>";
+        
+        document.getElementById("stationSelectorDIV").innerHTML += "<br>";
+        
         for(const station in newStationList[line]){
-            document.getElementById("selectorDIV").innerHTML += "<div style='background-color:" + newStationList[line][station]["colour"] +  "; color: " + newStationList[line][station]["textColour"] + ";'>" + newStationList[line][station]["fullName_ch"] + "<br>" + newStationList[line][station]["fullName_en"] + "</div>"
+            document.getElementById("stationSelectorDIV").innerHTML += "<div style='background-color:" + newStationList[line][station]["colour"] +  "; color: " + newStationList[line][station]["textColour"] + ";'>" + newStationList[line][station]["fullName_ch"] + "<br>" + newStationList[line][station]["fullName_en"] + "</div>";
         }
         
+        document.getElementById("stationSelectorDIV").innerHTML += "<br>";
+        document.getElementById("stationSelectorDIV").innerHTML += "<br>";
     }
     
     

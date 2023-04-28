@@ -1255,9 +1255,12 @@ function lineChanged(){
     var lineDropdown = document.getElementById("lineDropdown");
     var line = lineDropdown.value;
     
+    const stationListDIV = line + "stationListSelectorDIV";
+    
     updateStationDropdown(line);
     updateDirectionDropdown(line, '')
 
+    document.getElementById(stationListDIV).hidden = false;
     
     const query = "?line=" + line;
     history.replaceState(null, "", query);
@@ -1275,6 +1278,9 @@ function stationChanged(){
         const query = "?line=" + line + "&sta=" + station;
         history.replaceState(null, "", query);
     }
+    
+    const directionListDIV = line + "-" + station + "directionListSelectorDIV";
+    document.getElementById(directionListDIV).hidden = false;
 }
 
 function directionChanged(){
@@ -1410,13 +1416,20 @@ function loadSelectorDIV(){
         
         document.getElementById("stationSelectorDIV").innerHTML += "<br>";
         
+        const stationListDIV = line + "stationListSelectorDIV"
+        
+        document.getElementById("stationSelectorDIV").innerHTML += "<div id='" + stationListDIV +  "' hidden>";
+        
+        
         for(const station in newStationList[line]){
-            document.getElementById("stationSelectorDIV").innerHTML += "<div style='background-color:" + newStationList[line][station]["colour"] +  "; color: " + newStationList[line][station]["textColour"] + ";'>" + newStationList[line][station]["fullName_ch"] + "<br>" + newStationList[line][station]["fullName_en"] + "</div>";
             
-            const toLocaleString = {
-                "ch" : "往：",
-                "en" : "To: "
-            }
+            document.getElementById(stationListDIV).innerHTML += "<div style='background-color:" + newStationList[line][station]["colour"] +  "; color: " + newStationList[line][station]["textColour"] + ";'>" + newStationList[line][station]["fullName_ch"] + "<br>" + newStationList[line][station]["fullName_en"] + "</div>";
+            
+            
+            const directionListDIV = line + "-" + station + "directionListSelectorDIV"
+            
+            document.getElementById(stationListDIV).innerHTML += "<div id='" + directionListDIV +  "' hidden>";
+            
             
             for(var dir of directions){
                 let dirDest = dir + "_dest";
@@ -1444,10 +1457,20 @@ function loadSelectorDIV(){
                         
                     }
                     
-                    document.getElementById("stationSelectorDIV").innerHTML += "<div>" + toLocaleString["ch"] + destFullNames_ch + "<br>" + toLocaleString["en"] + destFullNames_en + "</div>"
+                    const toLocaleString = {
+                        "ch" : "往：",
+                        "en" : "To: "
+                    }
+                    
+                    document.getElementById(directionListDIV).innerHTML += "<div>" + toLocaleString["ch"] + destFullNames_ch + "<br>" + toLocaleString["en"] + destFullNames_en + "</div>"
                 }
             }
+            
+            document.getElementById("stationSelectorDIV").innerHTML += "</div>";
+            
         }
+        
+        document.getElementById("stationSelectorDIV").innerHTML += "</div>";
         
         document.getElementById("stationSelectorDIV").innerHTML += "<br>";
         document.getElementById("stationSelectorDIV").innerHTML += "<br>";

@@ -1024,7 +1024,7 @@ let lineList = {
         "fullName_en": "Island Line",
         "fullName_ch": "港島綫",
         "colour": "#0074C1",
-        "enableETA": false,
+        "enableETA": true,
         "enableLOHAS": false,
         "UP_dest": ["CHW"],
         "DOWN_dest": ["KET"]

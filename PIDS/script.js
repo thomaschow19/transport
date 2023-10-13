@@ -1006,7 +1006,7 @@ let lineList = {
         "fullName_en": "Kwun Tong Line",
         "fullName_ch": "觀塘綫",
         "colour": "#009F40",
-        "enableETA": false,
+        "enableETA": true,
         "enableLOHAS": true,
         "UP_dest": ["TIK"],
         "DOWN_dest": ["WHA"]

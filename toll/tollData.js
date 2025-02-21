@@ -106,14 +106,76 @@ const tunnels = {
                 ]
             },
             commercial: {
-                workdays: [
-                    { minutes: [0, 1439], toll: 50 }
-                    // Add more time slots for workdays
-                ],
-                holidays: [
-                    { minutes: [0, 1439], toll: 50 }
-                    // Add more time slots for holidays
-                ]
+                publicLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                privateLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                lightGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                mediumGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                heavyGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                singleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                doubleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                }
             }
         }
     },
@@ -224,14 +286,76 @@ const tunnels = {
                 ]
             },
             commercial: {
-                workdays: [
-                    { minutes: [0, 1439], toll: 50 }
-                    // Add more time slots for workdays
-                ],
-                holidays: [
-                    { minutes: [0, 1439], toll: 50 }
-                    // Add more time slots for holidays
-                ]
+                publicLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                privateLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                lightGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                mediumGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                heavyGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                singleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                doubleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                }
             }
         }
     },
@@ -423,14 +547,76 @@ const tunnels = {
                 ]
             },
             commercial: {
-                workdays: [
-                    { minutes: [0, 1439], toll: 50 }
-                    // Add more time slots for workdays
-                ],
-                holidays: [
-                    { minutes: [0, 1439], toll: 50 }
-                    // Add more time slots for holidays
-                ]
+                publicLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                privateLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                lightGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                mediumGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                heavyGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                singleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                },
+                doubleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 50 },
+                        // More time slots...
+                    ]
+                }
             }
         }
     },
@@ -471,15 +657,736 @@ const tunnels = {
                 ]
             },
             commercial: {
+                publicLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ]
+                },
+                privateLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ]
+                },
+                lightGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ]
+                },
+                mediumGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ]
+                },
+                heavyGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ]
+                },
+                singleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ]
+                },
+                doubleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 0 },
+                        // More time slots...
+                    ]
+                }
+            }
+        }
+    },
+    ABT: { // Aberdeen Tunnel (ABT)
+        name: "Aberdeen Tunnel",
+        tolls: {
+            private: {
                 workdays: [
-                    { minutes: [0, 1439], toll: 0 } // 00:00 - 23:59
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
                     // Add more time slots for workdays
                 ],
                 holidays: [
-                    { minutes: [0, 1439], toll: 0 } // 00:00 - 23:59
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
                     
                     // Add more time slots for holidays
                 ]
+            },
+            motorcycle: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            taxi: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            commercial: {
+                publicLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                privateLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                lightGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                mediumGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                heavyGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                singleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                doubleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                }
+            }
+        }
+    },
+    SMT: { // Shing Mun Tunnels (SMT)
+        name: "Shing Mun Tunnels",
+        tolls: {
+            private: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            motorcycle: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            taxi: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 5 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            commercial: {
+                publicLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                privateLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                lightGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                mediumGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                heavyGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                singleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                },
+                doubleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 5 },
+                        // More time slots...
+                    ]
+                }
+            }
+        }
+    },
+    LRT: { // Lion Rock Tunnel (LRT)
+        name: "Lion Rock Tunnel",
+        tolls: {
+            private: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            motorcycle: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            taxi: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            commercial: {
+                publicLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                privateLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                lightGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                mediumGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                heavyGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                singleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                doubleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                }
+            }
+        }
+    },
+    TSA: { // Tsing Sha Control Area (TSA)
+        name: "Tsing Sha Control Area",
+        tolls: {
+            private: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            motorcycle: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            taxi: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 8 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            commercial: {
+                publicLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                privateLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                lightGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                mediumGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                heavyGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                singleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                },
+                doubleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 8 },
+                        // More time slots...
+                    ]
+                }
+            }
+        }
+    },
+    TCT: { // Tate's Cairn Tunnel (TCT)
+        name: "Tate's Cairn Tunnel",
+        tolls: {
+            private: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 20 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 20 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            motorcycle: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 15 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 15 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            taxi: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 20 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 20 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            commercial: {
+                publicLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 23 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 23 },
+                        // More time slots...
+                    ]
+                },
+                privateLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 23},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 23},
+                        // More time slots...
+                    ]
+                },
+                lightGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 24},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 24},
+                        // More time slots...
+                    ]
+                },
+                mediumGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 28},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 28},
+                        // More time slots...
+                    ]
+                },
+                heavyGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 28},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 28},
+                        // More time slots...
+                    ]
+                },
+                singleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 32},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 32 },
+                        // More time slots...
+                    ]
+                },
+                doubleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 35},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 35},
+                        // More time slots...
+                    ]
+                }
+            }
+        }
+    },
+    TLT: { // Tai Lam Tunnel (TLT)
+        name: "Tai Lam Tunnel",
+        tolls: {
+            private: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 58 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 58 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            motorcycle: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 28 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 28 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            taxi: {
+                workdays: [
+                    { minutes: [0, 1439], toll: 58 } // 00:00 - 23:59
+                    // Add more time slots for workdays
+                ],
+                holidays: [
+                    { minutes: [0, 1439], toll: 58 } // 00:00 - 23:59
+                    
+                    // Add more time slots for holidays
+                ]
+            },
+            commercial: {
+                publicLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 126 },
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 126},
+                        // More time slots...
+                    ]
+                },
+                privateLightBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 126},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 126},
+                        // More time slots...
+                    ]
+                },
+                lightGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 64},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 64},
+                        // More time slots...
+                    ]
+                },
+                mediumGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 71},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 71},
+                        // More time slots...
+                    ]
+                },
+                heavyGoodsVehicle: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 79},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 79},
+                        // More time slots...
+                    ]
+                },
+                singleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 180},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 180},
+                        // More time slots...
+                    ]
+                },
+                doubleDeckedBus: {
+                    workdays: [
+                        { minutes: [0, 1439], toll: 213},
+                        // More time slots...
+                    ],
+                    holidays: [
+                        { minutes: [0, 1439], toll: 213},
+                        // More time slots...
+                    ]
+                }
             }
         }
     }

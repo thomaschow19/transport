@@ -53,52 +53,90 @@
             </select>
             <label>Select Vehicle Type</label>
         </div>
-        
-        <div class="input-field" hidden>
-            <select id="tunnel-type">
-                <option value="CHT" selected>Cross-Harbour Tunnel</option>
-                <option value="EHC">Eastern Harbour Crossing</option>
-                <option value="WHC">Western Harbour Crossing</option>
-                <option value="AT">Aberdeen Tunnel</option>
-                <!-- Add other tunnels here -->
+        <div class="input-field" id="commercial-subcategory-container" style="display: none;">
+            <select id="commercial-vehicle-subcategory">
+                <option value="publicLightBus">Public Light Bus</option>
+                <option value="privateLightBus">Private Light Bus</option>
+                <option value="lightGoodsVehicle">Light Goods Vehicle</option>
+                <option value="mediumGoodsVehicle">Medium Goods Vehicle</option>
+                <option value="heavyGoodsVehicle">Heavy Goods Vehicle</option>
+                <option value="singleDeckedBus">Single Decked Bus</option>
+                <option value="doubleDeckedBus">Double Decked Bus</option>
+                
             </select>
-            <label>Select Tunnel</label>
+            <label>Select Commercial Vehicle Type</label>
         </div>
+        
+
         
         <div id="all-tunnels-tolls">
             <!-- This section will dynamically populate all the tunnels and their tolls -->
         </div>
-        <script type="text/javascript" src="tollData.js"></script> 
+        <script type="text/javascript" src="tollData.js"></script>
         <script>
             
             
-            // Initialize parameters on page load
+            // Function to initialize the page based on the URL
             window.onload = function() {
-                // Get URL parameters
                 const urlParams = new URLSearchParams(window.location.search);
                 const vehicleType = urlParams.get('vehicle') || 'private'; // Default to 'private' if not found
                 const harbourMode = urlParams.get('mode') === 'true'; // Default to false if not found
-                
+                const commercialSubcategory = urlParams.get('commercial_subcategory') || 'bus'; // Default to 'bus' if not found
+
                 // Set the vehicle type selector
                 document.getElementById('vehicle-type').value = vehicleType;
-                // Set the Harbour Crossings Mode based on the URL parameter
+
+                // Show or hide the commercial subcategory selector based on the vehicle type
+                if (vehicleType === 'commercial') {
+                    document.getElementById('commercial-subcategory-container').style.display = 'block';
+                    document.getElementById('commercial-vehicle-subcategory').value = commercialSubcategory;
+                } else {
+                    document.getElementById('commercial-subcategory-container').style.display = 'none';
+                }
+
+                // Set the Harbour Crossings Mode
                 isHarbourCrossingsMode = harbourMode;
-                
-                // Update the display according to the stored preferences
-                updateTimeAndTolls();
+
+                updateTimeAndTolls();  // Initialize with the loaded preferences
             };
+
             
-            // Function to update the URL with vehicle type and mode
+            // Function to update URL with selected preferences
             function updateUrlParams() {
                 const vehicleType = document.getElementById('vehicle-type').value;
                 const harbourMode = isHarbourCrossingsMode ? 'true' : 'false';
-                
+                const commercialSubcategory = document.getElementById('commercial-vehicle-subcategory').value; // Get the selected subcategory
+
                 const urlParams = new URLSearchParams(window.location.search);
                 urlParams.set('vehicle', vehicleType);  // Set the vehicle type
                 urlParams.set('mode', harbourMode);     // Set the Harbour Crossings Mode
-                
+
+                // Only store subcategory if 'commercial' vehicle type is selected
+                if (vehicleType === 'commercial') {
+                    urlParams.set('commercial_subcategory', commercialSubcategory);
+                } else {
+                    // If not a commercial vehicle, remove the subcategory from the URL
+                    urlParams.delete('commercial_subcategory');
+                }
+
                 // Update the URL without reloading the page
                 window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+            }
+            
+            // Function to handle changes to the vehicle type
+            function handleVehicleTypeChange() {
+                const vehicleType = document.getElementById('vehicle-type').value;
+                
+                // Show or hide the Commercial Vehicle Subcategory Selector
+                if (vehicleType === 'commercial') {
+                    document.getElementById('commercial-subcategory-container').style.display = 'block';  // Show selector
+                } else {
+                    document.getElementById('commercial-subcategory-container').style.display = 'none';  // Hide selector
+                }
+
+                // Update the URL and toll information based on the new vehicle type
+                updateUrlParams();
+                updateTimeAndTolls();
             }
             
             // Event listeners for the vehicle type change and Harbour Crossings Mode toggle
@@ -117,32 +155,33 @@
                 updateTimeAndTolls();  // Update the toll display according to the new mode
             }
             
+            // Update tolls based on the selected preferences
             function updateTimeAndTolls() {
                 const slider = document.getElementById('time-slider');
                 const sliderValue = document.getElementById('slider-value');
                 const currentTimeDisplay = document.getElementById('current-time');
                 const vehicleTypeSelector = document.getElementById('vehicle-type');
                 const vehicleType = vehicleTypeSelector.value;
-                
+
                 const dayTypeSelector = document.getElementById('day-type');
                 const selectedDayType = dayTypeSelector.value;
-                
+
                 const adjustedMinutes = parseInt(slider.value);
                 const now = new Date();
-                
+
                 // Set the current time label based on slider value
                 const hours = Math.floor(adjustedMinutes / 60);
                 const minutes = adjustedMinutes % 60;
                 const timeString = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
                 currentTimeDisplay.textContent = `Current Time: ${timeString}`;
-                
+
                 // Determine if it's a holiday based on the selected day type
                 const isHoliday = selectedDayType === "holiday";
-                
+
                 // Clear previous tunnel data
                 const allTunnelsContainer = document.getElementById('all-tunnels-tolls');
                 allTunnelsContainer.innerHTML = '';
-                
+
                 // Display Vehicle Type once at the top
                 const vehicleTypeNames = {
                     private: "Private Cars",
@@ -153,56 +192,85 @@
                 const userFacingVehicleType = vehicleTypeNames[vehicleType];
                 const vehicleTypeHeader = `<h2>Toll Information for ${userFacingVehicleType}</h2>`;
                 allTunnelsContainer.innerHTML += vehicleTypeHeader;
-                
+
+                // Get the Commercial Vehicle subcategory
+                const commercialSubcategory = document.getElementById('commercial-vehicle-subcategory').value;
+
                 // If Harbour Crossings Mode is enabled, show only the three tunnels (CHT, WHC, EHC) in columns
                 if (isHarbourCrossingsMode) {
-                    const harbourCrossingsContainer = document.getElementById('all-tunnels-tolls');
-                    harbourCrossingsContainer.innerHTML = `
-                        <h2>Harbour Crossings Mode</h2>
-                        <div style="display: flex; justify-content: space-around;">
-                            <div style="text-align: center;">
-                                <h3>Western Harbour Crossing</h3>
-                                <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.WHC.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll}</p>
+                    if (vehicleType === 'commercial') {
+                        const harbourCrossingsContainer = document.getElementById('all-tunnels-tolls');
+                        harbourCrossingsContainer.innerHTML = `
+                            <h2>Harbour Crossings Mode</h2>
+                            <div style="display: flex; justify-content: space-around;">
+                                <div style="text-align: center;">
+                                    <h3>Cross-Harbour Tunnel</h3>
+                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.CHT.tolls[vehicleType][commercialSubcategory][isHoliday ? 'holidays' : 'workdays']).toll}</p>
+                                </div>
+                                <div style="text-align: center;">
+                                    <h3>Western Harbour Crossing</h3>
+                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.WHC.tolls[vehicleType][commercialSubcategory][isHoliday ? 'holidays' : 'workdays']).toll}</p>
+                                </div>
+                                <div style="text-align: center;">
+                                    <h3>Eastern Harbour Crossing</h3>
+                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.EHC.tolls[vehicleType][commercialSubcategory][isHoliday ? 'holidays' : 'workdays']).toll}</p>
+                                </div>
                             </div>
-                            <div style="text-align: center;">
-                                <h3>Cross-Harbour Tunnel</h3>
-                                <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.CHT.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll}</p>
+                        `
+                    } else {
+                        const harbourCrossingsContainer = document.getElementById('all-tunnels-tolls');
+                        harbourCrossingsContainer.innerHTML = `
+                            <h2>Harbour Crossings Mode</h2>
+                            <div style="display: flex; justify-content: space-around;">
+                                <div style="text-align: center;">
+                                    <h3>Cross-Harbour Tunnel</h3>
+                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.CHT.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll}</p>
+                                </div>
+                                <div style="text-align: center;">
+                                    <h3>Western Harbour Crossing</h3>
+                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.WHC.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll}</p>
+                                </div>
+                                <div style="text-align: center;">
+                                    <h3>Eastern Harbour Crossing</h3>
+                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.EHC.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll}</p>
+                                </div>
                             </div>
-                            <div style="text-align: center;">
-                                <h3>Eastern Harbour Crossing</h3>
-                                <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.EHC.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll}</p>
-                            </div>
-                        </div>
-                    `;
+                        `
+                    }
+                    ;
                 } else {
                     // Loop through all tunnels in the normal mode
                     for (let tunnelKey in tunnels) {
                         const tunnel = tunnels[tunnelKey];
                         const dayTolls = isHoliday ? tunnel.tolls[vehicleType].holidays : tunnel.tolls[vehicleType].workdays;
-                        
-                        // Start the display for the current tunnel
+
+                        // If the vehicle type is commercial, apply the subcategory
+                        if (vehicleType === 'commercial') {
+                            tollData = getTollDataForTime(adjustedMinutes, tunnel.tolls[vehicleType][commercialSubcategory][isHoliday ? 'holidays' : 'workdays']);
+                        } else {
+                            tollData = getTollDataForTime(adjustedMinutes, dayTolls);
+                        }
+
                         let tunnelHtml = `<div class="tunnel-toll-info">
                                             <h3>${tunnel.name}</h3>
                                             <ul>`;
-                                            
-                                            // Loop through the time ranges for the selected tunnel and vehicle type
-                                            let tollData = getTollDataForTime(adjustedMinutes, dayTolls);
-                                            tunnelHtml += `<li><strong>Toll: $${tollData.toll}</strong></li>`;
-                                            
-                                            tunnelHtml += '</ul></div>';
-                                            
-                                            // Append the tunnel data to the page
-                                            allTunnelsContainer.innerHTML += tunnelHtml;
+
+                        tunnelHtml += `<li><strong>Toll: $${tollData.toll}</strong></li>`;
+
+                        tunnelHtml += '</ul></div>';
+
+                        allTunnelsContainer.innerHTML += tunnelHtml;
                     }
                 }
-                
+
                 // Update the slider value
                 sliderValue.textContent = adjustedMinutes;
             }
-            
+
+            // Function to get toll data for a given minute
             function getTollDataForTime(minutes, tollSchedule) {
                 let tollData = { toll: 0 };
-                
+
                 for (let range of tollSchedule) {
                     if (minutes >= range.minutes[0] && minutes <= range.minutes[1]) {
                         tollData = { toll: range.toll };
@@ -224,15 +292,16 @@
                 updateTimeAndTolls();
             }
             
-            // Event listeners for updates
-            document.getElementById('vehicle-type').addEventListener('change', function() {
-                updateUrlParams();  // Update the URL whenever the vehicle type changes
-                updateTimeAndTolls();  // Update tolls based on the new vehicle type
+            // Event listeners
+            document.getElementById('vehicle-type').addEventListener('change', handleVehicleTypeChange);
+            document.getElementById('commercial-vehicle-subcategory').addEventListener('change', function() {
+                updateUrlParams();  // Update the URL whenever the commercial vehicle subcategory changes
+                updateTimeAndTolls();  // Update tolls based on the selected subcategory
             });
-            
+
             document.getElementById('day-type').addEventListener('change', updateTimeAndTolls);
             document.getElementById('reset-time-button').addEventListener('click', resetToCurrentTime);
-            
+
             // Initialize default values
             document.getElementById('time-slider').addEventListener('input', updateTimeAndTolls);
             document.getElementById('time-slider').value = (new Date().getHours() * 60) + new Date().getMinutes();  // Default to current time in minutes

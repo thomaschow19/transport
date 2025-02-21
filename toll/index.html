@@ -32,6 +32,10 @@
         <div>
             <button class="btn waves-effect waves-light" id="reset-time-button">Reset to Current Time</button>
         </div>
+        <div>
+            <span id="update-mode-label">Mode: Live Update</span>
+        </div>
+
         
         <div id="current-time"></div>
         <!-- Day Type Selector -->
@@ -73,12 +77,12 @@
             <h2>Harbour Crossings Mode</h2>
             <div style="display: flex; justify-content: space-around;">
                 <div style="text-align: center;">
-                    <h3>Cross-Harbour Tunnel</h3>
-                    <p id="cht-toll"></p>
-                </div>
-                <div style="text-align: center;">
                     <h3>Western Harbour Crossing</h3>
                     <p id="whc-toll"></p>
+                </div>
+                <div style="text-align: center;">
+                    <h3>Cross-Harbour Tunnel</h3>
+                    <p id="cht-toll"></p>
                 </div>
                 <div style="text-align: center;">
                     <h3>Eastern Harbour Crossing</h3>
@@ -115,6 +119,8 @@
 
                 // Set the Harbour Crossings Mode
                 isHarbourCrossingsMode = harbourMode;
+                // Reset to Live Update Mode on page load
+                enableLiveUpdateMode();
                 document.getElementById('harbour-crossings-container').style.display = isHarbourCrossingsMode ? 'block' : 'none';
                 document.getElementById('all-tunnels-tolls').style.display = isHarbourCrossingsMode ? 'none' : 'block';
                 updateTimeAndTolls();  // Initialize with the loaded preferences
@@ -168,6 +174,13 @@
             
             // Function to update the time and toll values
             let isHarbourCrossingsMode = false;
+            let isLiveUpdateMode = true;
+            let liveUpdateInterval;
+            
+            // Function to update the mode label
+            function updateModeLabel() {
+                document.getElementById('update-mode-label').textContent = isLiveUpdateMode ? "Mode: Live Update" : "Mode: Manual";
+            }
             
             function toggleHarbourCrossingsMode() {
                 isHarbourCrossingsMode = !isHarbourCrossingsMode;
@@ -282,6 +295,32 @@
                 return tollData;
             }
             
+            // Function to enable Live Update Mode
+            function enableLiveUpdateMode() {
+                isLiveUpdateMode = true;
+                updateModeLabel();
+
+                // Start automatic updating every minute
+                if (liveUpdateInterval) clearInterval(liveUpdateInterval);
+                liveUpdateInterval = setInterval(() => {
+                    if (isLiveUpdateMode) {
+                        const now = new Date();
+                        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+                        document.getElementById('time-slider').value = currentMinutes;
+                        updateTimeAndTolls();
+                    }
+                }, 1000); // Update every 60 seconds
+            }
+            
+            // Function to disable Live Update Mode when the user changes the slider
+            function disableLiveUpdateMode() {
+                if (isLiveUpdateMode) {
+                    isLiveUpdateMode = false;
+                    updateModeLabel();
+                    if (liveUpdateInterval) clearInterval(liveUpdateInterval); // Stop auto updates
+                }
+            }
+            
             function resetToCurrentTime() {
                 // Get the current time in minutes (from 00:00)
                 const now = new Date();
@@ -292,6 +331,7 @@
                 
                 // Update the tolls based on the new slider value (current time)
                 updateTimeAndTolls();
+                enableLiveUpdateMode(); // Reactivate Live Update Mode
             }
             
             // Event listeners
@@ -306,6 +346,7 @@
 
             // Initialize default values
             document.getElementById('time-slider').addEventListener('input', updateTimeAndTolls);
+            document.getElementById('time-slider').addEventListener('input', disableLiveUpdateMode);
             document.getElementById('time-slider').value = (new Date().getHours() * 60) + new Date().getMinutes();  // Default to current time in minutes
             updateTimeAndTolls(); // Initialize with default time
             

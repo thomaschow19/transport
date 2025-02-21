@@ -68,8 +68,27 @@
         </div>
         
 
-        
-        <div id="all-tunnels-tolls">
+        <!-- Hidden Harbour Crossings Mode Container -->
+        <div id="harbour-crossings-container" style="display: none;">
+            <h2>Harbour Crossings Mode</h2>
+            <div style="display: flex; justify-content: space-around;">
+                <div style="text-align: center;">
+                    <h3>Cross-Harbour Tunnel</h3>
+                    <p id="cht-toll"></p>
+                </div>
+                <div style="text-align: center;">
+                    <h3>Western Harbour Crossing</h3>
+                    <p id="whc-toll"></p>
+                </div>
+                <div style="text-align: center;">
+                    <h3>Eastern Harbour Crossing</h3>
+                    <p id="ehc-toll"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- General Toll Information -->
+        <div id="all-tunnels-tolls" style="display: block;">
             <!-- This section will dynamically populate all the tunnels and their tolls -->
         </div>
         <script type="text/javascript" src="tollData.js"></script>
@@ -96,7 +115,8 @@
 
                 // Set the Harbour Crossings Mode
                 isHarbourCrossingsMode = harbourMode;
-
+                document.getElementById('harbour-crossings-container').style.display = isHarbourCrossingsMode ? 'block' : 'none';
+                document.getElementById('all-tunnels-tolls').style.display = isHarbourCrossingsMode ? 'none' : 'block';
                 updateTimeAndTolls();  // Initialize with the loaded preferences
             };
 
@@ -150,9 +170,14 @@
             let isHarbourCrossingsMode = false;
             
             function toggleHarbourCrossingsMode() {
-                isHarbourCrossingsMode = !isHarbourCrossingsMode;  // Toggle Harbour Crossings Mode
-                updateUrlParams();  // Update the URL with the new mode
-                updateTimeAndTolls();  // Update the toll display according to the new mode
+                isHarbourCrossingsMode = !isHarbourCrossingsMode;
+
+                // Show or hide the Harbour Crossings container
+                document.getElementById('harbour-crossings-container').style.display = isHarbourCrossingsMode ? 'block' : 'none';
+                document.getElementById('all-tunnels-tolls').style.display = isHarbourCrossingsMode ? 'none' : 'block';
+
+                updateUrlParams();
+                updateTimeAndTolls();
             }
             
             // Update tolls based on the selected preferences
@@ -199,43 +224,20 @@
                 // If Harbour Crossings Mode is enabled, show only the three tunnels (CHT, WHC, EHC) in columns
                 if (isHarbourCrossingsMode) {
                     if (vehicleType === 'commercial') {
-                        const harbourCrossingsContainer = document.getElementById('all-tunnels-tolls');
-                        harbourCrossingsContainer.innerHTML = `
-                            <h2>Harbour Crossings Mode</h2>
-                            <div style="display: flex; justify-content: space-around;">
-                                <div style="text-align: center;">
-                                    <h3>Cross-Harbour Tunnel</h3>
-                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.CHT.tolls[vehicleType][commercialSubcategory][isHoliday ? 'holidays' : 'workdays']).toll}</p>
-                                </div>
-                                <div style="text-align: center;">
-                                    <h3>Western Harbour Crossing</h3>
-                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.WHC.tolls[vehicleType][commercialSubcategory][isHoliday ? 'holidays' : 'workdays']).toll}</p>
-                                </div>
-                                <div style="text-align: center;">
-                                    <h3>Eastern Harbour Crossing</h3>
-                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.EHC.tolls[vehicleType][commercialSubcategory][isHoliday ? 'holidays' : 'workdays']).toll}</p>
-                                </div>
-                            </div>
-                        `
+                        document.getElementById('cht-toll').textContent =
+                                    getTollDataForTime(adjustedMinutes, tunnels.CHT.tolls[vehicleType][commercialSubcategory][isHoliday ? 'holidays' : 'workdays']).toll;
+                                document.getElementById('whc-toll').textContent =
+                                    getTollDataForTime(adjustedMinutes, tunnels.WHC.tolls[vehicleType][commercialSubcategory][isHoliday ? 'holidays' : 'workdays']).toll;
+                                document.getElementById('ehc-toll').textContent =
+                                    getTollDataForTime(adjustedMinutes, tunnels.EHC.tolls[vehicleType][commercialSubcategory][isHoliday ? 'holidays' : 'workdays']).toll;
+                        
                     } else {
-                        const harbourCrossingsContainer = document.getElementById('all-tunnels-tolls');
-                        harbourCrossingsContainer.innerHTML = `
-                            <h2>Harbour Crossings Mode</h2>
-                            <div style="display: flex; justify-content: space-around;">
-                                <div style="text-align: center;">
-                                    <h3>Cross-Harbour Tunnel</h3>
-                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.CHT.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll}</p>
-                                </div>
-                                <div style="text-align: center;">
-                                    <h3>Western Harbour Crossing</h3>
-                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.WHC.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll}</p>
-                                </div>
-                                <div style="text-align: center;">
-                                    <h3>Eastern Harbour Crossing</h3>
-                                    <p>Toll: $${getTollDataForTime(adjustedMinutes, tunnels.EHC.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll}</p>
-                                </div>
-                            </div>
-                        `
+                        document.getElementById('cht-toll').textContent =
+                                    getTollDataForTime(adjustedMinutes, tunnels.CHT.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll;
+                                document.getElementById('whc-toll').textContent =
+                                    getTollDataForTime(adjustedMinutes, tunnels.WHC.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll;
+                                document.getElementById('ehc-toll').textContent =
+                                    getTollDataForTime(adjustedMinutes, tunnels.EHC.tolls[vehicleType][isHoliday ? 'holidays' : 'workdays']).toll;
                     }
                     ;
                 } else {

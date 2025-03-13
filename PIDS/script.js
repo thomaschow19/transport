@@ -1069,7 +1069,7 @@ let lineList = {
         "fullName_en": "Disneyland Resort Line",
         "fullName_ch": "迪士尼線",
         "colour": "#EB6DA5",
-        "enableETA": false,
+        "enableETA": true
         "enableLOHAS": false,
         "UP_dest": ["SUN"],
         "DOWN_dest": ["DIS"]
